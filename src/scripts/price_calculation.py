@@ -6,7 +6,7 @@ import numpy as np
 import math
 
 skinbaron_percentage_win = 0.15
-our_percentage_win = 0.15
+our_percentage_win = 0.2
 
 use_last_x_days = 15
 min_sales_in_last_x_days = use_last_x_days

@@ -13,8 +13,6 @@ import src.scripts.price_adapter as price_adapter
 
 import pandas as pd
 
-
-
 def main():
 
     analytics.main(use_existing_linked_purchases=False)

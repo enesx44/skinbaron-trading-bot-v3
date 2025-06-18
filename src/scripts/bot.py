@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 from src.libs import csvs, skinbaron as sb, utils
 from src.scripts import create_bot_skinlist
+import time
 
 from src.enums.enums import ApiKey
 from src.scripts import link_purchases_to_offers
@@ -25,8 +26,8 @@ __api_key__ = ApiKey.API_KEY.value
 __forbidden_ids_list__ = []
 __forbidden_ids_temp__ = []
 
-__item_limit__ = 3
-__very_good_item_limit__ = 6
+__item_limit__ = 4
+__very_good_item_limit__ = 8
 __very_good_offer_percentage__ = 0.75
 __slow_down_balance__ = 500
 
@@ -83,7 +84,7 @@ def add_count_to_items_from_inventory(item_counts: list, inventory_df: pd.DataFr
             name = row["localizedName"]
             exterior = row["localizedExteriorName"]
 
-            if exterior:
+            if not pd.isna(exterior):
                 name = name + " (" + exterior + ")"
 
             if (name == entry[0]):
@@ -186,21 +187,27 @@ def handle_buy_response(buy_response: dict, best_offer_df: pd.DataFrame):
 
     if "total" in buy_response:
         logging.debug("ITEM WAS BOUGHT")
-        logging.debug("%s\n", buy_response.text)
+        logging.debug("%s\n", buy_response)
         return buy_response
     else:
         logging.debug("ITEM COULD NOT BE BOUGHT")
-        logging.error("%s\n", buy_response.text)
+        logging.error("%s\n", buy_response)
 
         if "generalErrors" in buy_response:
             general_errors_list = buy_response["generalErrors"]
 
             if "cannot buy from self" in general_errors_list:
+
+                global __forbidden_ids_list__
+
                 logging.debug("Tried to buy from self")
                 logging.debug("adding sale id to forbidden ids")
                 __forbidden_ids_list__.append(best_offer_df["id"])
                 logging.debug("forbidden_ids_list: %s", str(__forbidden_ids_list__))
             if "some offer(s) already in another shopping cart and/or sold" in general_errors_list:
+                
+                global __forbidden_ids_temp__
+
                 logging.debug("Tried to buy sold item")
                 logging.debug("adding sale id to forbidden ids")
                 __forbidden_ids_temp__.append(best_offer_df["id"])
@@ -213,7 +220,7 @@ def log_buy(best_offer: dict, buy_history_df: pd.DataFrame, name: str, selling_p
 
     """ Log buy into csv file """
     buy_history_df.loc[len(buy_history_df.index)] = [name,
-                                               best_offer["price"], selling_price, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), is_very_good_offer]
+                                               best_offer["price"], selling_price, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), is_very_good_offer]
     buy_history_df.to_csv(__buy_history_path__, index=False)
 
 def main(use_existing_linked_purchases: bool):    
@@ -282,14 +289,14 @@ def main(use_existing_linked_purchases: bool):
         try:    
             logging.info("**************************************************")      
 
-            if check_file_older_than(__bot_skinlist_path__, days=64):
-                create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=False, use_existing_pricelist=False)
+            # if check_file_older_than(__bot_skinlist_path__, days=64):
+            #     create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=False, use_existing_pricelist=False)
 
-            if check_file_older_than(__bot_skinlist_path__, days=16):
-                create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=False, use_existing_pricelist=True)
+            # if check_file_older_than(__bot_skinlist_path__, days=16):
+            #     create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=False, use_existing_pricelist=True)
 
-            if check_better_active_fee_code_available() or check_fee_code_expired() or check_file_older_than(__bot_skinlist_path__, days=4):
-                create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=True, use_existing_pricelist=True)
+            # if check_better_active_fee_code_available() or check_fee_code_expired() or check_file_older_than(__bot_skinlist_path__, days=4):
+            #     create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=True, use_existing_pricelist=True)
 
             logging.debug("clear forbidden ids temp")
             __forbidden_ids_temp__ = []
@@ -312,6 +319,8 @@ def main(use_existing_linked_purchases: bool):
 
                 good_offers = sb.search(search_item=name, min=0, max=row["buy_price"])
                 good_offers_df = pd.DataFrame(good_offers, columns=["id", "price", "img", "market_name", "sbinspect", "inspect", "stickers", "wear", "appid"])
+                good_offers_df = good_offers_df[~good_offers_df['id'].isin(__forbidden_ids_list__)]
+                good_offers_df = good_offers_df[~good_offers_df['id'].isin(__forbidden_ids_temp__)]
                 logging.debug("good_offers_df:\n%s", good_offers_df.to_string())
 
                 if good_offers_df.empty:
@@ -339,6 +348,9 @@ def main(use_existing_linked_purchases: bool):
                 logging.info("conditions were met, item count doesn't exceed the limit, continueing...")
 
                 while not good_offers_df.empty:
+                    
+                    logging.debug("while not good_offers_df.empty")
+                    logging.debug("good_offers_df:\n%s", good_offers_df.to_string())
 
                     if item_count > __item_limit__ and (very_good_offers_df.empty or item_count > __very_good_item_limit__):
                         logging.info("conditions were not met, item count exceeds limit, skipping to next item...") 
@@ -380,6 +392,16 @@ def main(use_existing_linked_purchases: bool):
                     # Refresh offers
                     good_offers = sb.search(search_item=name, min=0, max=row["buy_price"])
                     good_offers_df = pd.DataFrame(good_offers, columns=["id", "price", "img", "market_name", "sbinspect", "inspect", "stickers", "wear", "appid"])
+                    logging.debug("__forbidden_ids_list__: %s", __forbidden_ids_list__)
+                    logging.debug("good_offers_df:\n%s", good_offers_df.to_string())
+                    good_offers_df = good_offers_df[~good_offers_df['id'].isin(__forbidden_ids_list__)]
+                    logging.debug("filtering offers with id in forbidden ids list")
+                    logging.debug("good_offers_df:\n%s", good_offers_df.to_string())
+
+                    logging.debug("__forbidden_ids_temp__: %s", __forbidden_ids_temp__)
+                    logging.debug("good_offers_df:\n%s", good_offers_df.to_string())
+                    good_offers_df = good_offers_df[~good_offers_df['id'].isin(__forbidden_ids_temp__)]
+                    logging.debug("filtering offers with id in forbidden ids list")
                     logging.debug("good_offers_df:\n%s", good_offers_df.to_string())
 
                     logging.info("checking for very good offers")

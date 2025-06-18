@@ -11,7 +11,7 @@ import math
 __base_path__ = "./generated_files/price_adapter"
 __cache_path__ = __base_path__ + "/cache.csv"
 
-__our_desired_win_percentage__ = 0.1
+__our_desired_win_percentage__ = 0.2
 
 def create_item(sale_id: str, price: float) -> dict:
     return { "saleid": sale_id, "price": price }
@@ -125,15 +125,19 @@ def delete_cache():
 
 def main(use_existing_linked_purchases: bool):
 
-    try:        
+    try:  
+        logging.info("reading cached_df")      
         cache_df = pd.read_csv(__cache_path__, parse_dates=["buy_date", "offer_date_created", "offer_date_trade_unlock", "offer_date_sold"])
     except:
+        logging.info("reading cached_df didnt work setting to none")   
         cache_df = None
 
     if cache_df is None:
-        linked_purchases_df = create_cache_df(use_existing_linked_purchases=use_existing_linked_purchases)
+        logging.info("creating cache_df to fill linked_purchases_df_with_recom_price")  
+        linked_purchases_df_with_recom_price = create_cache_df(use_existing_linked_purchases=use_existing_linked_purchases)
     else:
-        linked_purchases_df = cache_df
+        logging.info("setting linked_purchases_df_with_recom_price to be cache")  
+        linked_purchases_df_with_recom_price = cache_df
 
     items_to_adapt = []
 
@@ -144,8 +148,8 @@ def main(use_existing_linked_purchases: bool):
     # else
     # LOWEST PRICE ON SKINBARON - 0.01
 
-    logging.info("filtering offers that are older than 2 months")
-    borderline_offers_df = linked_purchases_df[linked_purchases_df["buy_date"].dt.date <= utils.get_date_n_months_ago(2)].reset_index(drop=True)
+    logging.info("filtering offers that are older than 12 months")
+    borderline_offers_df = linked_purchases_df_with_recom_price[linked_purchases_df_with_recom_price["buy_date"].dt.date <= utils.get_date_n_months_ago(12)].reset_index(drop=True)
     logging.debug("borderline_offers_df: \n%s", borderline_offers_df.to_string())
 
     for _, row in borderline_offers_df.iterrows():
@@ -165,15 +169,15 @@ def main(use_existing_linked_purchases: bool):
             lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=recommended_price)
 
             if not lowest_price_on_sb:
-                logging.warning("couldnt adapt offer %s with sale_id: %s", name, sale_id)
-                continue
 
-            logging.debug("lowest_price_on_sb: %s", lowest_price_on_sb)
+                price_to_set = recommended_price
+            else:
+                logging.debug("lowest_price_on_sb: %s", lowest_price_on_sb)
 
-            if lowest_price_on_sb > recommended_price:
-                logging.debug("double check this offer")
+                if lowest_price_on_sb > recommended_price:
+                    logging.debug("double check this offer")
 
-            price_to_set = max(recommended_price, lowest_price_on_sb)
+                price_to_set = lowest_price_on_sb
         else:
             lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=min_price * 0.5)
 
@@ -195,9 +199,9 @@ def main(use_existing_linked_purchases: bool):
     # else
     # MAX ( MIN PRICE, LOWEST PRICE ON SKINBARON ABOVE - 0.01 )
 
-    logging.info("filtering offers that are between 1 - 2 month(s) old")
-    tolerateable_offers_df = linked_purchases_df[(linked_purchases_df["buy_date"].dt.date > utils.get_date_n_months_ago(2)) & 
-                                                 (linked_purchases_df["buy_date"].dt.date <= utils.get_date_n_months_ago(1))].reset_index(drop=True)
+    logging.info("filtering offers that are between 3 - 6 month(s) old")
+    tolerateable_offers_df = linked_purchases_df_with_recom_price[(linked_purchases_df_with_recom_price["buy_date"].dt.date > utils.get_date_n_months_ago(6)) & 
+                                                 (linked_purchases_df_with_recom_price["buy_date"].dt.date <= utils.get_date_n_months_ago(3))].reset_index(drop=True)
     logging.debug("tolerateable_offers_df: \n%s", tolerateable_offers_df.to_string())
 
     for _, row in tolerateable_offers_df.iterrows():
@@ -217,25 +221,25 @@ def main(use_existing_linked_purchases: bool):
             lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=recommended_price)
 
             if not lowest_price_on_sb:
-                logging.warning("couldnt adapt offer %s with sale_id: %s", name, sale_id)
-                continue   
 
-            logging.debug("lowest_price_on_sb: %s", lowest_price_on_sb)
-            
-            if lowest_price_on_sb > recommended_price:
-                logging.debug("double check this offer") 
+                price_to_set = max(recommended_price, min_price)
 
-            price_to_set = max(max(recommended_price, min_price), lowest_price_on_sb)
+            else:
+                logging.debug("lowest_price_on_sb: %s", lowest_price_on_sb)
+                
+                if lowest_price_on_sb > recommended_price:
+                    logging.debug("double check this offer") 
+
+                price_to_set = lowest_price_on_sb
         else:
             lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=min_price)
 
             if not lowest_price_on_sb:
-                logging.warning("couldnt adapt offer %s with sale_id: %s", name, sale_id)
-                continue     
+                price_to_set = min_price
+            else:
+                logging.debug("lowest_price_on_sb: %s", lowest_price_on_sb)
 
-            logging.debug("lowest_price_on_sb: %s", lowest_price_on_sb)
-
-            price_to_set = max(min_price, lowest_price_on_sb)
+                price_to_set = lowest_price_on_sb
         
         price_to_set = round(price_to_set, 2)
         items_to_adapt.append(create_item(sale_id=sale_id, price=price_to_set))
@@ -247,8 +251,8 @@ def main(use_existing_linked_purchases: bool):
     # else
     # MAX ( MIN PRICE + ( buy price / 1 - commission factor / 1 - our desired win percentage - buy price / 1 - commission factor), LOWEST PRICE ON SKINBARON ABOVE - 0.01 )
 
-    logging.info("filtering offers that are less than 1 month old")
-    acceptable_offers_df = linked_purchases_df[linked_purchases_df["buy_date"].dt.date > utils.get_date_n_months_ago(1)].reset_index(drop=True)
+    logging.info("filtering offers that are less than 3 months old")
+    acceptable_offers_df = linked_purchases_df_with_recom_price[linked_purchases_df_with_recom_price["buy_date"].dt.date > utils.get_date_n_months_ago(3)].reset_index(drop=True)
     logging.debug("acceptable_offers_df: \n%s", acceptable_offers_df.to_string())
 
     for _, row in acceptable_offers_df.iterrows():
@@ -264,21 +268,28 @@ def main(use_existing_linked_purchases: bool):
         min_price = row["min_selling_price"]
         logging.debug("min_price: %s", min_price)
 
-        desired_sell_price = min_price / (1 - __our_desired_win_percentage__)
-        desired_profit = desired_sell_price - min_price
+        desired_min_profit = min_price + 0.1
+
         if not pd.isna(recommended_price):
 
-            price_to_set = max(recommended_price, min_price + desired_profit)
+            if recommended_price > (min_price + desired_min_profit):
+                price_to_set = recommended_price
+            else:
+                logging.warning("couldnt adapt offer %s with sale_id: %s", name, sale_id)
+                logging.info("no profit margin")
+                continue
+            
         else:
-            lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=min_price + desired_profit)
+            lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=min_price + desired_min_profit)
 
             if not lowest_price_on_sb:
                 logging.warning("couldnt adapt offer %s with sale_id: %s", name, sale_id)
+                logging.info("no profit margin")
                 continue
 
             logging.debug("lowest_price_on_sb: %s", lowest_price_on_sb)
 
-            price_to_set = max(min_price + desired_profit, lowest_price_on_sb)
+            price_to_set = lowest_price_on_sb
         
         price_to_set = round(price_to_set, 2)
         items_to_adapt.append(create_item(sale_id=sale_id, price=price_to_set))
