@@ -79,6 +79,7 @@ def add_count_to_items_from_inventory(item_counts: list, inventory_df: pd.DataFr
         return item_counts
 
     for index, row in inventory_df.iterrows():
+        logging.info("Processing item %d/%d", index, len(inventory_df))
         for entry in item_counts:
 
             name = row["localizedName"]
@@ -99,6 +100,7 @@ def add_count_to_items_from_active_offers(item_counts: list, available_offers_df
         return item_counts
 
     for index, row in available_offers_df.iterrows():
+        logging.info("Processing item %d/%d", index, len(available_offers_df))
         for entry in item_counts:
             if (row["name"] == entry[0]):
                 entry[1] += 1
@@ -154,6 +156,9 @@ def check_fee_code_expired():
     bot_skinlist_metadata = utils.read_cached_json_objects(__bot_skinlist_metadata_path__)
     logging.debug("bot_skinlist_metadata: %s", bot_skinlist_metadata)
 
+    fee_code_name = bot_skinlist_metadata["fee_code_name"]
+    logging.debug("fee_code_name: %s", fee_code_name)
+
     bot_skinlist_commission_factor = bot_skinlist_metadata["commission_factor"]
     logging.debug("bot_skinlist_commission_factor: %s", bot_skinlist_commission_factor)
 
@@ -170,7 +175,7 @@ def check_fee_code_expired():
     
     active_fee_codes_df = fee_codes_df[fee_codes_df["expire_date"] > datetime.now()]
     logging.debug("active_fee_codes_df: \n%s", active_fee_codes_df.to_string())
-    active_fee_codes_df = active_fee_codes_df[active_fee_codes_df["commission_factor"] == bot_skinlist_commission_factor]
+    active_fee_codes_df = active_fee_codes_df[active_fee_codes_df["name"] == fee_code_name]
     logging.debug("active_fee_codes_df: \n%s", active_fee_codes_df.to_string())
 
     if active_fee_codes_df.empty:
@@ -185,6 +190,9 @@ def is_affordable(balance, price):
 
 def handle_buy_response(buy_response: dict, best_offer_df: pd.DataFrame):
 
+    global __forbidden_ids_list__
+    global __forbidden_ids_temp__
+
     if "total" in buy_response:
         logging.debug("ITEM WAS BOUGHT")
         logging.debug("%s\n", buy_response)
@@ -198,15 +206,11 @@ def handle_buy_response(buy_response: dict, best_offer_df: pd.DataFrame):
 
             if "cannot buy from self" in general_errors_list:
 
-                global __forbidden_ids_list__
-
                 logging.debug("Tried to buy from self")
                 logging.debug("adding sale id to forbidden ids")
                 __forbidden_ids_list__.append(best_offer_df["id"])
                 logging.debug("forbidden_ids_list: %s", str(__forbidden_ids_list__))
-            if "some offer(s) already in another shopping cart and/or sold" in general_errors_list:
-                
-                global __forbidden_ids_temp__
+            if "some offer(s) already in another shopping cart and/or sold" in general_errors_list:                
 
                 logging.debug("Tried to buy sold item")
                 logging.debug("adding sale id to forbidden ids")
@@ -225,6 +229,9 @@ def log_buy(best_offer: dict, buy_history_df: pd.DataFrame, name: str, selling_p
 
 def main(use_existing_linked_purchases: bool):    
     logging.debug("bot.py --> main()")
+
+    global __forbidden_ids_list__
+    global __forbidden_ids_temp__
 
     if check_file_older_than(__bot_skinlist_path__, days=64):
         create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=False, use_existing_pricelist=False)
@@ -270,7 +277,7 @@ def main(use_existing_linked_purchases: bool):
 
     linked_purchases_df = csvs.read_linked_purchases()
     logging.info("filter only available offers")
-    available_offers_df = linked_purchases_df[linked_purchases_df["state"] == "AVAILABLE"]
+    available_offers_df = linked_purchases_df[linked_purchases_df["state"] == "AVAILABLE"].reset_index(drop=True)
     del linked_purchases_df
     
     logging.info("add counts to items from active offers")
@@ -314,8 +321,8 @@ def main(use_existing_linked_purchases: bool):
                 logging.info("--------------------------------------------------")
 
                 name = row["name"]
-                logging.info("checking %d. item in skinlist", index + 1)
-                logging.info("name : %s", name)
+
+                logging.info("Processing item %d/%d: %s", index, len(bot_skinlist_df_eff), name)
 
                 good_offers = sb.search(search_item=name, min=0, max=row["buy_price"])
                 good_offers_df = pd.DataFrame(good_offers, columns=["id", "price", "img", "market_name", "sbinspect", "inspect", "stickers", "wear", "appid"])

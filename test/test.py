@@ -15,6 +15,6 @@ import pandas as pd
 
 def main():
 
-    analytics.main(use_existing_linked_purchases=False)
+    analytics.main(use_existing_linked_purchases=True)
 
 main()

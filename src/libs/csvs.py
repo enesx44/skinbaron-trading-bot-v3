@@ -8,3 +8,9 @@ def read_linked_purchases() -> pd.DataFrame:
 
 def save_linked_purchases(linked_purchases_df: pd.DataFrame) -> pd.DataFrame:
     linked_purchases_df.to_csv(__linked_purchases_path__, index=False)
+
+def save_df(df: pd.DataFrame, path: str):
+    df.to_csv(path, index=False)
+
+def read_df(path: str):
+    return pd.read_csv(path)

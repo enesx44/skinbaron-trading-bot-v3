@@ -47,6 +47,9 @@ def add_recommended_price_column(linked_purchases_df: pd.DataFrame) -> pd.DataFr
         logging.info("Adding doppler phase column for price calculation")
         sales_df = scraper_sales.add_doppler_phase_column(sales_df)
 
+        logging.info("initialize fee code")
+        price_calculation.init_fee_code()
+
         logging.info("Calculating recommended price")
         price_data_df = price_calculation.calculate_price_for_item(sales_df)
 

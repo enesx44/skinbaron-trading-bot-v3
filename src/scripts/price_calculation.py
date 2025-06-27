@@ -5,11 +5,18 @@ import sys
 import numpy as np
 import math
 
+max_total_commissions = 0.3
+
+fee_code_name = None
 skinbaron_percentage_win = 0.15
-our_percentage_win = 0.2
+our_percentage_win = max_total_commissions - skinbaron_percentage_win
 
 use_last_x_days = 15
 min_sales_in_last_x_days = use_last_x_days
+
+__base_path_manual_data__ = "./manual_data"
+__base_path_price_calc__ = __base_path_manual_data__ + "/price_calculation"
+__base_path_fee_codes__ = __base_path_price_calc__ + "/fee_codes.csv"
 
 def checkIfHasWear(name: str) -> bool:
     if name.find("(Factory New)") != -1:
@@ -25,11 +32,31 @@ def checkIfHasWear(name: str) -> bool:
     else:
         return False
     
-def init_skinbaron_percentage_win(value: float):
-    logging.debug("--> init_skinbaron_percentage_win()")
+def init_fee_code():
+    logging.debug("--> init_fee_code()")
+    
+    global fee_code_name
     global skinbaron_percentage_win
+    global our_percentage_win
 
-    skinbaron_percentage_win = value
+    fee_codes_df = pd.read_csv(__base_path_fee_codes__, parse_dates=["expire_date"])
+    logging.debug("fee_codes_df: \n%s", fee_codes_df.to_string())
+
+    active_fee_codes_df = fee_codes_df[fee_codes_df["expire_date"] > datetime.datetime.now()].sort_values(by=["commission_factor", "expire_date"], ascending=[True, False])
+
+    if not active_fee_codes_df.empty:
+        logging.debug("active fee code available")
+        best_fee_code = active_fee_codes_df.iloc[0]
+        fee_code_name = best_fee_code["name"]
+        skinbaron_percentage_win = best_fee_code["commission_factor"]
+        logging.debug("skinbaron_percentage_win: %s", skinbaron_percentage_win)
+    else:
+        logging.debug("no active fee code available")
+        fee_code_name = "NONE"
+        skinbaron_percentage_win = 0.15
+        logging.debug("skinbaron_percentage_win: %s", skinbaron_percentage_win)
+
+    our_percentage_win = round(max_total_commissions - skinbaron_percentage_win, 2)
 
 def calculate_price_for_item(sales_df: pd.DataFrame) -> pd.DataFrame | None: 
     logging.debug("--> calculate_price_for_item()")

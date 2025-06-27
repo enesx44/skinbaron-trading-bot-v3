@@ -246,8 +246,10 @@ def link_purchases_to_offers(purchases_df, offers_df):
     # Create a copy of offers_df for internal tracking of used rows
     available_offers = offers_df.copy()
 
-    for index, purchase in purchases_df.iterrows():
+    for index, purchase in purchases_df.iterrows():        
         tranfser_id = purchase["transferId"]
+
+        logging.info("Processing item %d/%d: %s", index, len(purchases_df), tranfser_id)
         logging.debug("transfer_id: %s", tranfser_id)
 
         purchase_date = pd.to_datetime(purchase["formattedDate"], dayfirst=True)

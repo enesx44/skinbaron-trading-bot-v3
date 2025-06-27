@@ -3,7 +3,7 @@ import logging
 import src.libs.logs as logs
 import src.enums.enums as enums
 
-logs.init_logging(log_level=logging.DEBUG)
+logs.init_logging(log_level=logging.INFO)
 
 __script_to_execute__ = enums.Scripts.BOT
 

@@ -104,6 +104,8 @@ def main(use_existing_popular_skinlist: bool, use_existing_pricelist: bool):
             name = row["name"]
             doppler_phase = row["doppler_phase"]
 
+            logging.info("Processing item %d/%d: %s, doppler_phase: %s", index, len(popular_skinlist_df), name, doppler_phase)
+
             if cached_sales:
                 if (name != last_cached_sale["itemName"]) and (not last_cached_sale_found):
                     continue

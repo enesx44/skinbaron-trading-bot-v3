@@ -104,18 +104,22 @@ def main(use_existing_pricelist: bool) -> pd.DataFrame:
     logging.info("looping through pricelist")
     if cached_sales: 
         logging.info("skipping to last cached sale and continueing from there")
-    for index, row in pricelist_df.iterrows():    
+    for index, row in pricelist_df.iterrows():
+
+        marketHashName = row["marketHashName"]
 
         if cached_sales:
-            if (row["marketHashName"] != last_cached_sale["itemName"]) and (not last_cached_sale_found):
+            if (marketHashName != last_cached_sale["itemName"]) and (not last_cached_sale_found):
                 continue
             else:
                 if not last_cached_sale_found:
                     logging.info("found last cached sale")
                     last_cached_sale_found = True
                     continue
+                
+        logging.info("Processing item %d/%d: %s", index, len(pricelist_df), marketHashName)
 
-        scraped_sales = scraper_sales.scrape_sales_for_item(row["marketHashName"], row["dopplerClassName"])
+        scraped_sales = scraper_sales.scrape_sales_for_item(marketHashName, row["dopplerClassName"])
 
         if scraped_sales is None:
             logging.info("skipping to next item because scraped_sales is None")
@@ -129,10 +133,10 @@ def main(use_existing_pricelist: bool) -> pd.DataFrame:
         scraped_sales_df = pd.DataFrame(scraped_sales)
         logging.debug("scraped_sales_df:\n%s", scraped_sales_df.head().to_string())
 
-        # select entries where row["marketHashName"] is == itemName
+        # select entries where marketHashName is == itemName
         # this is necessary because the marketHashName is not always the same as the itemName (e.g. not painted knifes)
         logging.info("filtering sales so itemName matches marketHashName")
-        scraped_sales_df = scraped_sales_df[scraped_sales_df["itemName"] == row["marketHashName"]]
+        scraped_sales_df = scraped_sales_df[scraped_sales_df["itemName"] == marketHashName]
         logging.debug("scraped_sales_df:\n%s", scraped_sales_df.head().to_string())
 
         logging.info("transforming dateSold column to datetime")

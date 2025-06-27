@@ -1,6 +1,8 @@
 import pandas as pd
 import logging
 import typing
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 
 import datetime
 from src.libs import utils
@@ -71,8 +73,14 @@ from src.scripts import link_purchases_to_offers
 
 # Decide whether to focus more on specific categories or diversify.
 
-__base_path_linked_purchases__ = "./generated_files/link_purchases_to_offers"
-__linked_purchases_path__ = __base_path_linked_purchases__ + "/linked_purchases.csv"
+__base_path__ = "./generated_files/analytics"
+
+__time_to_sell_path__ = __base_path__ + "/time_to_sell.csv"
+__available_offers_sorted_by_buy_date_path__ = __base_path__ + "/available_offers_sorted_by_buy_date.csv"
+__available_offers_sorted_by_profit_path__ = __base_path__ + "/available_offers_sorted_by_profit.csv"
+__sold_offers_sorted_by_date_sold_path__ = __base_path__ + "/sold_offers_sorted_by_date_sold.csv"
+__sold_offers_sorted_by_profit_path__ = __base_path__ + "/sold_offers_sorted_by_profit.csv"
+__monthly_stats_path__ = __base_path__ + "/monthly_stats.png"
 
 def calculate_total_expense(linked_purchases_df: pd.DataFrame, state: typing.Literal["SOLD", "AVAILABLE"] | None = None, date: datetime.date | None = None) -> float:
     if state and date:
@@ -134,15 +142,93 @@ def analyze_time_to_sell(linked_purchases_df: pd.DataFrame) -> pd.DataFrame:
     analysis_df = sold_items.groupby("name").agg(
         avg_time_to_sell=("time_to_sell", "mean"),  # Calculate average time to sell
         sales_frequency=("name", "count"),  # Count occurrences (frequency)
-        profit=("profit", "mean")
+        avg_profit=("profit", "mean")
     ).reset_index()
     analysis_df["avg_time_to_sell"] = analysis_df["avg_time_to_sell"].round(2)
-    analysis_df["profit"] = analysis_df["profit"].round(2)
-    analysis_df["total_profit"] = analysis_df["profit"] * analysis_df["sales_frequency"]
-    analysis_df = analysis_df.sort_values(by=["total_profit", "avg_time_to_sell"], ascending=[False, True]).reset_index(drop=True)
+    analysis_df["avg_profit"] = analysis_df["avg_profit"].round(2)
+    analysis_df["total_profit"] = (analysis_df["avg_profit"] * analysis_df["sales_frequency"]).round(2)
+
+    analysis_df["avg_time_to_sell"] = analysis_df["avg_time_to_sell"].replace(0, 0.01)
+    analysis_df["efficiency"] = ((analysis_df["total_profit"] * 4) * (analysis_df["sales_frequency"] * 2)) / analysis_df["avg_time_to_sell"].round(2)
+
+    # Optional normalization
+    scaler = MinMaxScaler()
+    analysis_df['efficiency'] = scaler.fit_transform(analysis_df[['efficiency']]).round(2)
+    #analysis_df = analysis_df[analysis_df["sales_frequency"] > 1]
+
+    analysis_df = analysis_df.sort_values(by=["efficiency", "total_profit"], ascending=[False, False]).reset_index(drop=True)
 
     logging.debug("<-- analyze_time_to_sell()")
     return analysis_df
+
+def plot_monthly_stats(sold_offers_sorted_by_date_sold_df: pd.DataFrame):
+    logging.info("--> plot_monthly_stats()")
+
+    # Ensure offer_date_sold is in datetime format
+    df = sold_offers_sorted_by_date_sold_df.copy()
+    df['offer_date_sold'] = pd.to_datetime(df['offer_date_sold'], errors='coerce')
+    
+    # Drop rows with invalid dates
+    logging.info("Drop rows with invalid dates")
+    logging.debug("df len before: %s", len(df))
+    df = df.dropna(subset=['offer_date_sold'])
+    logging.debug("df len after: %s", len(df))
+    
+    # Add a column for the month (e.g., 2025-06)
+    df['month'] = df['offer_date_sold'].dt.to_period('M').dt.to_timestamp()
+
+    # Separate positive and negative profits
+    df['profit'] = pd.to_numeric(df['profit'], errors='coerce')
+    df = df.dropna(subset=['profit'])
+
+    df['profit_positive'] = df['profit'].apply(lambda x: x if x > 0 else 0)
+    df['profit_negative'] = df['profit'].apply(lambda x: x if x < 0 else 0)
+
+    # Group by month and sum profits
+    monthly_stats = df.groupby('month')[['profit_positive', 'profit_negative']].sum()
+
+    # Plotting
+    plt.figure(figsize=(12, 6))
+    bar_width = 10  # in days, suitable for datetime x-axis
+
+    plt.bar(
+    monthly_stats.index,
+    monthly_stats['profit_positive'],
+    width=bar_width,
+    label='Positive Profit',
+    color='green',
+    edgecolor='black',  # <-- outline
+    align='center'
+    )
+
+    plt.bar(
+        monthly_stats.index,
+        monthly_stats['profit_negative'],
+        width=bar_width,
+        label='Negative Profit',
+        color='red',
+        edgecolor='black',  # <-- outline
+        align='center'
+    )
+
+    # Annotate bars with values
+    for idx, row in monthly_stats.iterrows():
+        if row['profit_positive'] > 0:
+            plt.text(idx, row['profit_positive'] + 10, f"{row['profit_positive']:.2f}",
+                    ha='center', va='bottom', fontsize=9, color='black')
+        if row['profit_negative'] < 0:
+            plt.text(idx, row['profit_negative'] - 10, f"{row['profit_negative']:.2f}",
+                    ha='center', va='top', fontsize=9, color='black')
+
+    plt.xlabel('Month')
+    plt.ylabel('Profit')
+    plt.title('Monthly Sum of Positive and Negative Profits')
+    plt.legend()
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.savefig(__monthly_stats_path__)
+    plt.close()
 
 def main(use_existing_linked_purchases: bool):
 
@@ -152,7 +238,7 @@ def main(use_existing_linked_purchases: bool):
     linked_purchases_df = csvs.read_linked_purchases()
 
     # FINANCIAL ANALYTICS
-    logging.info("FINANCIAL ANALYTICS")
+    logging.info("\nFINANCIAL ANALYTICS\n")
     
     total_expense = calculate_total_expense(linked_purchases_df)
     total_sales_volume = calculate_total_sales_volume(linked_purchases_df)
@@ -167,7 +253,7 @@ def main(use_existing_linked_purchases: bool):
     logging.info("total_sales_volume_to_expense_ratio: %s%%", total_sales_volume_to_expense_ratio)
     logging.info("total_profit_to_expense_ratio: %s%%", total_profit_to_expense_ratio)
     logging.info("total_profit_to_sales_volume_ratio: %s%%\n", total_profit_to_sales_volume_ratio)
-    logging.info("------------------------------------------------------------------------------------------------")
+    logging.info("------------------------------------------------------------------------------------------------\n")
 
     total_sales_expense = calculate_total_expense(linked_purchases_df, state="SOLD")
     total_fullfilled_sales_volume = calculate_total_sales_volume(linked_purchases_df, state="SOLD")
@@ -182,7 +268,7 @@ def main(use_existing_linked_purchases: bool):
     logging.info("fullfilled_sales_volume_to_expense_ratio: %s%%", fullfilled_sales_volume_to_expense_ratio)
     logging.info("fullfilled_profit_to_expense_ratio: %s%%", fullfilled_profit_to_expense_ratio)
     logging.info("fullfilled_profit_to_sales_volume_ratio: %s%%\n", fullfilled_profit_to_sales_volume_ratio)
-    logging.info("------------------------------------------------------------------------------------------------")
+    logging.info("------------------------------------------------------------------------------------------------\n")
 
     total_available_items_expense = calculate_total_expense(linked_purchases_df, state="AVAILABLE")
     total_potential_sales_volume = calculate_total_sales_volume(linked_purchases_df, state="AVAILABLE")
@@ -197,41 +283,43 @@ def main(use_existing_linked_purchases: bool):
     logging.info("potential_sales_volume_to_expense_ratio: %s%%", potential_sales_volume_to_expense_ratio)
     logging.info("potential_profit_to_expense_ratio: %s%%", potential_profit_to_expense_ratio)
     logging.info("potential_profit_to_sales_volume_ratio: %s%%\n", potential_profit_to_sales_volume_ratio)
-    logging.info("------------------------------------------------------------------------------------------------")
-
-    for n in [1, 3, 6, 12, 24]:
-        total_sales_expense = calculate_total_expense(linked_purchases_df, state="SOLD", date=utils.get_date_n_months_ago(n))
-        total_fullfilled_sales_volume = calculate_total_sales_volume(linked_purchases_df, state="SOLD", date=utils.get_date_n_months_ago(n))
-        total_fullfilled_profit = calculate_total_profit(linked_purchases_df, state="SOLD", date=utils.get_date_n_months_ago(n))
-        fullfilled_sales_volume_to_expense_ratio = calculate_sales_volume_to_expense_ratio(total_sales_expense, total_fullfilled_sales_volume)
-        fullfilled_profit_to_expense_ratio = calculate_profit_to_expense_ratio(total_sales_expense, total_fullfilled_profit)
-        fullfilled_profit_to_sales_volume_ratio = calculate_profit_to_sales_volume_ratio(total_fullfilled_sales_volume, total_fullfilled_profit)
-
-        logging.info("last %s month(s):", n)
-        logging.info("total_sales_expense: %s", total_sales_expense)
-        logging.info("total_fullfilled_sales_volume: %s", total_fullfilled_sales_volume)
-        logging.info("total_fullfilled_profit: %s", total_fullfilled_profit)
-        logging.info("fullfilled_sales_volume_to_expense_ratio: %s%%", fullfilled_sales_volume_to_expense_ratio)
-        logging.info("fullfilled_profit_to_expense_ratio: %s%%", fullfilled_profit_to_expense_ratio)
-        logging.info("fullfilled_profit_to_sales_volume_ratio: %s%%\n", fullfilled_profit_to_sales_volume_ratio) 
-        logging.info("------------------------------------------------------------------------------------------------")
+    logging.info("------------------------------------------------------------------------------------------------\n")
 
     # OFFER ANALYTICS
-    logging.info("OFFER ANALYTICS")
+    logging.info("\nOFFER ANALYTICS\n")
     
-    time_to_sell_df = analyze_time_to_sell(linked_purchases_df)
-    logging.info("offers sorted by time to sell and total profit: \n%s", time_to_sell_df.to_string())
-
     tradelocked_offers_ratio = calculate_tradelocked_offers_ratio(linked_purchases_df)
-    logging.info("tradelocked_offers_ratio: %s%%", tradelocked_offers_ratio)
+    logging.info("tradelocked_offers_ratio: %s%%\n", tradelocked_offers_ratio)
     
+    logging.info("creating time to sell and total profit statistic")
+    time_to_sell_df = analyze_time_to_sell(linked_purchases_df)
+    csvs.save_df(time_to_sell_df, __time_to_sell_path__)
+    
+    logging.info("creating available offers sorted by buy date statistic")
     available_offers_df = linked_purchases_df[(linked_purchases_df["state"] == "AVAILABLE")].sort_values(by="buy_date", ascending=True).reset_index(drop=True)
-    logging.info("avialable offers sorted by buy date: \n%s", available_offers_df.to_string())
-    logging.info("avialable offers sorted by profit: \n%s", available_offers_df.sort_values(by="profit", ascending=False).reset_index(drop=True).to_string())
+    csvs.save_df(available_offers_df, __available_offers_sorted_by_buy_date_path__)
+
+    logging.info("creating available offers sorted by profit statistic")
+    available_offers_df = available_offers_df.sort_values(by="profit", ascending=False).reset_index(drop=True)
+    csvs.save_df(available_offers_df, __available_offers_sorted_by_profit_path__)
     
-    sold_offers_df = linked_purchases_df[(linked_purchases_df["state"] == "SOLD")].sort_values(by="buy_date", ascending=True).reset_index(drop=True)
-    logging.info("sold offers sorted by buy date: \n%s", sold_offers_df.to_string())
-    logging.info("sold offers sorted by sold date: \n%s", sold_offers_df.sort_values(by="offer_date_sold", ascending=True).reset_index(drop=True).to_string())
-    logging.info("sold offers sorted by profit: \n%s", sold_offers_df.sort_values(by="profit", ascending=False).reset_index(drop=True).to_string())
+    positive_profit = available_offers_df[available_offers_df["profit"] > 0]["profit"].sum()
+    logging.info("\navailable offers positive profit: %s", positive_profit)
+    negative_profit = available_offers_df[available_offers_df["profit"] < 0]["profit"].sum()
+    logging.info("available offers negativeprofit: %s\n", negative_profit)
+    
+    logging.info("creating sold offers sorted by date sold statistic")
+    sold_offers_df = linked_purchases_df[(linked_purchases_df["state"] == "SOLD")].sort_values(by="offer_date_sold", ascending=True).reset_index(drop=True)
+    csvs.save_df(sold_offers_df, __sold_offers_sorted_by_date_sold_path__)
 
+    logging.info("creating sold offers sorted by profit statistic")
+    sold_offers_df = sold_offers_df.sort_values(by="profit", ascending=False).reset_index(drop=True)
+    csvs.save_df(sold_offers_df, __sold_offers_sorted_by_profit_path__)
 
+    positive_profit = sold_offers_df[sold_offers_df["profit"] > 0]["profit"].sum()
+    logging.info("\nsold offers positive profit: %s", positive_profit)
+    negative_profit = sold_offers_df[sold_offers_df["profit"] < 0]["profit"].sum()
+    logging.info("sold offers negative profit: %s\n", negative_profit)
+
+    sold_offers_sorted_by_date_sold_df = csvs.read_df(__sold_offers_sorted_by_date_sold_path__)
+    plot_monthly_stats(sold_offers_sorted_by_date_sold_df)

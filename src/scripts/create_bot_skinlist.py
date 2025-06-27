@@ -12,10 +12,6 @@ __base_path__ = "./generated_files/create_bot_skinlist"
 __bot_skinlist_path__ = __base_path__ + "/bot_skinlist.csv"
 __bot_skinlist_metadata_path__ = __base_path__ + "/metadata.json"
 
-__base_path_manual_data__ = "./manual_data"
-__base_path_price_calc__ = __base_path_manual_data__ + "/price_calculation"
-__base_path_fee_codes__ = __base_path_price_calc__ + "/fee_codes.csv"
-
 def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_pricelist: bool):
     """
     scrapes sales for either an existing popular skinlist or a newly created one.
@@ -45,25 +41,12 @@ def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_
     bot_skinlist_df = pd.DataFrame(
         columns=["name", "buy_price", "selling_price", "min_profit", "mean_profitability", "tier"])    
 
-    fee_codes_df = pd.read_csv(__base_path_fee_codes__, parse_dates=["expire_date"])
-    logging.debug("fee_codes_df: \n%s", fee_codes_df.to_string())
-
-    active_fee_codes_df = fee_codes_df[fee_codes_df["expire_date"] > datetime.datetime.now()]
-
-    if not active_fee_codes_df.empty:
-        logging.debug("active fee code available")
-        skinbaron_percentage_win = active_fee_codes_df["commission_factor"].min()
-        logging.debug("skinbaron_percentage_win: %s", skinbaron_percentage_win)
-    else:
-        logging.debug("no active fee code available")
-        skinbaron_percentage_win = 0.15
-        logging.debug("skinbaron_percentage_win: %s", skinbaron_percentage_win)
-
-    price_calculation.init_skinbaron_percentage_win(value=skinbaron_percentage_win)        
+    price_calculation.init_fee_code()        
     
     for index, row in popular_skinlist_df.iterrows():
-        
         name = row["name"]
+        logging.info("Processing item %d/%d: %s", index, len(popular_skinlist_df), name)
+        
         logging.debug("name:\n%s", name)
         doppler_phase = row["doppler_phase"]
         logging.debug("doppler_phase:\n%s", doppler_phase)
@@ -82,5 +65,5 @@ def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_
     logging.info("saving bot skinlist to csv")  
     bot_skinlist_df.to_csv(__bot_skinlist_path__, index=False)
 
-    utils.cache_json_objects_always_overwrite(__bot_skinlist_metadata_path__, {"commission_factor":price_calculation.skinbaron_percentage_win})
+    utils.cache_json_objects_always_overwrite(__bot_skinlist_metadata_path__, {"fee_code_name":price_calculation.fee_code_name, "commission_factor":price_calculation.skinbaron_percentage_win, "our_percentage_win":price_calculation.our_percentage_win})
 
