@@ -4,7 +4,7 @@ import logging
 import json
 
 __base_path__ = "./generated_files"
-__db_path__ = __base_path__ + "./bot.db"
+__db_path__ = __base_path__ + "/bot.db"
 
 def get_connection():
     logging.debug("db.py --> get_connection()")
