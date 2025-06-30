@@ -28,7 +28,7 @@ __days_to_include_for_popularity__ = 30 // 2
 __max_sales_per_item__ = 100 // 2
 
 # we only include items that have at least 10 sales in the last 15 days
-__sales_count_threshold_in_last_X_days__ = __max_sales_per_item__ // 5
+__sales_count_threshold_in_last_X_days__ = __max_sales_per_item__ // 6
 
 __base_path__ = "./generated_files/create_popular_skinlist"
 __cached_sales_path__ = __base_path__ + "/cached_sales.json"

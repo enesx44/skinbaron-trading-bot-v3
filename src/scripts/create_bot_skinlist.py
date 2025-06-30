@@ -57,7 +57,9 @@ def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_
         logging.debug("scraped_sales_for_item_df:\n%s", scraped_sales_for_item_df.tail(100).to_string())
 
         bot_skinlist_df = pd.concat([bot_skinlist_df, price_calculation.calculate_price_for_item(scraped_sales_for_item_df)]).reset_index(drop=True)
-        logging.debug("bot_skinlist_df:\n%s", bot_skinlist_df.tail(100).to_string())
+        logging.debug("bot_skinlist_df:\n%s", bot_skinlist_df.tail(5).to_string())
+
+    price_calculation.save_slope_stats_csv()
 
     bot_skinlist_df = bot_skinlist_df.sort_values(["mean_profitability", "tier", "min_profit"], ascending=[True, True, False]).reset_index(drop=True)
     logging.debug("bot_skinlist_df:\n%s", bot_skinlist_df.to_string())  
