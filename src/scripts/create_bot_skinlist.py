@@ -41,7 +41,8 @@ def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_
     bot_skinlist_df = pd.DataFrame(
         columns=["name", "buy_price", "selling_price", "min_profit", "mean_profitability", "tier"])    
 
-    price_calculation.init_fee_code()        
+    price_calculation.init_fee_code()   
+    price_calculation.clear_plots()     
     
     for index, row in popular_skinlist_df.iterrows():
         name = row["name"]
@@ -56,7 +57,7 @@ def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_
                                                       (scraped_sales_df["dopplerPhase"] == doppler_phase))]
         logging.debug("scraped_sales_for_item_df:\n%s", scraped_sales_for_item_df.tail(100).to_string())
 
-        bot_skinlist_df = pd.concat([bot_skinlist_df, price_calculation.calculate_price_for_item(scraped_sales_for_item_df)]).reset_index(drop=True)
+        bot_skinlist_df = pd.concat([bot_skinlist_df, price_calculation.calculate_price_for_item(scraped_sales_for_item_df, True)]).reset_index(drop=True)
         logging.debug("bot_skinlist_df:\n%s", bot_skinlist_df.tail(5).to_string())
 
     price_calculation.save_slope_stats_csv()

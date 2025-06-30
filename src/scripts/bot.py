@@ -239,7 +239,7 @@ def main(use_existing_linked_purchases: bool):
     if check_file_older_than(__bot_skinlist_path__, days=16):
         create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=False, use_existing_pricelist=True)
 
-    if check_better_active_fee_code_available() or check_fee_code_expired() or check_file_older_than(__bot_skinlist_path__, days=4):
+    if check_better_active_fee_code_available() or check_fee_code_expired() or check_file_older_than(__bot_skinlist_path__, days=2):
         create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=True, use_existing_pricelist=True)
     
     logging.debug("read buy history from csv file")

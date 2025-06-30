@@ -5,7 +5,7 @@ import src.enums.enums as enums
 
 logs.init_logging(log_level=logging.DEBUG)
 
-__script_to_execute__ = enums.Scripts.CREATE_BOT_SKINLIST
+__script_to_execute__ = enums.Scripts.BOT
 
 if __script_to_execute__ == enums.Scripts.CREATE_PRICELIST:
     import src.scripts.create_pricelist as create_pricelist
@@ -27,4 +27,4 @@ elif __script_to_execute__ == enums.Scripts.CREATE_BOT_SKINLIST:
 
 elif __script_to_execute__ == enums.Scripts.BOT:
     import src.scripts.bot as bot
-    bot.main(use_existing_linked_purchases=True)
+    bot.main(use_existing_linked_purchases=False)
