@@ -84,7 +84,7 @@ def calc_bounds(mean: float, std: float, has_ext: bool) -> tuple[float, float]:
     lower = mean - 2 * std
     return upper, lower
 
-def remove_outliers(df: pd.DataFrame, mean: float, std: float, factor=2.0) -> pd.DataFrame:
+def remove_outliers(df: pd.DataFrame, mean: float, std: float, factor: float) -> pd.DataFrame:
     return df[(df['y'] <= mean + factor * std) & (df['y'] >= mean - factor * std)]
 
 def save_slope_stats_csv():
@@ -202,25 +202,27 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
 
     name = sales_df["itemName"].iloc[0]
     doppler = sales_df["dopplerPhase"].iloc[0] if "dopplerPhase" in sales_df.columns else None
-
-
     logging.info("Analyzing: %s | dopplerPhase: %s", name, doppler)
 
     dates = pd.to_datetime(sales_df["dateSold"], errors="coerce")
     prices = sales_df["price"]
+    logging.debug("Raw sales data contains %d entries.", len(sales_df))
 
     if len(dates) < 10:
         logging.warning("Too few sales for item: %s", name)
         return None
 
     df = pd.DataFrame({"x": dates, "y": prices}).dropna()
+    logging.debug("Data after dropping NaNs: %d entries.", len(df))
     df = jitter_duplicate_dates(df)
+    logging.debug("Data after jittering: \n%s", df.to_string())
 
-    # Filter recent sales
     now = datetime.datetime.now()
     cutoff = now - datetime.timedelta(days=USE_LAST_X_DAYS)
     min_cutoff = now - datetime.timedelta(days=USE_LAST_X_DAYS * 2)
     recent = df[df["x"] >= cutoff]
+    logging.debug("Recent sales found: %d", len(recent))
+    logging.debug("Recent sales: \n%s", recent.to_string())
 
     multiplier = next(
         (m for threshold, m in [
@@ -229,9 +231,13 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
         1
     )
 
+    logging.debug("Applied multiplier: %.2f based on %d recent sales", multiplier, len(recent))
+
     if len(recent) < MIN_SALES_IN_LAST_X_DAYS:
         top_up_needed = MIN_SALES_IN_LAST_X_DAYS - len(recent)
         older = df[df["x"] < cutoff].tail(top_up_needed)
+        logging.debug("older sales: \n%s", older.to_string())
+        logging.debug("Topping up with %d older sales", len(older))
         if len(df[df["x"] >= min_cutoff]) < MIN_SALES_IN_LAST_X_DAYS:
             logging.warning("Not enough sales even after top-up for: %s", name)
             return None
@@ -239,65 +245,126 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
 
     mean = recent["y"].mean()
     std = recent["y"].std()
+    logging.debug("Initial mean: %.2f | std: %.2f", mean, std)
+
     has_ext = has_wear(name)
+    logging.debug("has_wear result for '%s': %s", name, has_ext)
 
     upper, lower = calc_bounds(mean, std, has_ext)
-    no_first_outliers = recent[(recent['y'] >= lower) & (recent['y'] <= upper)]
+    logging.debug("First outlier bounds: upper=%.2f, lower=%.2f", upper, lower)
 
+    no_first_outliers = recent[(recent['y'] >= lower) & (recent['y'] <= upper)]
+    logging.debug("Remaining sales after 1st outlier removal: %d", len(no_first_outliers))
+    logging.debug("Data after removing 1st outliers: \n%s", no_first_outliers.to_string())
     if len(no_first_outliers) < 10:
         logging.info("Too few sales after removing 1st outliers.")
         return None
 
     mean = no_first_outliers["y"].mean()
     std = no_first_outliers["y"].std()
+    logging.debug("1st Refined mean: %.2f | std: %.2f", mean, std)
 
-    final_df = remove_outliers(no_first_outliers, mean, std)
+    factor = 1.5
+    final_df = remove_outliers(no_first_outliers, mean, std, factor=factor)
+    logging.debug("Remaining sales after 2nd outlier removal: %d", len(final_df))
+    logging.debug("Data after removing 2nd outliers: \n%s", final_df.to_string())
     if len(final_df) < 10:
         logging.info("Too few sales after removing 2nd outliers.")
         return None
+    
+    mean = final_df["y"].mean()
+    std = final_df["y"].std()
+    logging.debug("2nd Refined mean: %.2f | std: %.2f", mean, std)
+
+    factor = 2.5
+    final_df = remove_outliers(final_df, mean, std, factor=factor)
+    logging.debug("Remaining sales after 3rd outlier removal: %d", len(final_df))
+    logging.debug("Data after removing 3rd outliers: \n%s", final_df.to_string())
+    if len(final_df) < 10:
+        logging.info("Too few sales after removing 3rd outliers.")
+        return None
+    
+    upper_sale_bound_for_graphic = round(mean + (std * factor), 2)
+    lower_sale_bound_for_graphic = round(mean - (std * factor), 2)
+    
+    mean = final_df["y"].mean()
+    std = final_df["y"].std()
+    logging.debug("3rd Refined mean: %.2f | std: %.2f", mean, std)
 
     x_idxs = [i for i in range(len(df)) if df.iloc[i]['x'] in final_df["x"].values and df.iloc[i]['y'] in final_df["y"].values]
     slope, intercept = np.polyfit(x_idxs, final_df["y"], 1)
     trend = classify_trend(slope)
+    logging.info("Trend: %s (slope=%.2f)", trend, slope)  
 
-    logging.info("Trend: %s (slope=%.2f)", trend, slope)
-
-    a = round(mean + std, 2)
-    b = round(mean - std, 2)
-    c = a * (1 - skinbaron_percentage_win)
-    d = c - b
-    e = c * our_percentage_win
-    is_profitable = d > max(e, 0.25)
+    upper_sale_bound = round(mean + std, 2)
+    lower_sale_bound = round(mean - std, 2)
+    my_share = upper_sale_bound * (1 - skinbaron_percentage_win)
+    my_share_after_removing_costs = my_share - lower_sale_bound
+    my_desired_profit = my_share * our_percentage_win
+    is_profitable = my_share_after_removing_costs > my_desired_profit
+    logging.debug("Profit analysis: upper_sale_bound=%.2f, lower_sale_bound=%.2f, my_share=%.2f, my_share_after_removing_costs=%.2f, my_desired_profit=%.2f, is_profitable=%s", upper_sale_bound, lower_sale_bound, my_share, my_share_after_removing_costs, my_desired_profit, is_profitable)
 
     is_new = any(y in name for y in map(str, range(2020, 2026)))
+    logging.debug("Is new item: %s", is_new)
 
     if is_profitable and slope > -1 and not is_new:
+        logging.info("Item is profitable and stable.")
         upper_sales = final_df[final_df["y"] >= mean]
         avg_upper = upper_sales["y"].mean() if not upper_sales.empty else mean + std * 0.75
         selling_price = min(round(mean + std * 0.75, 2), round(avg_upper - 0.01, 2))
         sell_volume = selling_price * (1 - skinbaron_percentage_win)
         min_profit = max(sell_volume * our_percentage_win, 0.3)
         buy_price = sell_volume - min_profit
+        logging.debug("Profitable path: sell=%.2f, buy=%.2f, profit=%.2f", selling_price, buy_price, min_profit)
+
+        if buy_price <= 0.01:
+            logging.warning("Too small / negative buy price, skipping: %s", name)
+            return None
+        
+        buy_price *= multiplier
+        logging.debug("Buy price after sales count multiplier: %.2f", buy_price)
+        
+        if buy_price <= 0.01:
+            logging.warning("Too small / negative buy price, skipping: %s", name)
+            return None
+    
         if slope < -0.75: buy_price *= 0.7
         elif slope < -0.5: buy_price *= 0.8
         elif slope < -0.25: buy_price *= 0.9
+        logging.debug("Buy price after slope multiplier: %.2f", buy_price)
+
+        if buy_price <= 0.01:
+            logging.warning("Too small / negative buy price, skipping: %s", name)
+            return None        
     else:
-        logging.info("Low quality item, target lowball buy offers.")
+        logging.info("Low quality or risky item, target lowball buy offers.")
         selling_price = max(mean - 0.01, final_df["y"].mean() - 0.01)
         sell_volume = selling_price * (1 - skinbaron_percentage_win)
         min_profit = max(sell_volume * (our_percentage_win * 0.25), 0.1)
         buy_price = sell_volume - min_profit
+        logging.debug("Lowball path: sell=%.2f, buy=%.2f, profit=%.2f", selling_price, buy_price, min_profit)
+
+        if buy_price <= 0.01:
+            logging.warning("Too small / negative buy price, skipping: %s", name)
+            return None
+
+        buy_price *= multiplier
+        logging.debug("Buy price after sales count multiplier: %.2f", buy_price)
+
+        if buy_price <= 0.01:
+            logging.warning("Too small / negative buy price, skipping: %s", name)
+            return None        
+        
         if slope < -2: buy_price *= 0.6
         elif slope < -1.5: buy_price *= 0.7
         elif slope < -1.25: buy_price *= 0.8
         elif slope < -1: buy_price *= 0.9
         elif slope < -0.5: buy_price *= 0.95
+        logging.debug("Buy price after slope multiplier: %.2f", buy_price)
 
-    buy_price *= multiplier
-
-    if buy_price <= 0.01:
-        logging.warning("too small / negative buy price, skipping: %s", name)
-        return None
+        if buy_price <= 0.01:
+            logging.warning("Too small / negative buy price, skipping: %s", name)
+            return None
 
     tier = next((t for p, t in [
         (0.1, 7), (0.2, 6), (0.5, 5), (1, 4), (3, 3), (10, 2)
@@ -306,6 +373,7 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
     buy_price = math.floor(buy_price * 100) / 100
     selling_price = math.floor(selling_price * 100) / 100
     min_profit = round(selling_price * (1 - skinbaron_percentage_win) - buy_price, 2)
+    logging.debug("end result: sell=%.2f, buy=%.2f, profit=%.2f", selling_price, buy_price, min_profit)
 
     result = pd.DataFrame([{
         "name": name,
@@ -316,7 +384,11 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
         "tier": tier
     }])
 
+    logging.info("Final result for %s: buy_price=%.2f, sell_price=%.2f, min_profit=%.2f, tier=%d",
+                 name, buy_price, selling_price, min_profit, tier)
+
     if should_plot:
+        logging.debug("Plotting price history for %s", name)
         plot_price_history(
             df=df,
             name=name,
@@ -324,8 +396,8 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
             buy_price=buy_price,
             selling_price=selling_price,
             mean=mean,
-            upper=upper,
-            lower=lower
+            upper=upper_sale_bound_for_graphic,
+            lower=lower_sale_bound_for_graphic
         )
 
     return result
