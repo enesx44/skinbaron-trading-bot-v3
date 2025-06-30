@@ -11,17 +11,23 @@ import math
 __base_path__ = "./generated_files/price_adapter"
 __cache_path__ = __base_path__ + "/cache.csv"
 
+__base_path_create_bot_skinlist__ = "./generated_files/create_bot_skinlist"
+__bot_skinlist_path__ = __base_path_create_bot_skinlist__ + "/bot_skinlist.csv"
+
 __our_desired_win_percentage__ = 0.2
 
 def create_item(sale_id: str, price: float) -> dict:
     return { "saleid": sale_id, "price": price }
 
-def add_recommended_price_column(linked_purchases_df: pd.DataFrame) -> pd.DataFrame:
+def add_recommended_price_column(linked_purchases_df: pd.DataFrame, use_current_bot_skinlist: bool) -> pd.DataFrame:
     logging.info("Extracting unique names from linked_purchases_df")
     unique_names = linked_purchases_df["name"].unique()
     logging.debug("Unique names count: %s", len(unique_names))
 
     recommended_prices = {}  # Dictionary to store recommended prices for each name
+
+    if use_current_bot_skinlist:
+        bot_skinlist_df = csvs.read_df(__bot_skinlist_path__)
 
     logging.info("initialize fee code")
     price_calculation.init_fee_code()
@@ -29,6 +35,20 @@ def add_recommended_price_column(linked_purchases_df: pd.DataFrame) -> pd.DataFr
     logging.info("Looping through unique names")
     for index, name in enumerate(unique_names, start=1):  # Add index for tracking progress
         logging.info("Processing item %d/%d: %s", index, len(unique_names), name)  # Progress logging
+
+        if use_current_bot_skinlist:
+
+            # find row for name in bot_skinlist
+            row_in_bot_skinlist = bot_skinlist_df[bot_skinlist_df["name"] == name]
+            logging.debug("row_in_bot_skinlist: \n%s", row_in_bot_skinlist.to_string())
+
+            if row_in_bot_skinlist.empty:
+                logging.debug("couldn't find recom price in bot skinlist, continueing with scraping...")
+            else:
+                logging.debug("found recom price info in bot skinlist, saving and continueing with next item...")
+                recommended_prices[name] = float(row_in_bot_skinlist.iloc[0]["selling_price"])
+                continue
+
         
         logging.info("Scraping sales for %s", name)
         sales_data = scraper_sales.scrape_sales_for_item(market_hash_name=name, doppler_phase=None)
@@ -66,7 +86,7 @@ def add_recommended_price_column(linked_purchases_df: pd.DataFrame) -> pd.DataFr
 
     return linked_purchases_df
 
-def create_cache_df(use_existing_linked_purchases: bool) -> pd.DataFrame:
+def create_cache_df(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool) -> pd.DataFrame:
     if not use_existing_linked_purchases:
         link_purchases_to_offers.main()
 
@@ -75,7 +95,7 @@ def create_cache_df(use_existing_linked_purchases: bool) -> pd.DataFrame:
     linked_purchases_df = linked_purchases_df[linked_purchases_df["state"] == "AVAILABLE"].sort_values(by="buy_date", ascending=True).reset_index(drop=True)
     logging.debug("linked_purchases: \n%s", linked_purchases_df.to_string())
 
-    linked_purchases_df = add_recommended_price_column(linked_purchases_df=linked_purchases_df)
+    linked_purchases_df = add_recommended_price_column(linked_purchases_df=linked_purchases_df, use_current_bot_skinlist=use_current_bot_skinlist)
     logging.debug("linked_purchases: \n%s", linked_purchases_df.to_string())
     linked_purchases_df.to_csv(__cache_path__, index=False)
     return linked_purchases_df
@@ -126,7 +146,7 @@ def delete_cache():
         print("tried delteing cache but file does not exist")
     logging.debug("price_adapter.py <-- delete_cache()")
 
-def main(use_existing_linked_purchases: bool):
+def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
 
     try:  
         logging.info("reading cached_df")      
@@ -137,12 +157,16 @@ def main(use_existing_linked_purchases: bool):
 
     if cache_df is None:
         logging.info("creating cache_df to fill linked_purchases_df_with_recom_price")  
-        linked_purchases_df_with_recom_price = create_cache_df(use_existing_linked_purchases=use_existing_linked_purchases)
+        linked_purchases_df_with_recom_price = create_cache_df(use_existing_linked_purchases=use_existing_linked_purchases, use_current_bot_skinlist=use_current_bot_skinlist)
     else:
         logging.info("setting linked_purchases_df_with_recom_price to be cache")  
         linked_purchases_df_with_recom_price = cache_df
 
     items_to_adapt = []
+
+    borderline_offers_changes_df = pd.DataFrame(columns=["name", "old_price", "new_price", "price_change"])
+    tolerateable_offers_changes_df = pd.DataFrame(columns=["name", "old_price", "new_price", "price_change"])
+    acceptable_offers_changes_df = pd.DataFrame(columns=["name", "old_price", "new_price", "price_change"])
 
     # -------------------------------------------------------------------------------------
 
@@ -198,7 +222,11 @@ def main(use_existing_linked_purchases: bool):
             logging.info("------------------------------------------------------")
             continue
 
-        items_to_adapt.append(create_item(sale_id=sale_id, price=price_to_set))        
+        items_to_adapt.append(create_item(sale_id=sale_id, price=price_to_set))
+
+        new_row = pd.DataFrame([{"name":name, "old_price":current_price, "new_price":price_to_set, "price_change":price_to_set-current_price}])
+
+        borderline_offers_changes_df = pd.concat([borderline_offers_changes_df, new_row], ignore_index=True)
         logging.info("------------------------------------------------------")
     
     # -------------------------------------------------------------------------------------
@@ -251,6 +279,10 @@ def main(use_existing_linked_purchases: bool):
             logging.warning("best price already set")
             logging.info("------------------------------------------------------")
             continue
+        
+        new_row = pd.DataFrame([{"name":name, "old_price":current_price, "new_price":price_to_set, "price_change":price_to_set-current_price}])
+
+        tolerateable_offers_changes_df = pd.concat([tolerateable_offers_changes_df, new_row], ignore_index=True)
 
         items_to_adapt.append(create_item(sale_id=sale_id, price=price_to_set))
         logging.info("------------------------------------------------------")
@@ -318,6 +350,10 @@ def main(use_existing_linked_purchases: bool):
             logging.warning("best price already set")
             logging.info("------------------------------------------------------")
             continue
+        
+        new_row = pd.DataFrame([{"name":name, "old_price":current_price, "new_price":price_to_set, "price_change":price_to_set-current_price}])
+
+        acceptable_offers_changes_df = pd.concat([acceptable_offers_changes_df, new_row], ignore_index=True)
 
         items_to_adapt.append(create_item(sale_id=sale_id, price=price_to_set))
         logging.info("------------------------------------------------------")
@@ -326,8 +362,17 @@ def main(use_existing_linked_purchases: bool):
 
     logging.debug(utils.prettyprint(items_to_adapt))
 
-    edit_prices(items=items_to_adapt)
-    delete_cache()
+    borderline_offers_changes_df = borderline_offers_changes_df.sort_values("price_change").reset_index(drop=True)
+    logging.debug("borderline_offers_changes_df: \n%s", borderline_offers_changes_df.to_string())
+
+    tolerateable_offers_changes_df = tolerateable_offers_changes_df.sort_values("price_change").reset_index(drop=True)
+    logging.debug("tolerateable_offers_changes_df: \n%s", tolerateable_offers_changes_df.to_string())
+
+    acceptable_offers_changes_df = acceptable_offers_changes_df.sort_values("price_change").reset_index(drop=True)
+    logging.debug("acceptable_offers_changes_df: \n%s", acceptable_offers_changes_df.to_string())
+
+    #edit_prices(items=items_to_adapt)
+    #delete_cache()
             
 
         
