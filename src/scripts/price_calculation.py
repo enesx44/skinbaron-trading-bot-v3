@@ -1,409 +1,332 @@
 import pandas as pd
-import logging
-import datetime
-import sys
 import numpy as np
 import math
+import datetime
+import logging
+import sys
+import matplotlib.pyplot as plt
+import os
+import glob
 
-max_total_commissions = 0.3
+# === CONFIG ===
+MAX_TOTAL_COMMISSIONS = 0.3
+DEFAULT_skinbaron_percentage_win = 0.15
+USE_LAST_X_DAYS = 15
+MIN_SALES_IN_LAST_X_DAYS = USE_LAST_X_DAYS
 
+FEE_CODES_CSV = "./manual_data/price_calculation/fee_codes.csv"
+
+__base_path__ = "./generated_files/price_calculation"
+
+PLOT = True  # Set to True to save sales history plots
+PLOT_DIR = __base_path__ + "/plots"
+SLOPE_STATS_PATH = __base_path__ + "/slope_stats.csv"
+
+if PLOT:    
+    # Clear all previous plots before plotting new ones
+    for file in glob.glob(os.path.join(PLOT_DIR, "*.png")):
+        os.remove(file)
+
+# === GLOBAL STATE ===
 fee_code_name = None
-skinbaron_percentage_win = 0.15
-our_percentage_win = max_total_commissions - skinbaron_percentage_win
+skinbaron_percentage_win = DEFAULT_skinbaron_percentage_win
+our_percentage_win = MAX_TOTAL_COMMISSIONS - skinbaron_percentage_win
+slope_stats = []
 
-use_last_x_days = 15
-min_sales_in_last_x_days = use_last_x_days
-
-__base_path_manual_data__ = "./manual_data"
-__base_path_price_calc__ = __base_path_manual_data__ + "/price_calculation"
-__base_path_fee_codes__ = __base_path_price_calc__ + "/fee_codes.csv"
-
-def checkIfHasWear(name: str) -> bool:
-    if name.find("(Factory New)") != -1:
-        return True
-    elif name.find("(Minimal Wear)") != -1:
-        return True
-    elif name.find("(Field-Tested)") != -1:
-        return True
-    elif name.find("(Well-Worn)") != -1:
-        return True
-    elif name.find("(Battle-Scarred)") != -1:
-        return True
-    else:
-        return False
-    
+# === INIT ===
 def init_fee_code():
-    logging.debug("--> init_fee_code()")
-    
-    global fee_code_name
-    global skinbaron_percentage_win
-    global our_percentage_win
+    global fee_code_name, skinbaron_percentage_win, our_percentage_win
 
-    fee_codes_df = pd.read_csv(__base_path_fee_codes__, parse_dates=["expire_date"])
-    logging.debug("fee_codes_df: \n%s", fee_codes_df.to_string())
-
-    active_fee_codes_df = fee_codes_df[fee_codes_df["expire_date"] > datetime.datetime.now()].sort_values(by=["commission_factor", "expire_date"], ascending=[True, False])
-
-    if not active_fee_codes_df.empty:
-        logging.debug("active fee code available")
-        best_fee_code = active_fee_codes_df.iloc[0]
-        fee_code_name = best_fee_code["name"]
-        skinbaron_percentage_win = best_fee_code["commission_factor"]
-        logging.debug("skinbaron_percentage_win: %s", skinbaron_percentage_win)
-    else:
-        logging.debug("no active fee code available")
+    try:
+        df = pd.read_csv(FEE_CODES_CSV, parse_dates=["expire_date"])
+    except Exception as e:
+        logging.warning("Failed to read fee code CSV, using defaults: %s", e)
         fee_code_name = "NONE"
-        skinbaron_percentage_win = 0.15
-        logging.debug("skinbaron_percentage_win: %s", skinbaron_percentage_win)
+        return
 
-    our_percentage_win = round(max_total_commissions - skinbaron_percentage_win, 2)
-
-def calculate_price_for_item(sales_df: pd.DataFrame) -> pd.DataFrame | None: 
-    logging.debug("--> calculate_price_for_item()")
-    logging.debug("skinbaron_percentage_win: %s", skinbaron_percentage_win)
-    
-    logging.debug("sales_df: \n%s", sales_df.to_string())
-    
-    unique_names = sales_df["itemName"].unique()
-    logging.debug("unique_names: \n%s", len(unique_names))
-
-    # Check if all values in 'itemName' are the same
-    if sales_df['itemName'].nunique() == 1:
-        logging.info("All rows in itemName have the same value. good.")
+    active = df[df["expire_date"] > datetime.datetime.now()]
+    if not active.empty:
+        best = active.sort_values(["commission_factor", "expire_date"]).iloc[0]
+        fee_code_name = best["name"]
+        skinbaron_percentage_win = best["commission_factor"]
     else:
-        logging.error("itemName contains different values")
+        fee_code_name = "NONE"
+        skinbaron_percentage_win = DEFAULT_skinbaron_percentage_win
+
+    our_percentage_win = round(MAX_TOTAL_COMMISSIONS - skinbaron_percentage_win, 2)
+
+# === UTILS ===
+def has_wear(name: str) -> bool:
+    wear_levels = ["(Factory New)", "(Minimal Wear)", "(Field-Tested)", "(Well-Worn)", "(Battle-Scarred)"]
+    return any(level in name for level in wear_levels)
+
+def jitter_duplicate_dates(df: pd.DataFrame) -> pd.DataFrame:
+    result = df.copy()
+    for date in df['x'].unique():
+        same_dates = result[result['x'] == date]
+        if len(same_dates) > 1:
+            for idx, (i, _) in enumerate(same_dates.iterrows()):
+                result.at[i, 'x'] += datetime.timedelta(seconds=idx * 5)
+    return result.sort_values(by='x').reset_index(drop=True)
+
+def classify_trend(slope: float) -> str:
+    if slope > 1:
+        return "UP"
+    elif slope > 0.5:
+        return "SLIGHT_UP"
+    elif slope < -1:
+        return "DOWN"
+    elif slope < -0.5:
+        return "SLIGHT_DOWN"
+    return "STABLE"
+
+def calc_bounds(mean: float, std: float, has_ext: bool) -> tuple[float, float]:
+    upper = mean + (1.3 * std if has_ext else 2 * std)
+    lower = mean - 2 * std
+    return upper, lower
+
+def remove_outliers(df: pd.DataFrame, mean: float, std: float, factor=2.0) -> pd.DataFrame:
+    return df[(df['y'] <= mean + factor * std) & (df['y'] >= mean - factor * std)]
+
+def save_slope_stats_csv():
+
+    global slope_stats
+
+    if not slope_stats:
+        logging.warning("No slope stats to save.")
+        return
+    df_stats = pd.DataFrame(slope_stats)
+    df_stats = df_stats.sort_values("slope", ascending=False)
+    df_stats.to_csv(SLOPE_STATS_PATH, index=False)
+    logging.info(f"Saved slope stats CSV: {SLOPE_STATS_PATH}")
+    slope_stats.clear()
+
+def plot_price_history(
+    df: pd.DataFrame,
+    name: str,
+    doppler: str | None = None,
+    buy_price: float | None = None,
+    selling_price: float | None = None,
+    mean: float | None = None,
+    upper: float | None = None,
+    lower: float | None = None,
+):
+    global slope_stats
+    try:
+        df = df.copy()
+        df = df.sort_values("x")
+
+        now = datetime.datetime.now()
+        start_365 = now - datetime.timedelta(days=365)
+        cutoff_date = now - datetime.timedelta(days=USE_LAST_X_DAYS)
+
+        # Filter to last 365 days max
+        df = df[df["x"] >= start_365]
+        if df.empty:
+            logging.warning(f"No sales in the last 365 days to plot for {name}")
+            return
+
+        min_date = df["x"].min()
+        max_date = df["x"].max()
+        days_span = (max_date - min_date).days or 1  # avoid zero division
+
+        x_numeric = (df["x"] - min_date).dt.total_seconds() / (24 * 3600)  # days since first sale
+        y = df["y"].values
+        slope, intercept = np.polyfit(x_numeric, y, 1) 
+
+        # Separate outliers (points outside [lower, upper]) if bounds provided
+        if lower is not None and upper is not None:
+            # Identify outliers within 3x distance from bounds
+            outliers_mask = ((df["y"] < lower) & (df["y"] >= lower - 2 * (upper - lower))) | \
+                            ((df["y"] > upper) & (df["y"] <= upper + 2 * (upper - lower)))
+            inliers = df[(df["y"] >= lower) & (df["y"] <= upper)]
+            outliers = df[outliers_mask]
+        else:
+            inliers = df
+            outliers = pd.DataFrame(columns=df.columns)
+
+
+        plt.figure(figsize=(20, 10))
+        # Plot inliers
+        plt.scatter(inliers["x"], inliers["y"], s=20, alpha=0.6, label=f"Sales (last {days_span} days)")
+
+        # Plot outliers in different color
+        if not outliers.empty:
+            plt.scatter(outliers["x"], outliers["y"], s=30, color="orange", alpha=0.9, label="Outliers")
+
+        # Trend line
+        plt.plot(df["x"], slope * x_numeric + intercept, color="red", linestyle="--", label=f"Trend (slope={slope:.5f}€ per day)")
+
+        plt.xlim(min_date, max_date)
+
+        # Vertical cutoff line for last X days
+        if min_date <= cutoff_date <= max_date:
+            plt.axvline(cutoff_date, color="purple", linestyle="--", label=f"Cutoff ({USE_LAST_X_DAYS}d ago)")
+
+        # Horizontal lines for prices/stats if provided
+        if mean is not None:
+            plt.axhline(mean, color="blue", linestyle=":", label=f"Mean Price ({mean:.2f} €)")
+        if buy_price is not None:
+            plt.axhline(buy_price, color="green", linestyle="--", label=f"Buy Price ({buy_price:.2f} €)")
+        if selling_price is not None:
+            plt.axhline(selling_price, color="magenta", linestyle="-.", label=f"Selling Price ({selling_price:.2f} €)")
+        if upper is not None:
+            plt.axhline(upper, color="gray", linestyle="--", alpha=0.7, label=f"Upper Bound ({upper:.2f} €)")
+        if lower is not None:
+            plt.axhline(lower, color="gray", linestyle="--", alpha=0.7, label=f"Lower Bound ({lower:.2f} €)")
+
+
+        plt.title(f"Price History: {name}" + (f" ({doppler})" if doppler else ""))
+        plt.xlabel("Date Sold")
+        plt.ylabel("Price (€)")
+        plt.xticks(rotation=30)
+        plt.legend()
+        plt.grid(True, alpha=0.3)
+        plt.tight_layout()
+
+        safe_name = name.replace(" ", "_").replace("/", "-").replace("|", "")
+        slope_stats.append({"name": safe_name, "slope": slope})
+
+        filename = os.path.join(PLOT_DIR, f"{safe_name}.png")
+        plt.savefig(filename)
+        plt.close()
+        logging.info(f"Saved plot: {filename}")
+
+    except Exception as e:
+        logging.warning(f"Failed to plot for {name}: {e}")
+
+# === MAIN LOGIC ===
+def calculate_price_for_item(sales_df: pd.DataFrame) -> pd.DataFrame | None:
+    if sales_df['itemName'].nunique() != 1:
+        logging.error("Multiple itemNames in input!")
         sys.exit(1)
 
-    if 'dopplerPhase' in sales_df.columns:
-        # Check if all values in 'dopplerPhase' are null
-        if sales_df['dopplerPhase'].isnull().all():
-            logging.info("All rows in dopplerPhase are None. That means no dopplerPhase.")
-        else:
-            # If not all are null, check if all values are the same
-            if sales_df['dopplerPhase'].nunique(dropna=True) == 1:
-                logging.info("All rows in dopplerPhase have the same value. Good.")
-            else:
-                logging.error("dopplerPhase contains different values.")
-    else:
-        logging.info("The 'dopplerPhase' column does not exist in the DataFrame.")
-
-
     name = sales_df["itemName"].iloc[0]
-    dopplerPhase = sales_df["dopplerPhase"].iloc[0]
+    doppler = sales_df["dopplerPhase"].iloc[0] if "dopplerPhase" in sales_df.columns else None
 
-    # extract dates from scraped sales for current item
-    x_dates = pd.to_datetime(sales_df["dateSold"], format="%Y-%m-%d", yearfirst=True, exact=False)
 
-    logging.debug("x_dates: \n%s", str(x_dates))
+    logging.info("Analyzing: %s | dopplerPhase: %s", name, doppler)
 
-    # EXTRACT PRICES FROM SALES HISTORY
-    y_prices = sales_df["price"]
+    dates = pd.to_datetime(sales_df["dateSold"], errors="coerce")
+    prices = sales_df["price"]
 
-    logging.debug("y_prices: \n%s", str(y_prices))
-
-    # MERGE DATES AND PRICES INTO 1 DF
-    if isinstance(x_dates, datetime.datetime) or len(x_dates) < 10:
-        logging.warning("TOO FEW SALES FOR ITEM : name: %s, dopplerPhase: %s", name, dopplerPhase)
+    if len(dates) < 10:
+        logging.warning("Too few sales for item: %s", name)
         return None
-    else:
-        df_date_price = pd.DataFrame(data={"x": x_dates, "y": y_prices})
 
-    # SORT BY ASCENDING DATE
-    df_date_price = df_date_price.sort_values(by="x", ascending=True)
-    df_date_price = df_date_price.reset_index(drop=True)
+    df = pd.DataFrame({"x": dates, "y": prices}).dropna()
+    df = jitter_duplicate_dates(df)
 
-    # ADD JITTERING TO SAME DATES SO THEY DONT OVERLAP
-    unique_dates = df_date_price["x"].unique()
-    for date in unique_dates:
+    # Filter recent sales
+    now = datetime.datetime.now()
+    cutoff = now - datetime.timedelta(days=USE_LAST_X_DAYS)
+    min_cutoff = now - datetime.timedelta(days=USE_LAST_X_DAYS * 2)
+    recent = df[df["x"] >= cutoff]
 
-        all_rows_for_date = df_date_price.loc[df_date_price["x"] == date]
+    multiplier = next(
+        (m for threshold, m in [
+            (4, 0.7), (7, 0.78), (10, 0.85), (15, 0.9), (30, 0.95)
+        ] if len(recent) < threshold),
+        1
+    )
 
-        if len(all_rows_for_date) > 1:
-
-            k = 0
-
-            for h, row in all_rows_for_date.iterrows():
-                time_change = datetime.timedelta(seconds=k*5)
-                new_time = row["x"] + time_change
-                all_rows_for_date.at[h, "x"] = new_time
-                k += 1
-
-        df_date_price.loc[df_date_price["x"] == date] = all_rows_for_date
-    df_date_price = df_date_price.sort_values(by="x", ascending=True)
-    df_date_price = df_date_price.reset_index(drop=True)
-
-    final_df = pd.DataFrame(
-        data={"x": df_date_price["x"], "y": df_date_price["y"]})
-    final_df = final_df.sort_values(by="x", ascending=True)
-    final_df = final_df.reset_index(drop=True)
-
-    # LAST 15 DAYS
-    today = datetime.datetime.now()
-    cutoff_date = today - datetime.timedelta(days=use_last_x_days)
-    min_date = today - datetime.timedelta(days=use_last_x_days * 2)
-
-    last_15_days_df = final_df.loc[final_df["x"] >= cutoff_date]
-    logging.debug("last_15_days_df: \n%s",
-                    last_15_days_df.to_string())
-
-    sales_count_multiplier = 1
-
-    if len(last_15_days_df) < 4:
-        sales_count_multiplier = 0.7
-        logging.debug("sales_count_multiplier: %s", str(sales_count_multiplier))
-    elif len(last_15_days_df) < 7:
-        sales_count_multiplier = 0.78
-        logging.debug("sales_count_multiplier: %s", str(sales_count_multiplier))
-    elif len(last_15_days_df) < 10:
-        sales_count_multiplier = 0.85
-        logging.debug("sales_count_multiplier: %s", str(sales_count_multiplier))
-    elif len(last_15_days_df) < 15:
-        sales_count_multiplier = 0.9
-        logging.debug("sales_count_multiplier: %s", str(sales_count_multiplier))
-    elif len(last_15_days_df) < 30:
-        sales_count_multiplier = 0.95
-        logging.debug("sales_count_multiplier: %s", str(sales_count_multiplier))
-    else:
-        logging.debug("sales_count_multiplier: %s", str(sales_count_multiplier))
-
-    # Check if there are at least 15 sales in the last 15 days
-    if len(last_15_days_df) < min_sales_in_last_x_days:
-        # Calculate the number of additional sales needed
-        additional_sales_needed = min_sales_in_last_x_days - \
-            len(last_15_days_df)
-
-        if not len(final_df[final_df['x'] >= min_date]) >= min_sales_in_last_x_days:
-            logging.warning(
-                "LESS THAN MIN_SALES: %s, SALES FOR ITEM: %s, AFTER MIN_DATE: %s", str(min_sales_in_last_x_days), name, str(min_date))
+    if len(recent) < MIN_SALES_IN_LAST_X_DAYS:
+        top_up_needed = MIN_SALES_IN_LAST_X_DAYS - len(recent)
+        older = df[df["x"] < cutoff].tail(top_up_needed)
+        if len(df[df["x"] >= min_cutoff]) < MIN_SALES_IN_LAST_X_DAYS:
+            logging.warning("Not enough sales even after top-up for: %s", name)
             return None
+        recent = pd.concat([recent, older]).sort_values("x").reset_index(drop=True)
 
-        # Get the older sales to top up
-        older_sales_df = final_df[final_df['x'] <
-                                    cutoff_date].tail(additional_sales_needed)
+    mean = recent["y"].mean()
+    std = recent["y"].std()
+    has_ext = has_wear(name)
 
-        # Append the older sales to the last 15 days sales
-        last_15_days_final_df = pd.concat(
-            [last_15_days_df, older_sales_df]).sort_values(by="x", ascending=True).reset_index(drop=True)
+    upper, lower = calc_bounds(mean, std, has_ext)
+    no_first_outliers = recent[(recent['y'] >= lower) & (recent['y'] <= upper)]
+
+    if len(no_first_outliers) < 10:
+        logging.info("Too few sales after removing 1st outliers.")
+        return None
+
+    mean = no_first_outliers["y"].mean()
+    std = no_first_outliers["y"].std()
+
+    final_df = remove_outliers(no_first_outliers, mean, std)
+    if len(final_df) < 10:
+        logging.info("Too few sales after removing 2nd outliers.")
+        return None
+
+    x_idxs = [i for i in range(len(df)) if df.iloc[i]['x'] in final_df["x"].values and df.iloc[i]['y'] in final_df["y"].values]
+    slope, intercept = np.polyfit(x_idxs, final_df["y"], 1)
+    trend = classify_trend(slope)
+
+    logging.info("Trend: %s (slope=%.2f)", trend, slope)
+
+    a = round(mean + std, 2)
+    b = round(mean - std, 2)
+    c = a * (1 - skinbaron_percentage_win)
+    d = c - b
+    e = c * our_percentage_win
+    is_profitable = d > max(e, 0.25)
+
+    is_new = any(y in name for y in map(str, range(2020, 2026)))
+
+    if is_profitable and slope > -1 and not is_new:
+        upper_sales = final_df[final_df["y"] >= mean]
+        avg_upper = upper_sales["y"].mean() if not upper_sales.empty else mean + std * 0.75
+        selling_price = min(round(mean + std * 0.75, 2), round(avg_upper - 0.01, 2))
+        sell_volume = selling_price * (1 - skinbaron_percentage_win)
+        min_profit = max(sell_volume * our_percentage_win, 0.3)
+        buy_price = sell_volume - min_profit
+        if slope < -0.75: buy_price *= 0.7
+        elif slope < -0.5: buy_price *= 0.8
+        elif slope < -0.25: buy_price *= 0.9
     else:
-        last_15_days_final_df = last_15_days_df
-    logging.debug("last_15_days_final_df: \n%s",
-                    last_15_days_final_df.to_string())
+        logging.info("Low quality item, target lowball buy offers.")
+        selling_price = max(mean - 0.01, final_df["y"].mean() - 0.01)
+        sell_volume = selling_price * (1 - skinbaron_percentage_win)
+        min_profit = max(sell_volume * (our_percentage_win * 0.25), 0.1)
+        buy_price = sell_volume - min_profit
+        if slope < -2: buy_price *= 0.6
+        elif slope < -1.5: buy_price *= 0.7
+        elif slope < -1.25: buy_price *= 0.8
+        elif slope < -1: buy_price *= 0.9
+        elif slope < -0.5: buy_price *= 0.95
 
-    if not last_15_days_final_df.empty:
+    buy_price *= multiplier
 
-        mean_graph = last_15_days_final_df["y"].to_numpy().mean()
-        logging.debug("mean_graph: %s", str(mean_graph))
-        std_graph = last_15_days_final_df["y"].to_numpy().std()
-        logging.debug("std_graph: %s", str(std_graph))
+    if buy_price <= 0.01:
+        logging.warning("too small / negative buy price, skipping: %s", name)
+        return None
 
-        # OUTLIERS
-        hasExterior = checkIfHasWear(name)
+    tier = next((t for p, t in [
+        (0.1, 7), (0.2, 6), (0.5, 5), (1, 4), (3, 3), (10, 2)
+    ] if min_profit < p), 1)
 
-        if hasExterior:
-            logging.debug("HAS EXT")
-            upper_bound = mean_graph + 1.3 * std_graph
-            lower_bound = mean_graph - 2 * std_graph
-        else:
-            upper_bound = mean_graph + 2 * std_graph
-            lower_bound = mean_graph - 2 * std_graph
-        logging.debug("upper_bound: %s", str(upper_bound))
-        logging.debug("lower_bound: %s", str(lower_bound))
+    buy_price = math.floor(buy_price * 100) / 100
+    selling_price = math.floor(selling_price * 100) / 100
+    min_profit = round(selling_price * (1 - skinbaron_percentage_win) - buy_price, 2)
 
-        last_15_days_final_first_outliers_df = last_15_days_final_df[~((
-            last_15_days_final_df['y'] <= upper_bound) & (last_15_days_final_df['y'] >= lower_bound))].sort_values(by="x", ascending=True).reset_index(drop=True)
-        logging.debug("last_15_days_final_first_outliers_df: \n%s",
-                        last_15_days_final_first_outliers_df.to_string())
+    result = pd.DataFrame([{
+        "name": name,
+        "buy_price": buy_price,
+        "selling_price": selling_price,
+        "min_profit": min_profit,
+        "mean_profitability": not (is_profitable and slope > -1 and not is_new),
+        "tier": tier
+    }])
 
-        logging.info("found %s outliers on first time",
-                        str(len(last_15_days_final_first_outliers_df)))
+    if PLOT:
+        plot_price_history(
+            df=df,
+            name=name,
+            doppler=doppler,
+            buy_price=buy_price,
+            selling_price=selling_price,
+            mean=mean,
+            upper=upper,
+            lower=lower
+        )
 
-        last_15_days_final_df = last_15_days_final_df[(
-            last_15_days_final_df['y'] <= upper_bound) & (last_15_days_final_df['y'] >= lower_bound)].sort_values(by="x", ascending=True).reset_index(drop=True)
-        logging.debug("last_15_days_final_df: \n%s",
-                        last_15_days_final_df.to_string())
-
-        if len(last_15_days_final_df) < 10:
-            logging.debug(
-                "AFTER REMOVING OUTLIERS LESS THAN 10 SALES LEFT... SKIPPING TO NEXT ITEM.")
-            return None
-
-        density = len(last_15_days_final_df)
-        if density > 640:
-            markersize = 2
-        elif density > 320:
-            markersize = 3
-        elif density > 160:
-            markersize = 4
-        elif density > 80:
-            markersize = 5
-        elif density > 40:
-            markersize = 6
-        elif density > 20:
-            markersize = 8
-        elif density > 10:
-            markersize = 10
-        elif density > 0:
-            markersize = 12
-
-        mean = last_15_days_final_df["y"].to_numpy().mean()
-        logging.debug("mean: %s", str(mean))
-        std = last_15_days_final_df["y"].to_numpy().std()
-        logging.debug("std: %s", str(std))
-
-        last_15_days_final_second_outliers_df = last_15_days_final_df[~((
-            last_15_days_final_df['y'] <= mean + std * 2) & (last_15_days_final_df['y'] >= mean - std * 2))].sort_values(by="x", ascending=True).reset_index(drop=True)
-        logging.debug("last_15_days_final_second_outliers_df: \n%s",
-                        last_15_days_final_second_outliers_df.to_string())
-
-        logging.info("found %s outliers on second time",
-                        str(len(last_15_days_final_second_outliers_df)))
-
-        logging.debug("len before 2nd outliers: %s",
-                        str(len(last_15_days_final_df)))
-        last_15_days_final_df = last_15_days_final_df[(
-            last_15_days_final_df['y'] <= mean + std * 2) & (last_15_days_final_df['y'] >= mean - std * 2)].sort_values(by="x", ascending=True).reset_index(drop=True)
-        logging.debug("last_15_days_final_df: \n%s",
-                        last_15_days_final_df.to_string())
-        logging.debug("len after 2nd outliers: %s",
-                        str(len(last_15_days_final_df)))
-
-        mean = last_15_days_final_df["y"].to_numpy().mean()
-        logging.debug("mean: %s", str(mean))
-        std = last_15_days_final_df["y"].to_numpy().std()
-        logging.debug("std: %s", str(std))
-
-        i_list = []
-        # Plot original data points
-        for i in range(len(final_df)):
-            if final_df["x"].iloc[i] in last_15_days_final_df["x"].values and final_df["y"].iloc[i] in last_15_days_final_df["y"].values:
-                i_list.append(i)
-        i_list = np.array(i_list)
-        pd.set_option("display.float_format", lambda x: "%.2f" % x)
-        print(i_list)
-        slope, intercept = np.polyfit(
-            i_list, last_15_days_final_df['y'], 1)
-        print(slope, intercept)
-        if slope < -1:
-            logging.info(
-                "SALES ON A DOWNWARD TREND: %s", str(slope))
-        elif slope < -0.5:
-            logging.info(
-                "SALES ON A SLIGHT DOWNWARD TREND: %s", str(slope))
-        elif slope > 1:
-            logging.info("SALES ON A UPWARD TREND: %s", str(slope))
-        elif slope > 0.5:
-            logging.info("SALES ON A SLIGHT UPWARD TREND: %s", str(slope))
-        elif slope > -0.5 and slope < 0.5:
-            logging.info("SALES ON A STAGNANT TREND: %s", str(slope))
-
-        # CALCULATE BUYING AND OPTIMAL SELLING PRICE
-        a = round(mean + std, 2)
-        b = round(mean - std, 2)
-        c = a * (1-skinbaron_percentage_win)
-        d = c - b
-        e = c * our_percentage_win
-        f = d > max(e, 0.25)
-
-        if "2020" in name or "2021" in name or "2022" in name or "2023" in name or "2024" in name or "2025" in name:
-            isNew = True
-        else:
-            isNew = False
-
-        logging.debug("a: %s", str(a))
-        logging.debug("b: %s", str(b))
-        logging.debug("c: %s", str(c))
-        logging.debug("d: %s", str(d))
-        logging.debug("e: %s", str(e))
-
-        if f and slope > -1 and not isNew:
-            if round(last_15_days_final_df.loc[last_15_days_final_df["y"] >= mean]["y"].mean() - 0.03, 2) < round(mean + std * .75, 2):
-                logging.warning("CHECK %s", name)
-            selling_price = min(round(mean + std * .75, 2),
-                                round(last_15_days_final_df.tail(min_sales_in_last_x_days).loc[last_15_days_final_df.tail(min_sales_in_last_x_days)["y"] > mean]["y"].mean() - 0.01, 2))
-
-            sales_volume = selling_price * (1-skinbaron_percentage_win)
-            min_profit = max(sales_volume * our_percentage_win, 0.3)
-
-            buy_price = sales_volume - min_profit
-
-            if slope < -0.75:
-                buy_price *= 0.7
-            elif slope < -0.5:
-                buy_price *= 0.8
-            elif slope < -0.25:
-                buy_price *= 0.9
-
-            buy_price = buy_price * sales_count_multiplier
-        else:
-            logging.info(
-                "%s IS ASS BUT CAN HOPE FOR VERY LOW OFFERS", name)
-            selling_price = max(mean - 0.01, round(
-                last_15_days_final_df["y"].tail(min_sales_in_last_x_days).mean(), 2) - 0.01)
-
-            sales_volume = selling_price * (1-skinbaron_percentage_win)
-            min_profit = max(sales_volume * (our_percentage_win*0.25), 0.1)
-            buy_price = sales_volume - min_profit
-
-            if slope < -2:
-                buy_price *= 0.6
-            elif slope < -1.5:
-                buy_price *= 0.7
-            elif slope < -1.25:
-                buy_price *= 0.8
-            elif slope < -1:
-                buy_price *= 0.9
-            elif slope < -0.5:
-                buy_price *= 0.95
-
-            buy_price = buy_price * sales_count_multiplier
-
-        logging.info("buy_price: %s", str(buy_price))
-        logging.info("selling_price: %s", str(selling_price))
-
-        logging.info(
-            "selling_price: %s, sales_volume: %s, min_profit: %s, buy_price: %s", str(selling_price), str(sales_volume), str(min_profit), str(buy_price))
-
-        if buy_price < 0:
-            logging.warning(
-                "%s has negative buy price, skipping to next item.", name)
-            return None
-
-        logging.info(
-            "min_profit: %s", str(min_profit))
-
-        if min_profit < 0.1:
-            logging.error(
-                "%s IS F", name)
-            tier = 7
-        elif min_profit < 0.2:
-            logging.info(
-                "%s IS D", name)
-            tier = 6
-        elif min_profit < 0.5:
-            logging.info(
-                "%s IS C", name)
-            tier = 5
-        elif min_profit < 1:
-            logging.info(
-                "%s IS B", name)
-            tier = 4
-        elif min_profit < 3:
-            logging.info(
-                "%s IS A", name)
-            tier = 3
-        elif min_profit < 10:
-            logging.info(
-                "%s IS S", name)
-            tier = 2
-        else:
-            logging.info(
-                "%s IS S+", name)
-            tier = 1
-
-        buy_price = math.floor(buy_price * 100) / 100
-        selling_price = math.floor(selling_price * 100) / 100
-        min_profit = round(selling_price * (1-skinbaron_percentage_win) - buy_price, 2)
-
-        df = pd.DataFrame([[name, buy_price, selling_price, min_profit, not (f and slope > -1 and not isNew), tier]], 
-                          columns=["name", "buy_price", "selling_price", "min_profit", "mean_profitability", "tier"])
-        return df
+    return result
