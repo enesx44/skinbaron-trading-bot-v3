@@ -18,14 +18,8 @@ FEE_CODES_CSV = "./manual_data/price_calculation/fee_codes.csv"
 
 __base_path__ = "./generated_files/price_calculation"
 
-PLOT = True  # Set to True to save sales history plots
 PLOT_DIR = __base_path__ + "/plots"
-SLOPE_STATS_PATH = __base_path__ + "/slope_stats.csv"
-
-if PLOT:    
-    # Clear all previous plots before plotting new ones
-    for file in glob.glob(os.path.join(PLOT_DIR, "*.png")):
-        os.remove(file)
+SLOPE_STATS_PATH = __base_path__ + "/slope_stats.csv"  
 
 # === GLOBAL STATE ===
 fee_code_name = None
@@ -56,6 +50,11 @@ def init_fee_code():
     our_percentage_win = round(MAX_TOTAL_COMMISSIONS - skinbaron_percentage_win, 2)
 
 # === UTILS ===
+def clear_plots():    
+    # Clear all previous plots before plotting new ones
+    for file in glob.glob(os.path.join(PLOT_DIR, "*.png")):
+        os.remove(file)
+
 def has_wear(name: str) -> bool:
     wear_levels = ["(Factory New)", "(Minimal Wear)", "(Field-Tested)", "(Well-Worn)", "(Battle-Scarred)"]
     return any(level in name for level in wear_levels)
@@ -196,7 +195,7 @@ def plot_price_history(
         logging.warning(f"Failed to plot for {name}: {e}")
 
 # === MAIN LOGIC ===
-def calculate_price_for_item(sales_df: pd.DataFrame) -> pd.DataFrame | None:
+def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.DataFrame | None:
     if sales_df['itemName'].nunique() != 1:
         logging.error("Multiple itemNames in input!")
         sys.exit(1)
@@ -317,7 +316,7 @@ def calculate_price_for_item(sales_df: pd.DataFrame) -> pd.DataFrame | None:
         "tier": tier
     }])
 
-    if PLOT:
+    if should_plot:
         plot_price_history(
             df=df,
             name=name,

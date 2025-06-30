@@ -23,6 +23,9 @@ def add_recommended_price_column(linked_purchases_df: pd.DataFrame) -> pd.DataFr
 
     recommended_prices = {}  # Dictionary to store recommended prices for each name
 
+    logging.info("initialize fee code")
+    price_calculation.init_fee_code()
+
     logging.info("Looping through unique names")
     for index, name in enumerate(unique_names, start=1):  # Add index for tracking progress
         logging.info("Processing item %d/%d: %s", index, len(unique_names), name)  # Progress logging
@@ -47,11 +50,8 @@ def add_recommended_price_column(linked_purchases_df: pd.DataFrame) -> pd.DataFr
         logging.info("Adding doppler phase column for price calculation")
         sales_df = scraper_sales.add_doppler_phase_column(sales_df)
 
-        logging.info("initialize fee code")
-        price_calculation.init_fee_code()
-
         logging.info("Calculating recommended price")
-        price_data_df = price_calculation.calculate_price_for_item(sales_df)
+        price_data_df = price_calculation.calculate_price_for_item(sales_df, False)
 
         if price_data_df is None or price_data_df.empty:
             logging.info("Skipping %s as no price data was available", name)
