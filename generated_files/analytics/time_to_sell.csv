@@ -21,10 +21,10 @@ AWP | Atheris (Factory New),7.38,8,3.41,27.28,0.18
 AWP | Black Nile (Factory New),7.15,13,1.11,14.43,0.16
 Five-SeveN | Urban Hazard (Factory New),6.24,17,0.56,9.52,0.16
 USP-S | Blueprint (Minimal Wear),21.38,16,2.03,32.48,0.15
+StatTrak™ USP-S | Ticket to Hell (Minimal Wear),11.38,16,1.0,16.0,0.14
 Operator | FBI SWAT,10.13,15,1.03,15.45,0.14
 Gamma 2 Case,0.01,1,0.22,0.22,0.14
 AK-47 | Inheritance (Field-Tested),6.5,4,8.65,34.6,0.13
-StatTrak™ USP-S | Ticket to Hell (Minimal Wear),11.33,15,1.03,15.45,0.13
 Operation Wildfire Case,4.5,12,0.64,7.68,0.13
 M4A1-S | Wash me plz (Factory New),45.8,41,0.52,21.32,0.12
 StatTrak™ M4A1-S | Emphorosaur-S (Minimal Wear),7.0,10,1.29,12.9,0.12
@@ -34,6 +34,7 @@ M4A4 | Desolate Space (Minimal Wear),6.83,6,3.03,18.18,0.11
 Galil AR | Eco (Field-Tested),3.17,6,1.49,8.94,0.11
 MP9 | Starlight Protector (Field-Tested),6.77,13,0.63,8.19,0.11
 Dreams & Nightmares Case,12.56,32,0.2,6.4,0.11
+SCAR-20 | Carbon Fiber (Factory New),0.01,1,0.17,0.17,0.11
 AK-47 | Nightwish (Minimal Wear),5.0,6,2.02,12.12,0.1
 Ground Rebel  | Elite Crew,8.55,11,1.07,11.77,0.1
 M4A4 | Tooth Fairy (Minimal Wear),0.01,1,0.15,0.15,0.1
@@ -78,11 +79,11 @@ Glock-18 | Vogue (Factory New),29.21,14,0.73,10.22,0.05
 AWP | Acheron (Factory New),24.17,12,0.79,9.48,0.05
 M4A1-S | Mud-Spec (Factory New),30.4,15,0.61,9.15,0.05
 M4A4 | Converter (Factory New),17.0,9,0.98,8.82,0.05
+SSG 08 | Acid Fade (Factory New),26.61,18,0.47,8.46,0.05
 Desert Eagle | Printstream (Field-Tested),6.0,3,2.8,8.4,0.05
 USP-S | Check Engine (Factory New),26.53,15,0.56,8.4,0.05
 StatTrak™ Glock-18 | Umbral Rabbit (Factory New),5.33,3,2.65,7.95,0.05
 Gift Package,10.25,8,0.96,7.68,0.05
-SSG 08 | Acid Fade (Factory New),28.18,17,0.44,7.48,0.05
 Desert Eagle | Tilted (Minimal Wear),27.8,25,0.27,6.75,0.05
 Charm | Big Kev,18.87,15,0.43,6.45,0.05
 AK-47 | Legion of Anubis (Field-Tested),7.88,8,0.74,5.92,0.05
@@ -90,6 +91,7 @@ Sous-Lieutenant Medic | Gendarmerie Nationale,4.75,4,1.34,5.36,0.05
 AK-47 | Crossfade (Minimal Wear),6.0,5,1.04,5.2,0.05
 Inferno 2 Pin,7.25,8,0.61,4.88,0.05
 M4A1-S | Emphorosaur-S (Minimal Wear),10.83,12,0.39,4.68,0.05
+AK-47 | Ice Coaled (Field-Tested),5.71,7,0.66,4.62,0.05
 M4A4 | Neo-Noir (Minimal Wear),2.33,3,1.23,3.69,0.05
 MP9 | Food Chain (Field-Tested),4.14,7,0.45,3.15,0.05
 Operation Phoenix Weapon Case,5.0,10,0.3,3.0,0.05
@@ -125,7 +127,6 @@ MP9 | Starlight Protector (Minimal Wear),5.33,3,1.53,4.59,0.04
 1st Lieutenant Farlow | SWAT,11.33,6,0.76,4.56,0.04
 Charm | Hot Sauce,19.54,13,0.34,4.42,0.04
 P90 | Asiimov (Field-Tested),4.67,3,1.47,4.41,0.04
-AK-47 | Ice Coaled (Field-Tested),6.67,6,0.73,4.38,0.04
 StatTrak™ M4A1-S | Night Terror (Field-Tested),26.88,16,0.26,4.16,0.04
 SSG 08 | Dragonfire (Minimal Wear),1.0,1,3.62,3.62,0.04
 UMP-45 | K.O. Factory (Field-Tested),11.88,8,0.45,3.6,0.04
@@ -141,8 +142,10 @@ AK-47 | Slate (Well-Worn),5.6,5,0.59,2.95,0.04
 The Elite Mr. Muhlik | Elite Crew,1.0,1,2.54,2.54,0.04
 Sticker | Eternal Fire (Glitter) | Copenhagen 2024,6.57,7,0.35,2.45,0.04
 AK-47 | Phantom Disruptor (Minimal Wear),3.2,5,0.44,2.2,0.04
+Glock-18 | Shinobu (Field-Tested),2.33,3,0.71,2.13,0.04
 USP-S | Ticket to Hell (Minimal Wear),4.8,10,0.2,2.0,0.04
 AWP | Atheris (Field-Tested),2.0,4,0.45,1.8,0.04
+AK-47 | Searing Rage (Field-Tested),2.2,5,0.3,1.5,0.04
 AK-47 | Inheritance (Minimal Wear),20.0,1,28.79,28.79,0.03
 eSports 2014 Summer Case,27.75,4,3.05,12.2,0.03
 ★ Shadow Daggers | Doppler (Factory New),8.0,1,11.3,11.3,0.03
@@ -191,11 +194,11 @@ Cmdr. Frank 'Wet Sox' Baroud | SEAL Frogman,2.0,1,3.63,3.63,0.03
 Dual Berettas | Cobalt Quartz (Factory New),15.88,8,0.44,3.52,0.03
 Sticker | High Heat,48.86,22,0.16,3.52,0.03
 Phoenix Pin,18.83,6,0.58,3.48,0.03
+Five-SeveN | Urban Hazard (Minimal Wear),9.2,5,0.68,3.4,0.03
 Lt. Commander Ricksaw | NSWC SEAL,43.6,5,0.68,3.4,0.03
 Glove Case,22.31,13,0.26,3.38,0.03
 Galil AR | Signal (Factory New),25.78,9,0.37,3.33,0.03
 M4A4 | Desolate Space (Well-Worn),5.5,2,1.64,3.28,0.03
-Five-SeveN | Urban Hazard (Minimal Wear),7.25,4,0.8,3.2,0.03
 StatTrak™ Desert Eagle | Trigger Discipline (Minimal Wear),40.8,5,0.64,3.2,0.03
 Primeiro Tenente | Brazilian 1st Battalion,4.0,1,3.18,3.18,0.03
 FAMAS | Commemoration (Minimal Wear),3.0,1,3.12,3.12,0.03
@@ -239,7 +242,6 @@ Sticker | Cloud9 (Glitter) | Copenhagen 2024,83.0,19,0.11,2.09,0.03
 Glock-18 | Water Elemental (Minimal Wear),7.0,2,1.04,2.08,0.03
 Sticker | Imperial Esports (Glitter) | Copenhagen 2024,15.17,6,0.34,2.04,0.03
 Death Sentence Pin,8.33,3,0.66,1.98,0.03
-Glock-18 | Shinobu (Field-Tested),3.0,2,0.95,1.9,0.03
 M4A1-S | Night Terror (Factory New),30.64,11,0.17,1.87,0.03
 Glock-18 | Umbral Rabbit (Minimal Wear),12.25,4,0.46,1.84,0.03
 MP9 | Mount Fuji (Factory New),11.0,5,0.36,1.8,0.03
@@ -261,7 +263,6 @@ Galil AR | Stone Cold (Minimal Wear),4.67,3,0.49,1.47,0.03
 MAC-10 | Neon Rider (Field-Tested),4.0,2,0.73,1.46,0.03
 Name Tag,11.6,5,0.28,1.4,0.03
 Sticker | Rainbow Route (Holo),3.8,5,0.27,1.35,0.03
-AK-47 | Searing Rage (Field-Tested),2.5,4,0.32,1.28,0.03
 Gamma Case,6.0,2,0.64,1.28,0.03
 Bravo Pin,3.5,2,0.63,1.26,0.03
 'Two Times' McCoy | TACP Cavalry,6.75,4,0.3,1.2,0.03
@@ -277,6 +278,7 @@ Sticker | Eternal Fire | Copenhagen 2024,19.09,11,0.09,0.99,0.03
 StatTrak™ AWP | Mortis (Minimal Wear),1.0,1,0.94,0.94,0.03
 Enforcer | Phoenix,7.0,3,0.31,0.93,0.03
 Rezan The Ready | Sabre,4.5,2,0.46,0.92,0.03
+Charm | Baby's AK,6.4,5,0.18,0.9,0.03
 Charm | Glamour Shot,21.3,10,0.09,0.9,0.03
 AWP | Pit Viper (Minimal Wear),4.0,2,0.43,0.86,0.03
 "Music Kit | bbno$, u mad!",4.5,4,0.2,0.8,0.03
@@ -285,7 +287,6 @@ Desert Eagle | Mecha Industries (Field-Tested),2.0,1,0.74,0.74,0.03
 Maximus | Sabre,4.0,2,0.36,0.72,0.03
 Shadow Case,1.0,2,0.35,0.7,0.03
 Glock-18 | Vogue (Minimal Wear),1.0,1,0.69,0.69,0.03
-Charm | Baby's AK,7.5,4,0.17,0.68,0.03
 M4A4 | Evil Daimyo (Field-Tested),5.33,3,0.22,0.66,0.03
 Five-SeveN | Monkey Business (Field-Tested),2.0,3,0.2,0.6,0.03
 Revolution Case,1.67,6,0.1,0.6,0.03
