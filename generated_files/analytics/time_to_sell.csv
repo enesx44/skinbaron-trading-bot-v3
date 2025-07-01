@@ -63,6 +63,7 @@ Desert Eagle | Sputnik (Factory New),11.8,10,0.81,8.1,0.06
 Glock-18 | Nuclear Garden (Minimal Wear),10.11,9,0.83,7.47,0.06
 USP-S | Ticket to Hell (Factory New),13.33,12,0.62,7.44,0.06
 AK-47 | The Outsiders (Field-Tested),9.56,9,0.73,6.57,0.06
+AK-47 | Legion of Anubis (Minimal Wear),5.43,7,0.87,6.09,0.06
 Galil AR | Stone Cold (Field-Tested),8.6,10,0.56,5.6,0.06
 Glock-18 | Candy Apple (Factory New),13.6,20,0.27,5.4,0.06
 Chroma 3 Case,5.14,7,0.76,5.32,0.06
@@ -85,7 +86,6 @@ SSG 08 | Acid Fade (Factory New),28.18,17,0.44,7.48,0.05
 Desert Eagle | Tilted (Minimal Wear),27.8,25,0.27,6.75,0.05
 Charm | Big Kev,18.87,15,0.43,6.45,0.05
 AK-47 | Legion of Anubis (Field-Tested),7.88,8,0.74,5.92,0.05
-AK-47 | Legion of Anubis (Minimal Wear),5.83,6,0.9,5.4,0.05
 Sous-Lieutenant Medic | Gendarmerie Nationale,4.75,4,1.34,5.36,0.05
 AK-47 | Crossfade (Minimal Wear),6.0,5,1.04,5.2,0.05
 Inferno 2 Pin,7.25,8,0.61,4.88,0.05
@@ -173,6 +173,7 @@ Cmdr. Mae 'Dead Cold' Jamison | SWAT,25.67,3,1.48,4.44,0.03
 Glock-18 | Shinobu (Minimal Wear),6.67,3,1.47,4.41,0.03
 Sticker | Apeks (Glitter) | Copenhagen 2024,49.0,12,0.36,4.32,0.03
 StatTrak™ Glock-18 | Umbral Rabbit (Minimal Wear),12.25,4,1.07,4.28,0.03
+AK-47 | Ice Coaled (Minimal Wear),10.6,5,0.84,4.2,0.03
 "Music Kit | Knock2, Make U SWEAT!",63.43,7,0.6,4.2,0.03
 AK-47 | Frontside Misty (Minimal Wear),6.0,1,4.17,4.17,0.03
 Sticker | GO,39.67,9,0.46,4.14,0.03
@@ -200,7 +201,6 @@ Primeiro Tenente | Brazilian 1st Battalion,4.0,1,3.18,3.18,0.03
 FAMAS | Commemoration (Minimal Wear),3.0,1,3.12,3.12,0.03
 Rezan the Redshirt | Sabre,8.25,4,0.78,3.12,0.03
 Welcome to the Clutch Pin,14.2,5,0.62,3.1,0.03
-AK-47 | Ice Coaled (Minimal Wear),16.0,3,1.03,3.09,0.03
 Chem-Haz Capitaine | Gendarmerie Nationale,8.0,1,2.99,2.99,0.03
 B Squadron Officer | SAS,8.0,3,0.99,2.97,0.03
 M4A1-S | Nitro (Factory New),3.0,1,2.86,2.86,0.03
@@ -312,6 +312,7 @@ Sticker | Ouchie (Foil),13.0,1,2.21,2.21,0.02
 M4A4 | Magnesium (Factory New),56.6,5,0.42,2.1,0.02
 Special Agent Ava | FBI,6.0,1,2.08,2.08,0.02
 USP-S | Lead Conduit (Minimal Wear),27.0,5,0.38,1.9,0.02
+Stockholm 2021 Contenders Sticker Capsule,62.58,12,0.15,1.8,0.02
 Aces High Pin,12.0,1,1.78,1.78,0.02
 MAG-7 | SWAG-7 (Minimal Wear),59.12,8,0.22,1.76,0.02
 Sticker | Wildcard (Glitter) | Shanghai 2024,88.78,9,0.19,1.71,0.02
@@ -340,7 +341,6 @@ AK-47 | Neon Revolution (Minimal Wear),5.0,1,1.21,1.21,0.02
 Desert Eagle | Tilted (Field-Tested),58.07,15,0.08,1.2,0.02
 Sticker | 3DMAX (Glitter) | Shanghai 2024,31.5,8,0.14,1.12,0.02
 AWP | Duality (Battle-Scarred),43.5,2,0.55,1.1,0.02
-Stockholm 2021 Contenders Sticker Capsule,67.0,11,0.1,1.1,0.02
 AK-47 | Searing Rage (Minimal Wear),8.0,1,1.09,1.09,0.02
 Lieutenant Rex Krikey | SEAL Frogman,6.0,1,1.07,1.07,0.02
 StatTrak™ FAMAS | Mecha Industries (Minimal Wear),5.0,1,1.07,1.07,0.02
@@ -384,6 +384,7 @@ Desert Eagle | Light Rail (Minimal Wear),18.67,3,0.24,0.72,0.02
 Sticker | Bad News Eagles (Holo) | Paris 2023,16.0,2,0.36,0.72,0.02
 Sticker | Boom Blast (Glitter),100.12,8,0.09,0.72,0.02
 USP-S | Check Engine (Minimal Wear),18.0,3,0.24,0.72,0.02
+AK-47 | Slate (Field-Tested),15.2,5,0.14,0.7,0.02
 USP-S | Jawbreaker (Field-Tested),6.0,1,0.7,0.7,0.02
 Charm | Lil' Whiskers,7.5,2,0.34,0.68,0.02
 Charm | Lil' Squatch,11.67,3,0.22,0.66,0.02
@@ -397,7 +398,6 @@ M4A4 | Turbine (Field-Tested),7.0,1,0.58,0.58,0.02
 P250 | Franklin (Minimal Wear),7.5,2,0.29,0.58,0.02
 Patch | Phoenix,10.0,1,0.57,0.57,0.02
 Tec-9 | Fuel Injector (Field-Tested),7.0,1,0.57,0.57,0.02
-AK-47 | Slate (Field-Tested),19.0,4,0.14,0.56,0.02
 M4A1-S | Mud-Spec (Minimal Wear),25.12,8,0.07,0.56,0.02
 SSG 08 | Carbon Fiber (Factory New),45.0,1,0.56,0.56,0.02
 Souvenir USP-S | Purple DDPAT (Field-Tested),8.0,1,0.56,0.56,0.02

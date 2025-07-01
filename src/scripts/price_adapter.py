@@ -371,8 +371,8 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
     acceptable_offers_changes_df = acceptable_offers_changes_df.sort_values("price_change").reset_index(drop=True)
     logging.debug("acceptable_offers_changes_df: \n%s", acceptable_offers_changes_df.to_string())
 
-    #edit_prices(items=items_to_adapt)
-    #delete_cache()
+    edit_prices(items=items_to_adapt)
+    delete_cache()
             
 
         
