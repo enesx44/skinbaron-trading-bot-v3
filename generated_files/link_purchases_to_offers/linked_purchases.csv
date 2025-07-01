@@ -1,7 +1,7 @@
 transfer_id,buy_price,buy_date,name,wear,uuid,meta_offer_id,sale_id,offer_date_created,offer_date_trade_unlock,state,offer_date_sold,time_to_sell,commission_factor,selling_price,min_selling_price,profit
 GSZNDHF2N38T,0.11,2025-06-30,Sticker | Hydro Stream,,,55629346,ee902770-3e43-43df-84a4-a70ad19910fc,2025-07-01,2025-07-08,AVAILABLE,,,0.1,0.27,0.13,0.13
 G95K7FLG02T2,0.83,2025-06-30,SSG 08 | Acid Fade (Factory New),0.93,28452828-dabe-46b1-ae04-ce8f11df07fb,63559973,28452828-dabe-46b1-ae04-ce8f11df07fb,2025-07-01,2025-07-08,AVAILABLE,,,0.1,2.21,0.93,1.16
-GR3RDT7XKS7F,2.83,2025-06-30,AK-47 | Slate (Field-Tested),27.49,f4e4f563-94b6-4a22-a948-d7ec7ad15a68,63559972,f4e4f563-94b6-4a22-a948-d7ec7ad15a68,2025-07-01,2025-07-08,AVAILABLE,,,0.1,3.31,3.16,0.15
+GR3RDT7XKS7F,2.83,2025-06-30,AK-47 | Slate (Field-Tested),27.49,f4e4f563-94b6-4a22-a948-d7ec7ad15a68,63559972,f4e4f563-94b6-4a22-a948-d7ec7ad15a68,2025-07-01,2025-07-08,SOLD,2025-06-30,0,0.1,3.31,3.16,0.15
 GA7HAUETAUDX,4.7,2025-06-30,USP-S | Jawbreaker (Field-Tested),31.23,3e048a6e-9415-423c-be8c-d711cc3470da,63559971,3e048a6e-9415-423c-be8c-d711cc3470da,2025-07-01,2025-07-06,AVAILABLE,,,0.1,5.74,5.23,0.47
 G6LXN3Z5P3Z7,0.78,2025-06-30,AUG | Surveillance (Factory New),6.07,9068a7b2-31ba-402c-bf0e-9504a5163bfe,63559975,9068a7b2-31ba-402c-bf0e-9504a5163bfe,2025-07-01,2025-07-06,AVAILABLE,,,0.1,1.3,0.88,0.39
 GG5HWHGCFF66,3.2,2025-06-30,Desert Eagle | Heat Treated (Minimal Wear),11.6,3c4cfe3c-0491-4cb7-8e71-04661d046c6f,63559970,3c4cfe3c-0491-4cb7-8e71-04661d046c6f,2025-07-01,2025-07-07,AVAILABLE,,,0.1,5.48,3.57,1.73

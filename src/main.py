@@ -5,7 +5,7 @@ import src.enums.enums as enums
 
 logs.init_logging(log_level=logging.DEBUG)
 
-__script_to_execute__ = enums.Scripts.CREATE_BOT_SKINLIST
+__script_to_execute__ = enums.Scripts.BOT
 
 if __script_to_execute__ == enums.Scripts.CREATE_PRICELIST:
     import src.scripts.create_pricelist as create_pricelist
