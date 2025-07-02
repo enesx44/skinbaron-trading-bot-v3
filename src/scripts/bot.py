@@ -8,18 +8,13 @@ import time
 from src.enums.enums import ApiKey
 from src.scripts import link_purchases_to_offers
 
+__api_key__ = ApiKey.API_KEY.value
+
 __base_path__ = "./generated_files/bot"
 __buy_history_path__ = __base_path__ + "/BuyHistory.csv"
 
 __base_path_create_bot_skinlist__ = "./generated_files/create_bot_skinlist"
 __bot_skinlist_path__ = __base_path_create_bot_skinlist__ + "/bot_skinlist.csv"
-__bot_skinlist_metadata_path__ = __base_path_create_bot_skinlist__ + "/metadata.json"
-
-__base_path_manual_data__ = "./manual_data"
-__base_path_price_calc__ = __base_path_manual_data__ + "/price_calculation"
-__base_path_fee_codes__ = __base_path_price_calc__ + "/fee_codes.csv"
-
-__api_key__ = ApiKey.API_KEY.value
 
 __forbidden_ids_list__ = []
 __forbidden_ids_temp__ = []
@@ -103,85 +98,6 @@ def add_count_to_items_from_active_offers(item_counts: list, available_offers_df
             if (row["name"] == entry[0]):
                 entry[1] += 1
     return item_counts
-
-def check_expired(date: datetime, check_date: datetime):
-    logging.debug("--> check_expired()")
-    return date < check_date
-
-# def check_file_older_than(path: str, days: int):
-#     logging.debug("--> check_file_older_than()")
-#     if not os.path.exists(path):
-#         raise FileNotFoundError
-    
-#     mod_date = datetime.fromtimestamp(os.path.getmtime(path))
-#     check_date = utils.get_datetime_n_days_ago(days)
-
-#     is_expired = check_expired(mod_date, check_date)
-
-#     if is_expired:
-#         logging.debug("file older than %s days", str(days))
-#     else:
-#         logging.debug("file not older than %s days", str(days))
-
-#     return is_expired
-
-# def check_better_active_fee_code_available():
-#     logging.debug("--> check_for_better_fee_code()")
-
-#     bot_skinlist_metadata = utils.read_cached_json_objects(__bot_skinlist_metadata_path__)
-#     logging.debug("bot_skinlist_metadata: %s", bot_skinlist_metadata)
-
-#     bot_skinlist_commission_factor = bot_skinlist_metadata["commission_factor"]
-#     logging.debug("bot_skinlist_commission_factor: %s", bot_skinlist_commission_factor)
-
-#     fee_codes_df = pd.read_csv(__base_path_fee_codes__, parse_dates=["expire_date"])
-#     logging.debug("fee_codes_df: \n%s", fee_codes_df.to_string())
-    
-#     active_fee_codes_df = fee_codes_df[fee_codes_df["expire_date"] > datetime.now()]
-
-#     better_fee_codes_df = active_fee_codes_df[active_fee_codes_df["commission_factor"] < bot_skinlist_commission_factor]
-
-#     if better_fee_codes_df.empty:
-#         logging.debug("no better fee code available")
-#         return False
-#     else:
-#         logging.debug("better fee code available")
-#         return True
-
-# def check_fee_code_expired():
-#     logging.debug("--> check_fee_code_expired()")
-
-#     bot_skinlist_metadata = utils.read_cached_json_objects(__bot_skinlist_metadata_path__)
-#     logging.debug("bot_skinlist_metadata: %s", bot_skinlist_metadata)
-
-#     fee_code_name = bot_skinlist_metadata["fee_code_name"]
-#     logging.debug("fee_code_name: %s", fee_code_name)
-
-#     bot_skinlist_commission_factor = bot_skinlist_metadata["commission_factor"]
-#     logging.debug("bot_skinlist_commission_factor: %s", bot_skinlist_commission_factor)
-
-#     fee_codes_df = pd.read_csv(__base_path_fee_codes__, parse_dates=["expire_date"])
-#     logging.debug("fee_codes_df: \n%s", fee_codes_df.to_string())
-
-#     if fee_codes_df.empty and (bot_skinlist_commission_factor == 0.15):
-#         logging.debug("no fee code applied")
-#         return False
-
-#     if fee_codes_df.empty and (bot_skinlist_commission_factor < 0.15):
-#         logging.debug("fee code expired")
-#         return True
-    
-#     active_fee_codes_df = fee_codes_df[fee_codes_df["expire_date"] > datetime.now()]
-#     logging.debug("active_fee_codes_df: \n%s", active_fee_codes_df.to_string())
-#     active_fee_codes_df = active_fee_codes_df[active_fee_codes_df["name"] == fee_code_name]
-#     logging.debug("active_fee_codes_df: \n%s", active_fee_codes_df.to_string())
-
-#     if active_fee_codes_df.empty:
-#         logging.debug("fee code expired")
-#         return True
-#     else:
-#         logging.debug("fee code not expired")
-#         return False
     
 def is_affordable(balance, price):
     return balance > price

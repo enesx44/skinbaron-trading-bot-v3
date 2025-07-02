@@ -67,5 +67,5 @@ def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_
     logging.info("saving bot skinlist to csv")  
     bot_skinlist_df.to_csv(__bot_skinlist_path__, index=False)
 
-    utils.cache_json_objects_always_overwrite(__bot_skinlist_metadata_path__, {"fee_code_name":price_calculation.fee_code_name, "commission_factor":price_calculation.skinbaron_percentage_win, "our_percentage_win":price_calculation.our_percentage_win})
+    utils.cache_json_objects_always_overwrite(__bot_skinlist_metadata_path__, {"fee_code":price_calculation.fee_code, "commission_factor":price_calculation.skinbaron_percentage_win, "our_percentage_win":price_calculation.our_percentage_win})
 

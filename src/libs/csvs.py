@@ -12,5 +12,8 @@ def save_linked_purchases(linked_purchases_df: pd.DataFrame) -> pd.DataFrame:
 def save_df(df: pd.DataFrame, path: str):
     df.to_csv(path, index=False)
 
-def read_df(path: str):
-    return pd.read_csv(path)
+def read_df(path: str, parse_dates_columns: list = None):
+    if parse_dates_columns:
+        return pd.read_csv(path, parse_dates=parse_dates_columns)
+    else:
+        return pd.read_csv(path)

@@ -22,29 +22,29 @@ PLOT_DIR = __base_path__ + "/plots"
 SLOPE_STATS_PATH = __base_path__ + "/slope_stats.csv"  
 
 # === GLOBAL STATE ===
-fee_code_name = None
+fee_code = None
 skinbaron_percentage_win = DEFAULT_skinbaron_percentage_win
 our_percentage_win = MAX_TOTAL_COMMISSIONS - skinbaron_percentage_win
 slope_stats = []
 
 # === INIT ===
 def init_fee_code():
-    global fee_code_name, skinbaron_percentage_win, our_percentage_win
+    global fee_code, skinbaron_percentage_win, our_percentage_win
 
     try:
         df = pd.read_csv(FEE_CODES_CSV, parse_dates=["expire_date"])
     except Exception as e:
         logging.warning("Failed to read fee code CSV, using defaults: %s", e)
-        fee_code_name = "NONE"
+        fee_code = "NONE"
         return
 
     active = df[df["expire_date"] > datetime.datetime.now()]
     if not active.empty:
-        best = active.sort_values(["commission_factor", "expire_date"]).iloc[0]
-        fee_code_name = best["name"]
+        best = active.sort_values(["commission_factor", "expire_date"], ascending=[True, False]).iloc[0]
+        fee_code = best["name"]
         skinbaron_percentage_win = best["commission_factor"]
     else:
-        fee_code_name = "NONE"
+        fee_code = "NONE"
         skinbaron_percentage_win = DEFAULT_skinbaron_percentage_win
 
     our_percentage_win = round(MAX_TOTAL_COMMISSIONS - skinbaron_percentage_win, 2)
