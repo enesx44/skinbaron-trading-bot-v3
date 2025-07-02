@@ -6,7 +6,6 @@ from src.scripts import link_purchases_to_offers, price_calculation
 from src.scripts import scraper_sales
 import pandas as pd
 from src.libs import skinbaron as sb
-import math
 
 __base_path__ = "./generated_files/price_adapter"
 __cache_path__ = __base_path__ + "/cache.csv"

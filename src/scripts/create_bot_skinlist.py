@@ -4,7 +4,6 @@ import src.scripts.db as db
 import src.scripts.create_popular_skinlist as create_popular_skinlist
 import src.scripts.price_calculation as price_calculation
 import pandas as pd
-import datetime
 
 import logging
 

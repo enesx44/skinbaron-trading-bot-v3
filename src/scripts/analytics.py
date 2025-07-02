@@ -5,41 +5,8 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 
 import datetime
-from src.libs import utils
 import src.libs.csvs as csvs
 from src.scripts import link_purchases_to_offers
-
-# 3. Time Analysis: Average Time to Sell
-# Purpose: Understanding how long items take to sell helps you optimize your inventory and pricing strategy. Faster sales might indicate high demand or attractive pricing, while slower sales could point to inefficiencies or overpricing.
-
-# How to calculate:
-
-# Measure the difference between offer_date_created and offer_date_sold for sold items.
-
-# Find the average duration across all sold items.
-
-# Insights:
-
-# Identify items that sell quickly or take a long time.
-
-# Adjust pricing or strategies for slow-moving items.
-
-# 5. Historical Trends: Monthly Profit Trends
-# Purpose: Tracking monthly profits helps you monitor performance over time, spot trends, and detect seasonal impacts.
-
-# How to analyze:
-
-# Group your data by month using offer_date_sold.
-
-# Sum profits for each month to observe growth or decline.
-
-# Plot results to visualize trends and fluctuations.
-
-# Insights:
-
-# Understand whether profits are improving or declining.
-
-# Pinpoint high-performing months and potential seasonal effects.
 
 # 8. Item Condition & Wear Analysis
 # Purpose: Examine how item wear impacts sales performance, profitability, and speed. This is especially relevant if item condition significantly influences buyer decisions.
@@ -55,23 +22,6 @@ from src.scripts import link_purchases_to_offers
 # Determine whether items with higher wear values sell for less or take longer to sell.
 
 # Adjust strategies for items based on their condition.
-
-# 9. Profitability by Category
-# Purpose: Understanding which categories (e.g., based on name) are most profitable helps you focus on the best-performing items.
-
-# How to analyze:
-
-# Group items by category (name).
-
-# Calculate total profit, average profit, and selling frequency for each category.
-
-# Rank categories to identify top performers.
-
-# Insights:
-
-# Highlight your most lucrative categories.
-
-# Decide whether to focus more on specific categories or diversify.
 
 __base_path__ = "./generated_files/analytics"
 

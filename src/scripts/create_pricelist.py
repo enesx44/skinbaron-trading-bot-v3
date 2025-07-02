@@ -1,7 +1,6 @@
 import gc
 from io import StringIO
 import logging
-import sys
 
 import pandas as pd
 import numpy as np
