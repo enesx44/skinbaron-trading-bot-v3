@@ -4,10 +4,14 @@ import src.scripts.db as db
 import src.scripts.create_popular_skinlist as create_popular_skinlist
 import src.scripts.price_calculation as price_calculation
 import pandas as pd
+import os
+import time
 
 import logging
 
 __base_path__ = "./generated_files/create_bot_skinlist"
+os.makedirs(__base_path__, exist_ok=True)
+
 __bot_skinlist_path__ = __base_path__ + "/bot_skinlist.csv"
 __bot_skinlist_metadata_path__ = __base_path__ + "/metadata.json"
 
@@ -58,6 +62,7 @@ def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_
 
         bot_skinlist_df = pd.concat([bot_skinlist_df, price_calculation.calculate_price_for_item(scraped_sales_for_item_df, True)]).reset_index(drop=True)
         logging.debug("bot_skinlist_df:\n%s", bot_skinlist_df.tail(5).to_string())
+        time.sleep(0.05)
 
     price_calculation.visualize_and_save_slope_stats_csv()
 

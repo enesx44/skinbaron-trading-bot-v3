@@ -31,14 +31,14 @@ __max_sales_per_item__ = 100 // 2
 __sales_count_threshold_in_last_X_days__ = __max_sales_per_item__ // 6
 
 __base_path__ = "./generated_files/create_popular_skinlist"
-if not os.path.exists(__base_path__):
-    os.makedirs(__base_path__)
+os.makedirs(__base_path__, exist_ok=True)
+
 __cached_sales_path__ = __base_path__ + "/cached_sales.json"
 __popular_skinlist_path__ = __base_path__ + "/popular_skinlist.csv"
 
 __base_path_scraper__ = "./generated_files/scraper_sales"
-if not os.path.exists(__base_path_scraper__):
-    os.makedirs(__base_path_scraper__)
+os.makedirs(__base_path_scraper__, exist_ok=True)
+
 __cached_sales_path_scraper__ = __base_path_scraper__ + "/cached_sales.json"
 
 def get_cached_sales() -> dict:

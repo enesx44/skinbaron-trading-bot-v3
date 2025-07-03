@@ -4,9 +4,69 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "main",
+            "label": "create_pricelist",
             "type": "shell",
-            "command": "python -m src.main",
+            "command": "python -m src.main CREATE_PRICELIST",
+            "problemMatcher": [
+                "$python"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "create_popular_skinlist",
+            "type": "shell",
+            "command": "python -m src.main CREATE_POPULAR_SKINLIST",
+            "problemMatcher": [
+                "$python"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "scraper",
+            "type": "shell",
+            "command": "python -m src.main SCRAPER",
+            "problemMatcher": [
+                "$python"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "create_bot_skinlist",
+            "type": "shell",
+            "command": "python -m src.main CREATE_BOT_SKINLIST",
+            "problemMatcher": [
+                "$python"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "bot",
+            "type": "shell",
+            "command": "python -m src.main BOT",
+            "problemMatcher": [
+                "$python"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "item_lister",
+            "type": "shell",
+            "command": "python -m src.main ITEM_LISTER",
             "problemMatcher": [
                 "$python"
             ],

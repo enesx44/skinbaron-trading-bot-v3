@@ -9,7 +9,7 @@ import os
 import glob
 
 # === CONFIG ===
-MAX_TOTAL_COMMISSIONS = 0.3
+MAX_TOTAL_COMMISSIONS = 0.25
 DEFAULT_skinbaron_percentage_win = 0.15
 USE_LAST_X_DAYS = 15
 MIN_SALES_IN_LAST_X_DAYS = USE_LAST_X_DAYS
@@ -17,8 +17,11 @@ MIN_SALES_IN_LAST_X_DAYS = USE_LAST_X_DAYS
 FEE_CODES_CSV = "./manual_data/price_calculation/fee_codes.csv"
 
 __base_path__ = "./generated_files/price_calculation"
+os.makedirs(__base_path__, exist_ok=True)
 
 PLOT_DIR = __base_path__ + "/plots"
+os.makedirs(PLOT_DIR, exist_ok=True)
+
 SLOPE_STATS_PATH = __base_path__ + "/slope_stats.csv"  
 SLOPE_STATS_DISTRIBUTION_PATH = __base_path__ + "/slope_stats_distribution.png"  
 
