@@ -6,7 +6,7 @@ from src.libs import csvs, skinbaron as sb
 import time
 
 from src.enums.enums import ApiKey
-from src.scripts import link_purchases_to_offers
+from src.scripts import bot_skinlist_checker, link_purchases_to_offers
 
 __api_key__ = ApiKey.API_KEY.value
 
@@ -105,6 +105,8 @@ def main(use_existing_linked_purchases: bool):
 
     global __forbidden_ids_list__
     global __forbidden_ids_temp__
+
+    bot_skinlist_checker.main()
     
     logging.debug("read buy history from csv file")
     buy_history_df = pd.read_csv(__buy_history_path__)
