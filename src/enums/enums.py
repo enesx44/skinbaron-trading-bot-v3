@@ -33,3 +33,4 @@ class Scripts(Enum):
     SCRAPER = 3
     CREATE_BOT_SKINLIST = 4
     BOT = 5
+    ITEM_LISTER = 6

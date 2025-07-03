@@ -1,11 +1,24 @@
 import logging
 
+import argparse
 import src.libs.logs as logs
 import src.enums.enums as enums
 
 logs.init_logging(log_level=logging.DEBUG)
 
-__script_to_execute__ = enums.Scripts.BOT
+# Set up argparse
+parser = argparse.ArgumentParser(description="Run a specific script.")
+parser.add_argument(
+    "script",
+    type=str,
+    choices=[script.name for script in enums.Scripts],
+    help="Script to run: " + ", ".join([script.name for script in enums.Scripts])
+)
+
+args = parser.parse_args()
+
+# Map string argument to enums.Scripts value
+__script_to_execute__ = enums.Scripts[args.script]
 
 if __script_to_execute__ == enums.Scripts.CREATE_PRICELIST:
     import src.scripts.create_pricelist as create_pricelist
@@ -28,3 +41,7 @@ elif __script_to_execute__ == enums.Scripts.CREATE_BOT_SKINLIST:
 elif __script_to_execute__ == enums.Scripts.BOT:
     import src.scripts.bot as bot
     bot.main(use_existing_linked_purchases=False)
+
+elif __script_to_execute__ == enums.Scripts.ITEM_LISTER:
+    import src.scripts.item_lister as item_lister
+    item_lister.main()

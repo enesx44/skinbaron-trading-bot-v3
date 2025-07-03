@@ -413,7 +413,7 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
     logging.info("Final result for %s: buy_price=%.2f, sell_price=%.2f, min_profit=%.2f, tier=%d",
                  name, buy_price, selling_price, min_profit, tier)
     
-    if min_profit <= 0.1:
+    if min_profit <= 0.08:
         logging.warning("Too small / negative min_profit, skipping: %s", name)
         return None
 

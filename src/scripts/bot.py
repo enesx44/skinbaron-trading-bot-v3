@@ -77,13 +77,18 @@ def handle_buy_response(buy_response: dict, best_offer_df: pd.DataFrame):
         if "generalErrors" in buy_response:
             general_errors_list = buy_response["generalErrors"]
 
+            error_messages_sold = [
+                "some offer(s) already in another shopping cart and/or sold",
+                "some offer(s) are already sold"
+            ]
+
             if "cannot buy from self" in general_errors_list:
 
                 logging.debug("Tried to buy from self")
                 logging.debug("adding sale id to forbidden ids")
                 __forbidden_ids_list__.append(best_offer_df["id"])
                 logging.debug("forbidden_ids_list: %s", str(__forbidden_ids_list__))
-            if "some offer(s) already in another shopping cart and/or sold" in general_errors_list:                
+            if any(error in general_errors_list for error in error_messages_sold):                
 
                 logging.debug("Tried to buy sold item")
                 logging.debug("adding sale id to forbidden ids")
