@@ -377,6 +377,46 @@ def get_offers_page(type: Literal["AVAILABLE", "SOLD"], page: str = "1") -> pd.D
 
     return df
 
+def get_inventory() -> pd.DataFrame:
+    logging.debug("--> get_inventory()")
+    
+    last_page_df = None  # Initialize to track the last page data
+
+    inventory_df = pd.DataFrame()
+    page = 1
+
+    while True:
+        try:
+            # Fetch the current page
+            df = get_inventory_page(str(page))
+
+            # Check if the response contains data
+            if df.empty:
+                logging.debug(f"No more data found on page {page}. Stopping.")
+                break       
+             
+            # Check if the response contains duplicate data
+            if last_page_df is not None and df.equals(last_page_df):
+                logging.debug(f"Duplicate data found on page {page}. Stopping.")
+                break
+
+            # Update last_page_df for comparison
+            last_page_df = df.copy()    
+
+            # Merge the data into the final dictionary
+            inventory_df = pd.concat([inventory_df, df], ignore_index=True)
+            logging.debug(f"Page {page} processed. Total items: {len(inventory_df)}")
+
+            # Increment the page counter
+            page += 1
+        except TimeoutError:
+            logging.error("Timeout occurred while fetching page %d", page)
+            raise
+        except Exception as e:
+            logging.error(f"Unexpected error occurred: {str(e)}")
+            raise
+
+    return inventory_df
 
 
 def get_inventory_page(page: str = "1") -> pd.DataFrame:
@@ -402,5 +442,25 @@ def get_inventory_page(page: str = "1") -> pd.DataFrame:
     logging.debug("df: \n%s", df.to_string())
 
     return df
+
+def list_items(items: dict, promotion_code: str = None) -> dict:
+    logging.debug("--> list_items()")
+
+    endpoint = enums.BrowserEndpoints.LIST_ITEMS.value
+
+    if promotion_code:
+        body = {"items": items, "cacheId": None,
+                "privateOffer": False, "appId": 730, "promotionCode": promotion_code}
+    else:
+        body = {"items": items, "cacheId": None,
+                "privateOffer": False, "appId": 730}
+
+    try:
+        response = utils.repeat_call(browser_api, (endpoint, http.HTTPMethod.POST, body), timeout=30)
+    except TimeoutError:
+        logging.error("%s", traceback.format_exc())
+        raise TimeoutError()
+
+    return response
 
 # BROWSER REQUESTS ABOVE 

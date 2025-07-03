@@ -20,6 +20,7 @@ __base_path__ = "./generated_files/price_calculation"
 
 PLOT_DIR = __base_path__ + "/plots"
 SLOPE_STATS_PATH = __base_path__ + "/slope_stats.csv"  
+SLOPE_STATS_DISTRIBUTION_PATH = __base_path__ + "/slope_stats_distribution.png"  
 
 # === GLOBAL STATE ===
 fee_code = None
@@ -87,7 +88,7 @@ def calc_bounds(mean: float, std: float, has_ext: bool) -> tuple[float, float]:
 def remove_outliers(df: pd.DataFrame, mean: float, std: float, factor: float) -> pd.DataFrame:
     return df[(df['y'] <= mean + factor * std) & (df['y'] >= mean - factor * std)]
 
-def save_slope_stats_csv():
+def visualize_and_save_slope_stats_csv():
 
     global slope_stats
 
@@ -95,6 +96,25 @@ def save_slope_stats_csv():
         logging.warning("No slope stats to save.")
         return
     df_stats = pd.DataFrame(slope_stats)
+    df_stats["slope_rounded"] = df_stats["slope"].round(4)
+
+    plt.figure(figsize=(10, 6))
+    plt.hist(
+        df_stats["slope_rounded"],
+        bins=50,  # Increase bins for better distribution
+        color='skyblue',
+        edgecolor='black'
+    )
+    plt.yscale('log')  # Optional: make skewed distributions readable
+
+    plt.title("Histogram of Slope Values")
+    plt.xlabel("Slope (rounded to 2 decimals)")
+    plt.ylabel("Frequency (log scale)")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(SLOPE_STATS_DISTRIBUTION_PATH)
+    plt.close()
+
     df_stats = df_stats.sort_values("slope", ascending=False)
     df_stats.to_csv(SLOPE_STATS_PATH, index=False)
     logging.info(f"Saved slope stats CSV: {SLOPE_STATS_PATH}")
@@ -226,7 +246,7 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
 
     multiplier = next(
         (m for threshold, m in [
-            (4, 0.7), (7, 0.78), (10, 0.85), (15, 0.9), (30, 0.95)
+            (2, 0.8), (4, 0.86), (7, 0.91), (11, 0.95)
         ] if len(recent) < threshold),
         1
     )
@@ -328,9 +348,13 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
             logging.warning("Too small / negative buy price, skipping: %s", name)
             return None
     
-        if slope < -0.75: buy_price *= 0.7
-        elif slope < -0.5: buy_price *= 0.8
-        elif slope < -0.25: buy_price *= 0.9
+        if slope < -0.5: buy_price *= 0.8
+        elif slope < -0.25: buy_price *= 0.88
+        elif slope < -0.1: buy_price *= 0.95
+        elif slope > 0.1: buy_price /= 0.95
+        elif slope > 0.25: buy_price /= 0.88
+        elif slope > 0.5: buy_price /= 0.8
+        elif slope > 1: buy_price /= 0.7
         logging.debug("Buy price after slope multiplier: %.2f", buy_price)
 
         if buy_price <= 0.01:
@@ -355,11 +379,13 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
             logging.warning("Too small / negative buy price, skipping: %s", name)
             return None        
         
-        if slope < -2: buy_price *= 0.6
-        elif slope < -1.5: buy_price *= 0.7
-        elif slope < -1.25: buy_price *= 0.8
-        elif slope < -1: buy_price *= 0.9
-        elif slope < -0.5: buy_price *= 0.95
+        if slope < -0.5: buy_price *= 0.8
+        elif slope < -0.25: buy_price *= 0.88
+        elif slope < -0.1: buy_price *= 0.95
+        elif slope > 0.1: buy_price /= 0.97
+        elif slope > 0.25: buy_price /= 0.93
+        elif slope > 0.5: buy_price /= 0.88
+        elif slope > 1: buy_price /= 0.82
         logging.debug("Buy price after slope multiplier: %.2f", buy_price)
 
         if buy_price <= 0.01:
@@ -386,6 +412,10 @@ def calculate_price_for_item(sales_df: pd.DataFrame, should_plot: bool) -> pd.Da
 
     logging.info("Final result for %s: buy_price=%.2f, sell_price=%.2f, min_profit=%.2f, tier=%d",
                  name, buy_price, selling_price, min_profit, tier)
+    
+    if min_profit <= 0.1:
+        logging.warning("Too small / negative min_profit, skipping: %s", name)
+        return None
 
     if should_plot:
         logging.debug("Plotting price history for %s", name)

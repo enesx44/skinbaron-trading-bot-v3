@@ -24,47 +24,6 @@ __very_good_item_limit__ = 8
 __very_good_offer_percentage__ = 0.75
 __slow_down_balance__ = 500
 
-def get_inventory() -> pd.DataFrame:
-    logging.debug("--> get_inventory()")
-    
-    last_page_df = None  # Initialize to track the last page data
-
-    inventory_df = pd.DataFrame()
-    page = 1
-
-    while True:
-        try:
-            # Fetch the current page
-            df = sb.get_inventory_page(str(page))
-
-            # Check if the response contains data
-            if df.empty:
-                logging.debug(f"No more data found on page {page}. Stopping.")
-                break       
-             
-            # Check if the response contains duplicate data
-            if last_page_df is not None and df.equals(last_page_df):
-                logging.debug(f"Duplicate data found on page {page}. Stopping.")
-                break
-
-            # Update last_page_df for comparison
-            last_page_df = df.copy()    
-
-            # Merge the data into the final dictionary
-            inventory_df = pd.concat([inventory_df, df], ignore_index=True)
-            logging.debug(f"Page {page} processed. Total items: {len(inventory_df)}")
-
-            # Increment the page counter
-            page += 1
-        except TimeoutError:
-            logging.error("Timeout occurred while fetching page %d", page)
-            raise
-        except Exception as e:
-            logging.error(f"Unexpected error occurred: {str(e)}")
-            raise
-
-    return inventory_df
-
 def add_count_to_items_from_inventory(item_counts: list, inventory_df: pd.DataFrame):
     logging.debug("--> add_count_to_items_from_inventory()")
     """ Counts Items in item_dictionary and writes count into item_counts """
@@ -168,7 +127,7 @@ def main(use_existing_linked_purchases: bool):
     logging.debug("\n".join(str(e) for e in item_counts))
     
     logging.info("get inventory")
-    inventory_df = get_inventory()
+    inventory_df = sb.get_inventory()
     logging.info("inventory_df: \n%s", inventory_df.to_string())
 
     logging.info("add counts to items from inventory")
