@@ -54,7 +54,7 @@ def init_fee_code():
     our_percentage_win = round(MAX_TOTAL_COMMISSIONS - skinbaron_percentage_win, 2)
 
 # === UTILS ===
-def clear_plots():    
+def clear_plots():
     # Clear all previous plots before plotting new ones
     for file in glob.glob(os.path.join(PLOT_DIR, "*.png")):
         os.remove(file)
@@ -99,11 +99,11 @@ def visualize_and_save_slope_stats_csv():
         logging.warning("No slope stats to save.")
         return
     df_stats = pd.DataFrame(slope_stats)
-    df_stats["slope_rounded"] = df_stats["slope"].round(4)
+    df_stats["slope"] = df_stats["slope"].round(4)
 
     plt.figure(figsize=(10, 6))
     plt.hist(
-        df_stats["slope_rounded"],
+        df_stats["slope"],
         bins=50,  # Increase bins for better distribution
         color='skyblue',
         edgecolor='black'
