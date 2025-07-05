@@ -6,7 +6,7 @@ from src.libs import csvs, skinbaron as sb
 import time
 
 from src.enums.enums import ApiKey
-from src.scripts import bot_skinlist_checker, link_purchases_to_offers
+from src.scripts import analytics, bot_skinlist_checker, link_purchases_to_offers
 
 __api_key__ = ApiKey.API_KEY.value
 
@@ -31,6 +31,7 @@ def add_count_to_items_from_inventory(item_counts: list, inventory_df: pd.DataFr
         return item_counts
 
     for index, row in inventory_df.iterrows():
+        time.sleep(0.05)
         logging.info("Processing item %d/%d", index, len(inventory_df))
         for entry in item_counts:
 
@@ -52,6 +53,7 @@ def add_count_to_items_from_active_offers(item_counts: list, available_offers_df
         return item_counts
 
     for index, row in available_offers_df.iterrows():
+        time.sleep(0.05)
         logging.info("Processing item %d/%d", index, len(available_offers_df))
         for entry in item_counts:
             if (row["name"] == entry[0]):
@@ -146,6 +148,10 @@ def main(use_existing_linked_purchases: bool):
     if not use_existing_linked_purchases:
         link_purchases_to_offers.main()
 
+    time.sleep(1)
+
+    analytics.main(use_existing_linked_purchases=True)
+
     linked_purchases_df = csvs.read_linked_purchases()
     logging.info("filter only available offers")
     available_offers_df = linked_purchases_df[linked_purchases_df["state"] == "AVAILABLE"].reset_index(drop=True)
@@ -158,12 +164,14 @@ def main(use_existing_linked_purchases: bool):
     
     logging.info("add counts to anzahl column in bot_skinlist_df")
     for entry in item_counts:
+        time.sleep(0.05)
         bot_skinlist_df.loc[bot_skinlist_df["name"] == entry[0], "Anzahl"] = entry[1]
     logging.debug("bot_skinlist_df:\n%s", bot_skinlist_df.to_string())
     
     logging.info("entering endless loop")
 
     while True:
+        time.sleep(0.05)
         try:    
             logging.info("**************************************************")      
 
@@ -179,6 +187,7 @@ def main(use_existing_linked_purchases: bool):
             logging.info("bot_skinlist_df_eff:\n%s", bot_skinlist_df_eff.to_string())
 
             for index, row in bot_skinlist_df_eff.iterrows():
+                time.sleep(0.05)
 
                 logging.info("--------------------------------------------------")
 
@@ -217,6 +226,7 @@ def main(use_existing_linked_purchases: bool):
                 logging.info("conditions were met, item count doesn't exceed the limit, continueing...")
 
                 while not good_offers_df.empty:
+                    time.sleep(0.05)
                     
                     logging.debug("while not good_offers_df.empty")
                     logging.debug("good_offers_df:\n%s", good_offers_df.to_string())
