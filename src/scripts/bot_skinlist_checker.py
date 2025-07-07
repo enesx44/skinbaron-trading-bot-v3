@@ -122,11 +122,12 @@ def regenerate_skinlist(params):
         create_bot_skinlist.main(should_scrape=True, use_existing_popular_skinlist=True, use_existing_pricelist=True)
     elif mode == "renew_fee":
         create_bot_skinlist.main(should_scrape=False, use_existing_popular_skinlist=True, use_existing_pricelist=True)
-    
+    elif mode == "recalc_prices":
+        create_bot_skinlist.main(should_scrape=False, use_existing_popular_skinlist=True, use_existing_pricelist=True)
     logging.info("[✓] Skinlist generation completed.")
 
 # Main logic
-def main():
+def main(recalc_prices_if_no_update:bool = False):
     logging.debug("bot_skinlist_checker.py --> main()")
     
     logging.info("reading last updated csv as dataframe")
@@ -162,7 +163,11 @@ def main():
         params['mode'] = 'renew_fee'
     else:
         logging.info("no update needed today")
-        return
+
+        if recalc_prices_if_no_update:
+            params['mode'] = 'recalc_prices'
+        else:
+            return
 
     # Regenerate and update metadata
     regenerate_skinlist(params)
