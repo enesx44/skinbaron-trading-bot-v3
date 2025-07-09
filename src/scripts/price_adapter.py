@@ -8,12 +8,14 @@ import pandas as pd
 from src.libs import skinbaron as sb
 
 __base_path__ = "./generated_files/price_adapter"
+os.makedirs(__base_path__, exist_ok=True)
 __cache_path__ = __base_path__ + "/cache.csv"
 
 __base_path_create_bot_skinlist__ = "./generated_files/create_bot_skinlist"
+os.makedirs(__base_path_create_bot_skinlist__, exist_ok=True)
 __bot_skinlist_path__ = __base_path_create_bot_skinlist__ + "/bot_skinlist.csv"
 
-__our_desired_win_percentage__ = 0.2
+__our_win_percentage_min__ = 0.08
 
 def create_item(sale_id: str, price: float) -> dict:
     return { "saleid": sale_id, "price": price }
@@ -194,24 +196,24 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
         logging.debug("recommended_price: %s", recommended_price)
 
         min_price = row["min_selling_price"]
-        logging.debug("min_price: %s", min_price)
+        logging.debug("min_price: %s", min_price)  # Calculate how many weeks the offer is beyond 6 months ago
+
+        # Calculate how many weeks the offer is beyond 6 months ago
+        buy_date = row["buy_date"].date()
+        six_months_ago = utils.get_date_n_months_ago(6)
+        weeks_past_six_months = max(0, (six_months_ago - buy_date).days // 7)
+        logging.debug("weeks_past_six_months: %d", weeks_past_six_months)
 
         if not pd.isna(recommended_price):
-
-            price_to_set = recommended_price
-
+            logging.debug("recommended_price exists")
+            discount_factor = max(0, 1 - 0.005 * weeks_past_six_months)  # 0.5% per week
+            logging.debug("discount_factor (recommended): %.4f", discount_factor)
+            price_to_set = recommended_price * discount_factor
         else:
-            lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=min_price * 0.5)
-
-            if not lowest_price_on_sb:
-                logging.warning("couldnt adapt borderline offer %s with sale_id: %s", name, sale_id)
-                logging.warning("no lowest_price_on_sb found")
-                logging.warning("should probably lower manually")
-                continue
-
-            logging.debug("lowest_price_on_sb: %s", lowest_price_on_sb)
-
-            price_to_set = lowest_price_on_sb
+            logging.debug("recommended_price doesn't exist")
+            discount_factor = max(0, 1 - 0.01 * weeks_past_six_months)  # 1% per week
+            logging.debug("discount_factor (min price): %.4f", discount_factor)
+            price_to_set = min_price * discount_factor
         
         price_to_set = round(price_to_set, 2)
         logging.debug("price_to_set: %s", price_to_set)
@@ -262,7 +264,7 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
             price_to_set = max(recommended_price, min_price)
 
         else:
-            lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=min_price + 0.01, min=min_price + 0.01)
+            lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=(min_price + 0.01) * 1.2, min=min_price + 0.01)
 
             if not lowest_price_on_sb:
                 price_to_set = min_price
@@ -318,8 +320,7 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
         commission_factor = row["commission_factor"]
         logging.debug("commission_factor: %s", commission_factor)
 
-        our_win_percentage_min = 0.08
-        desired_min_selling_price = min_price / (1 - our_win_percentage_min)
+        desired_min_selling_price = min_price / (1 - __our_win_percentage_min__)
 
         if not pd.isna(recommended_price):
 
@@ -331,7 +332,7 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
                 continue
             
         else:
-            lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=desired_min_selling_price + 0.01, min=desired_min_selling_price + 0.01)
+            lowest_price_on_sb = get_lowest_price_on_sb(search_item=name, current_max=(desired_min_selling_price + 0.01) * 1.2, min=desired_min_selling_price + 0.01)
 
             if not lowest_price_on_sb:
                 logging.warning("couldnt adapt acceptable offer %s with sale_id: %s", name, sale_id)
