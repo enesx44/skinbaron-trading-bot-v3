@@ -9,13 +9,16 @@ from src.libs import skinbaron as sb
 
 __base_path__ = "./generated_files/price_adapter"
 os.makedirs(__base_path__, exist_ok=True)
-__cache_path__ = __base_path__ + "/cache.csv"
+__cached_df_path__ = __base_path__ + "/cache.csv"
+__recom_prices_cache_path__ = __base_path__ + "/recom_prices.json"
 
 __base_path_create_bot_skinlist__ = "./generated_files/create_bot_skinlist"
 os.makedirs(__base_path_create_bot_skinlist__, exist_ok=True)
 __bot_skinlist_path__ = __base_path_create_bot_skinlist__ + "/bot_skinlist.csv"
 
-__our_win_percentage_min__ = 0.08
+__our_win_percentage_min__ = 0.05
+
+__should_adapt__ = True
 
 def create_item(sale_id: str, price: float) -> dict:
     return { "saleid": sale_id, "price": price }
@@ -25,7 +28,19 @@ def add_recommended_price_column(linked_purchases_df: pd.DataFrame, use_current_
     unique_names = linked_purchases_df["name"].unique()
     logging.debug("Unique names count: %s", len(unique_names))
 
-    recommended_prices = {}  # Dictionary to store recommended prices for each name
+    # Load cached data
+    cached_recommended_prices = utils.read_cached_json_objects(__recom_prices_cache_path__)
+    if cached_recommended_prices is None:
+        cached_recommended_prices = {}
+
+    # Determine which items still need to be processed
+    already_processed = set(cached_recommended_prices.keys())
+    remaining_names = [name for name in unique_names if name not in already_processed]
+
+    logging.info("Resuming from cache. Skipping %d already processed items", len(already_processed))
+
+    # Start from cached data
+    recommended_prices = cached_recommended_prices.copy()
 
     if use_current_bot_skinlist:
         bot_skinlist_df = csvs.read_df(__bot_skinlist_path__)
@@ -34,8 +49,8 @@ def add_recommended_price_column(linked_purchases_df: pd.DataFrame, use_current_
     price_calculation.init_fee_code()
 
     logging.info("Looping through unique names")
-    for index, name in enumerate(unique_names, start=1):  # Add index for tracking progress
-        logging.info("Processing item %d/%d: %s", index, len(unique_names), name)  # Progress logging
+    for index, name in enumerate(remaining_names, start=1):  # Add index for tracking progress
+        logging.info("Processing item %d/%d: %s", index, len(remaining_names), name)  # Progress logging
 
         if use_current_bot_skinlist:
 
@@ -48,6 +63,7 @@ def add_recommended_price_column(linked_purchases_df: pd.DataFrame, use_current_
             else:
                 logging.debug("found recom price info in bot skinlist, saving and continueing with next item...")
                 recommended_prices[name] = float(row_in_bot_skinlist.iloc[0]["selling_price"])
+                utils.cache_json_objects_always_overwrite(__recom_prices_cache_path__, recommended_prices)
                 continue
 
         
@@ -81,6 +97,7 @@ def add_recommended_price_column(linked_purchases_df: pd.DataFrame, use_current_
             logging.debug("Price DataFrame:\n%s", price_data_df.to_string())
 
         recommended_prices[name] = float(price_data_df.iloc[0]["selling_price"])
+        utils.cache_json_objects_always_overwrite(__recom_prices_cache_path__, recommended_prices)
 
     logging.info("Adding recommended prices to linked_purchases_df")
     linked_purchases_df["recommended_price"] = linked_purchases_df["name"].map(recommended_prices)
@@ -98,7 +115,8 @@ def create_cache_df(use_existing_linked_purchases: bool, use_current_bot_skinlis
 
     linked_purchases_df = add_recommended_price_column(linked_purchases_df=linked_purchases_df, use_current_bot_skinlist=use_current_bot_skinlist)
     logging.debug("linked_purchases: \n%s", linked_purchases_df.to_string())
-    linked_purchases_df.to_csv(__cache_path__, index=False)
+    linked_purchases_df.to_csv(__cached_df_path__, index=False)
+    delete_recom_prices_cache()
     return linked_purchases_df
 
 def get_lowest_price_on_sb(search_item: str, current_max: float, min: float = None) -> float:
@@ -136,22 +154,33 @@ def edit_prices(items: list):
     for chunk in chunked_items:
         sb.edit_price_multi(item_chunk=chunk)
 
-def delete_cache():
-    logging.debug("price_adapter.py --> delete_cache()")
-    global __cache_path__
+def delete_cached_df():
+    logging.debug("price_adapter.py --> delete_cached_df()")
+    global __cached_df_path__
 
-    if os.path.exists(__cache_path__):
+    if os.path.exists(__cached_df_path__):
         logging.info("deleting cache")
-        os.remove(__cache_path__)
+        os.remove(__cached_df_path__)
     else:
         print("tried delteing cache but file does not exist")
-    logging.debug("price_adapter.py <-- delete_cache()")
+    logging.debug("price_adapter.py <-- delete_cached_df()")
+
+def delete_recom_prices_cache():
+    logging.debug("price_adapter.py --> delete_recom_prices_cache()")
+    global __recom_prices_cache_path__
+
+    if os.path.exists(__recom_prices_cache_path__):
+        logging.info("deleting cache")
+        os.remove(__recom_prices_cache_path__)
+    else:
+        print("tried delteing cache but file does not exist")
+    logging.debug("price_adapter.py <-- delete_recom_prices_cache()")
 
 def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
 
     try:  
         logging.info("reading cached_df")      
-        cache_df = pd.read_csv(__cache_path__, parse_dates=["buy_date", "offer_date_created", "offer_date_trade_unlock", "offer_date_sold"])
+        cache_df = pd.read_csv(__cached_df_path__, parse_dates=["buy_date", "offer_date_created", "offer_date_trade_unlock", "offer_date_sold"])
     except:
         logging.info("reading cached_df didnt work setting to none")   
         cache_df = None
@@ -371,8 +400,9 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
     acceptable_offers_changes_df = acceptable_offers_changes_df.sort_values("price_change").reset_index(drop=True)
     logging.debug("acceptable_offers_changes_df: \n%s", acceptable_offers_changes_df.to_string())
 
-    edit_prices(items=items_to_adapt)
-    delete_cache()
+    if __should_adapt__:
+        edit_prices(items=items_to_adapt)
+        delete_cached_df()
             
 
         

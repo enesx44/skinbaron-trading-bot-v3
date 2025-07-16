@@ -34,3 +34,4 @@ class Scripts(Enum):
     CREATE_BOT_SKINLIST = 4
     BOT = 5
     ITEM_LISTER = 6
+    PRICE_ADAPTER = 7

@@ -45,3 +45,7 @@ elif __script_to_execute__ == enums.Scripts.BOT:
 elif __script_to_execute__ == enums.Scripts.ITEM_LISTER:
     import src.scripts.item_lister as item_lister
     item_lister.main()
+
+elif __script_to_execute__ == enums.Scripts.PRICE_ADAPTER:
+    import src.scripts.price_adapter as price_adapter
+    price_adapter.main(use_existing_linked_purchases=True, use_current_bot_skinlist=True)
