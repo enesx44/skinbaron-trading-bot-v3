@@ -68,7 +68,13 @@ def check_update_flags(last_updated_df):
         logging.info("checking if fee codes have same commission_factor")
         if renew_fee_code:
             logging.info("reading current fee code's commission")
-            current_fee_code_commission = fee_codes_df[fee_codes_df["name"] == current_fee_code].iloc[0]["commission_factor"]
+            current_fee_code_commission = fee_codes_df[fee_codes_df["name"] == current_fee_code]
+
+            if current_fee_code_commission.empty:
+                current_fee_code_commission = 0.15
+            else:
+                current_fee_code_commission.iloc[0]["commission_factor"]
+
             logging.debug("current_fee_code_commission: %s", current_fee_code_commission)
 
             logging.info("reading best fee code's commission")
