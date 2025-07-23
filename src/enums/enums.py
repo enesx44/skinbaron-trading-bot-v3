@@ -12,10 +12,11 @@ class Endpoints(Enum):
     BUY_ITEMS = "BuyItems"
     
 class BrowserEndpoints(Enum):
-    PURCHASES = "/api/v2/Purchases"
-    OFFERS = "/api/v2/Offers"
-    INVENTORY = "/api/v2/User/Inventory"
+    PURCHASES = "api/v2/Purchases"
+    OFFERS = "api/v2/Offers"
+    INVENTORY = "api/v2/User/Inventory"
     LIST_ITEMS = "api/v2/User/Inventory/Sell"
+    CANCEL_OFFERS = "api/v2/Offers/Cancel"
 
 
 class AppIds(Enum):

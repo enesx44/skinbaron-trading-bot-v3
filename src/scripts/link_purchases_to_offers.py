@@ -82,6 +82,7 @@ def post_process_linked_purchases(linked_purchases_df: pd.DataFrame):
         restructured_df['uuid'] = linked_purchases_df['linkedOfferInfo'].apply(lambda x: x['uuid'] if x else None)
         restructured_df['meta_offer_id'] = linked_purchases_df['linkedOfferInfo'].apply(lambda x: x['metaOfferId'] if x else None)
         restructured_df["meta_offer_id"] = pd.to_numeric(restructured_df["meta_offer_id"], errors='coerce').astype('Int64')
+        restructured_df["stackable"] = linked_purchases_df['purchaseItems'].apply(lambda x: x[0]['stackable'] if (x and len(x) == 1) else None)
         restructured_df['sale_id'] = linked_purchases_df['linkedOfferInfo'].apply(lambda x: x['sale_id'] if x else None)
         restructured_df['offer_date_created'] = linked_purchases_df['linkedOfferInfo'].apply(lambda x: x['formattedDateCreated'] if x else None)
         restructured_df['offer_date_trade_unlock'] = linked_purchases_df['linkedOfferInfo'].apply(lambda x: x['formattedDateTradeUnlock'] if x else None)

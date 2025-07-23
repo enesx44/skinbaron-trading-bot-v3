@@ -463,4 +463,19 @@ def list_items(items: dict, promotion_code: str = None) -> dict:
 
     return response
 
+def cancel_offers(offers_to_cancel: list):
+    logging.debug("--> cancel_offers()")
+
+    endpoint = enums.BrowserEndpoints.CANCEL_OFFERS.value
+    
+    body = {"offersToCancel": offers_to_cancel, "toInventory": "true"}
+    
+    try:
+        response = utils.repeat_call(browser_api, (endpoint, http.HTTPMethod.POST, body), timeout=30)
+    except TimeoutError:
+        logging.error("%s", traceback.format_exc())
+        raise TimeoutError()
+
+    return response
+
 # BROWSER REQUESTS ABOVE 
