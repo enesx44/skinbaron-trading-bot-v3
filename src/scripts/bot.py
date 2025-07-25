@@ -113,7 +113,7 @@ def main(use_existing_linked_purchases: bool):
     global __forbidden_ids_list__
     global __forbidden_ids_temp__
 
-    bot_skinlist_checker.main(recalc_prices_if_no_update=True)
+    bot_skinlist_checker.main(recalc_prices_if_no_update=False)
     
     logging.debug("read buy history from csv file")
     buy_history_df = pd.read_csv(__buy_history_path__)
