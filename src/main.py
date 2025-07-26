@@ -40,7 +40,7 @@ elif __script_to_execute__ == enums.Scripts.CREATE_BOT_SKINLIST:
 
 elif __script_to_execute__ == enums.Scripts.BOT:
     import src.scripts.bot as bot
-    bot.main(use_existing_linked_purchases=True)
+    bot.main(use_existing_linked_purchases=False)
 
 elif __script_to_execute__ == enums.Scripts.ITEM_LISTER:
     import src.scripts.item_lister as item_lister
