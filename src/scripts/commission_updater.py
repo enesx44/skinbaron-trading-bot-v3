@@ -57,20 +57,19 @@ def main(use_existing_linked_purchases: bool):
     logging.debug("active_offers_df: \n%s", active_offers_df.to_string())
     
     logging.info("filtering not trade locked offers from active offers")
-    today = datetime.today().date()
+    today = pd.Timestamp.today().normalize()
 
-    # Ensure the date column is parsed and normalized
+    # Parse as datetime and normalize (keeps datetime64[ns])
     active_offers_df["offer_date_trade_unlock"] = pd.to_datetime(
         active_offers_df["offer_date_trade_unlock"], errors="coerce"
-    ).dt.date
+    ).dt.normalize()
 
-    # Only keep rows that are either:
-    # 1) No unlock date (NaT), OR
-    # 2) Unlock date strictly before today (exclude today)
     not_tradelocked_offers_df = active_offers_df[
         active_offers_df["offer_date_trade_unlock"].isna() |
-        (active_offers_df["offer_date_trade_unlock"].notna() & 
-        (active_offers_df["offer_date_trade_unlock"] < today))
+        (
+            active_offers_df["offer_date_trade_unlock"].notna() &
+            (active_offers_df["offer_date_trade_unlock"] < today)
+        )
     ].reset_index(drop=True)
 
     logging.debug("not_tradelocked_offers_df: \n%s", not_tradelocked_offers_df.to_string())

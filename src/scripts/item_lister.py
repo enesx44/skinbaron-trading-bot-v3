@@ -54,6 +54,11 @@ def main():
 
     for i, row in inventory_df.iterrows():
 
+        trade_locked_hours = row.get("tradeLockHoursLeft", None)
+
+        if trade_locked_hours is not None and not pd.isna(trade_locked_hours):
+            continue
+
         localizedName = row["localizedName"]
 
         search_name = localizedName
