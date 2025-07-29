@@ -180,6 +180,58 @@ def plot_monthly_stats(sold_offers_sorted_by_date_sold_df: pd.DataFrame):
     plt.savefig(__monthly_stats_path__)
     plt.close()
 
+def export_eur_reports(linked_purchases_df: pd.DataFrame):
+    print("start export eur report")
+    linked_purchases_df["offer_date_sold"] = pd.to_datetime(linked_purchases_df["offer_date_sold"], errors='coerce')
+    linked_purchases_df["buy_date"] = pd.to_datetime(linked_purchases_df["buy_date"], errors='coerce')
+
+    sold_df = linked_purchases_df[linked_purchases_df["state"] == "SOLD"].copy()
+
+    sold_df["net_revenue"] = sold_df["selling_price"] * (1 - sold_df["commission_factor"])
+    sold_df["month"] = sold_df["offer_date_sold"].dt.to_period("M").dt.to_timestamp()
+
+    # Include buy_date and buy_price here
+    eur_detailed_cols = [
+        "buy_date",
+        "buy_price",
+        "offer_date_sold",
+        "selling_price",
+        "commission_factor",
+        "net_revenue",
+        "profit",
+        "month"
+    ]
+    eur_detailed = sold_df[eur_detailed_cols].copy()
+
+    # ROUNDING numeric columns to 2 decimals
+    eur_detailed[["buy_price", "selling_price", "commission_factor", "net_revenue", "profit"]] = eur_detailed[
+        ["buy_price", "selling_price", "commission_factor", "net_revenue", "profit"]
+    ].round(2)
+
+    eur_detailed.rename(columns={"offer_date_sold": "date_sold"}, inplace=True)
+
+    # Save detailed report with buy info
+    eur_detailed.to_csv(__base_path__ + "/EÜR_detailed.csv", index=False)
+    print(f"eur report saved to {__base_path__ + '/EÜR_detailed.csv'}")
+
+    # Monthly summary (without buy_date/buy_price because it's aggregate)
+    monthly_summary = eur_detailed.groupby("month").agg(
+        total_buy_price=pd.NamedAgg(column="buy_price", aggfunc="sum"),
+        total_selling_price=pd.NamedAgg(column="selling_price", aggfunc="sum"),
+        total_net_revenue=pd.NamedAgg(column="net_revenue", aggfunc="sum"),
+        total_profit=pd.NamedAgg(column="profit", aggfunc="sum"),
+        count_sales=pd.NamedAgg(column="date_sold", aggfunc="count"),
+    ).reset_index()
+
+    monthly_summary[["total_buy_price", "total_selling_price", "total_net_revenue", "total_profit"]] = monthly_summary[
+        ["total_buy_price", "total_selling_price", "total_net_revenue", "total_profit"]
+    ].round(2)
+
+    monthly_summary.to_csv(__base_path__ + "/EÜR_monthly_summary.csv", index=False)
+    print(f"monthly summary saved to {__base_path__ + '/EÜR_monthly_summary.csv'}")
+
+    return eur_detailed, monthly_summary
+
 def main(use_existing_linked_purchases: bool):
 
     if not use_existing_linked_purchases:
@@ -273,3 +325,8 @@ def main(use_existing_linked_purchases: bool):
 
     sold_offers_sorted_by_date_sold_df = csvs.read_df(__sold_offers_sorted_by_date_sold_path__)
     plot_monthly_stats(sold_offers_sorted_by_date_sold_df)
+
+    # FINANZAMT ANALYTICS
+    logging.info("creating EÜR (income/expense) CSV")
+
+    export_eur_reports(linked_purchases_df)
