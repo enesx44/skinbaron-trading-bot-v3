@@ -1,6 +1,7 @@
 import os
 from src.libs import utils
 from src.libs import csvs
+from datetime import datetime
 import logging
 from src.scripts import link_purchases_to_offers, price_calculation
 from src.scripts import scraper_sales
@@ -11,6 +12,7 @@ __base_path__ = "./generated_files/price_adapter"
 os.makedirs(__base_path__, exist_ok=True)
 __cached_df_path__ = __base_path__ + "/cache.csv"
 __recom_prices_cache_path__ = __base_path__ + "/recom_prices.json"
+__last_price_adapt_path__ = __base_path__ + "/last_price_adapt.csv"
 
 __base_path_create_bot_skinlist__ = "./generated_files/create_bot_skinlist"
 os.makedirs(__base_path_create_bot_skinlist__, exist_ok=True)
@@ -176,6 +178,41 @@ def delete_recom_prices_cache():
         print("tried delteing cache but file does not exist")
     logging.debug("price_adapter.py <-- delete_recom_prices_cache()")
 
+def check_price_adapt_needed(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
+    logging.debug("--> check_price_adapt_needed()")
+
+    today = datetime.today().date()
+    logging.debug("today: %s", today)
+
+    logging.info("reading last price adaptation csv")
+    try:
+        last_adapt_df = csvs.read_df(__last_price_adapt_path__, parse_dates_columns=["last_price_adapt"])
+        last_adapt_date = last_adapt_df["last_price_adapt"].iloc[0].date()
+    except FileNotFoundError:
+        logging.warning("last_price_adapt.csv not found, assuming no previous adaptations")
+        last_adapt_date = datetime(1970, 1, 1).date()
+
+    logging.debug("last_adapt_date: %s", last_adapt_date)
+
+    days_since_last_adapt = (today - last_adapt_date).days
+    logging.debug("days_since_last_adapt: %d", days_since_last_adapt)
+
+    if days_since_last_adapt >= 4:
+        logging.info("1 week passed since last price adaptation, running main()")
+
+        main(
+            use_existing_linked_purchases=use_existing_linked_purchases,
+            use_current_bot_skinlist=use_current_bot_skinlist
+        )
+
+        logging.info("updating last_price_adapt.csv")
+        new_df = pd.DataFrame({"last_price_adapt": [today.strftime("%Y-%m-%d")]})
+        csvs.save_df(new_df, __last_price_adapt_path__)
+    else:
+        logging.info("price adaptation not needed yet")
+
+    logging.debug("<-- check_price_adapt_needed()")
+
 def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
 
     try:  
@@ -217,6 +254,10 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
 
         sale_id = row["sale_id"]
         logging.debug("sale_id: %s", sale_id)
+
+        if pd.isna(sale_id) or str(sale_id).strip().lower() in ("", "nan", "none"):
+            logging.debug("sale_id is effectively missing, skipping..")
+            continue
 
         current_price = row["selling_price"]
         logging.debug("current_price: %s", current_price)
@@ -280,6 +321,10 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
         sale_id = row["sale_id"]
         logging.debug("sale_id: %s", sale_id)
 
+        if pd.isna(sale_id) or str(sale_id).strip().lower() in ("", "nan", "none"):
+            logging.debug("sale_id is effectively missing, skipping..")
+            continue
+
         current_price = row["selling_price"]
         logging.debug("current_price: %s", current_price)
 
@@ -336,6 +381,10 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
 
         sale_id = row["sale_id"]
         logging.debug("sale_id: %s", sale_id)
+
+        if pd.isna(sale_id) or str(sale_id).strip().lower() in ("", "nan", "none"):
+            logging.debug("sale_id is effectively missing, skipping..")
+            continue
 
         current_price = row["selling_price"]
         logging.debug("current_price: %s", current_price)

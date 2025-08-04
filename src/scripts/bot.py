@@ -6,7 +6,7 @@ from src.libs import csvs, skinbaron as sb
 import time
 
 from src.enums.enums import ApiKey
-from src.scripts import analytics, bot_skinlist_checker, link_purchases_to_offers
+from src.scripts import price_adapter, analytics, bot_skinlist_checker, link_purchases_to_offers
 
 __api_key__ = ApiKey.API_KEY.value
 
@@ -151,6 +151,7 @@ def main(use_existing_linked_purchases: bool):
     time.sleep(1)
 
     analytics.main(use_existing_linked_purchases=True)
+    price_adapter.check_price_adapt_needed(use_existing_linked_purchases=True, use_current_bot_skinlist=True)
 
     linked_purchases_df = csvs.read_linked_purchases()
     logging.info("filter only available offers")
