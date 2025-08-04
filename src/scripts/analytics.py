@@ -137,18 +137,39 @@ def plot_monthly_stats(sold_offers_sorted_by_date_sold_df: pd.DataFrame):
     # Group by month and sum profits
     monthly_stats = df.groupby('month')[['profit_positive', 'profit_negative']].sum()
 
+    # --- Add forecast for current month (positive & negative separately) ---
+    today = pd.Timestamp.today()
+    current_month_start = today.replace(day=1).to_period('M').to_timestamp()
+    days_in_month = (current_month_start + pd.offsets.MonthEnd(1)).day
+    elapsed_days = today.day - 1
+
+    monthly_stats['forecast_positive'] = None
+    monthly_stats['forecast_negative'] = None
+
+    if current_month_start in monthly_stats.index and elapsed_days > 0:
+        # Positive forecast
+        current_positive = monthly_stats.loc[current_month_start, 'profit_positive']
+        forecast_positive = (current_positive / elapsed_days) * days_in_month
+        monthly_stats.loc[current_month_start, 'forecast_positive'] = forecast_positive
+
+        # Negative forecast
+        current_negative = monthly_stats.loc[current_month_start, 'profit_negative']
+        forecast_negative = (current_negative / elapsed_days) * days_in_month
+        monthly_stats.loc[current_month_start, 'forecast_negative'] = forecast_negative
+
     # Plotting
     plt.figure(figsize=(12, 6))
     bar_width = 10  # in days, suitable for datetime x-axis
 
+    # Actual positive and negative profits
     plt.bar(
-    monthly_stats.index,
-    monthly_stats['profit_positive'],
-    width=bar_width,
-    label='Positive Profit',
-    color='green',
-    edgecolor='black',  # <-- outline
-    align='center'
+        monthly_stats.index,
+        monthly_stats['profit_positive'],
+        width=bar_width,
+        label='Positive Profit',
+        color='green',
+        edgecolor='black',
+        align='center'
     )
 
     plt.bar(
@@ -157,28 +178,66 @@ def plot_monthly_stats(sold_offers_sorted_by_date_sold_df: pd.DataFrame):
         width=bar_width,
         label='Negative Profit',
         color='red',
-        edgecolor='black',  # <-- outline
+        edgecolor='black',
         align='center'
     )
+
+    # --- Plot forecasts ---
+    forecast_positive_data = monthly_stats['forecast_positive'].dropna()
+    forecast_negative_data = monthly_stats['forecast_negative'].dropna()
+
+    if not forecast_positive_data.empty:
+        plt.bar(
+            forecast_positive_data.index,
+            forecast_positive_data - monthly_stats.loc[forecast_positive_data.index, 'profit_positive'],
+            bottom=monthly_stats.loc[forecast_positive_data.index, 'profit_positive'],
+            width=bar_width,
+            label='Forecast Positive',
+            color='blue',
+            alpha=0.4,
+            edgecolor='black',
+            align='center'
+        )
+
+    if not forecast_negative_data.empty:
+        plt.bar(
+            forecast_negative_data.index,
+            forecast_negative_data - monthly_stats.loc[forecast_negative_data.index, 'profit_negative'],
+            bottom=monthly_stats.loc[forecast_negative_data.index, 'profit_negative'],
+            width=bar_width,
+            label='Forecast Negative',
+            color='purple',
+            alpha=0.4,
+            edgecolor='black',
+            align='center'
+        )
 
     # Annotate bars with values
     for idx, row in monthly_stats.iterrows():
         if row['profit_positive'] > 0:
             plt.text(idx, row['profit_positive'] + 10, f"{row['profit_positive']:.2f}",
-                    ha='center', va='bottom', fontsize=9, color='black')
+                     ha='center', va='bottom', fontsize=9, color='black')
         if row['profit_negative'] < 0:
             plt.text(idx, row['profit_negative'] - 10, f"{row['profit_negative']:.2f}",
-                    ha='center', va='top', fontsize=9, color='black')
+                     ha='center', va='top', fontsize=9, color='black')
+        if not pd.isna(row['forecast_positive']):
+            plt.text(idx, row['forecast_positive'] + 10, f"{row['forecast_positive']:.2f}",
+                     ha='center', va='bottom', fontsize=9, color='blue')
+        if not pd.isna(row['forecast_negative']):
+            plt.text(idx, row['forecast_negative'] - 10, f"{row['forecast_negative']:.2f}",
+                     ha='center', va='top', fontsize=9, color='purple')
 
     plt.xlabel('Month')
     plt.ylabel('Profit')
-    plt.title('Monthly Sum of Positive and Negative Profits')
+    plt.title('Monthly Positive and Negative Profits (with Separate Forecasts)')
     plt.legend()
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.savefig(__monthly_stats_path__)
     plt.close()
+
+
 
 def export_eur_reports(linked_purchases_df: pd.DataFrame):
     print("start export eur report")
