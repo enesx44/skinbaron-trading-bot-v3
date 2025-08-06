@@ -9,7 +9,7 @@ import os
 import glob
 
 # === CONFIG ===
-MAX_TOTAL_COMMISSIONS = 0.27
+MAX_TOTAL_COMMISSIONS = 0.30
 DEFAULT_skinbaron_percentage_win = 0.15
 USE_LAST_X_DAYS = 15
 MIN_SALES_IN_LAST_X_DAYS = USE_LAST_X_DAYS
