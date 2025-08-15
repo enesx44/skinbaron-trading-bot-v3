@@ -31,6 +31,7 @@ __available_offers_sorted_by_profit_path__ = __base_path__ + "/available_offers_
 __sold_offers_sorted_by_date_sold_path__ = __base_path__ + "/sold_offers_sorted_by_date_sold.csv"
 __sold_offers_sorted_by_profit_path__ = __base_path__ + "/sold_offers_sorted_by_profit.csv"
 __monthly_stats_path__ = __base_path__ + "/monthly_stats.png"
+__detailed_month_stats_path__ = __base_path__ + "/detailed_month.png"
 
 def calculate_total_expense(linked_purchases_df: pd.DataFrame, state: typing.Literal["SOLD", "AVAILABLE"] | None = None, date: datetime.date | None = None) -> float:
     if state and date:
@@ -110,6 +111,94 @@ def analyze_time_to_sell(linked_purchases_df: pd.DataFrame) -> pd.DataFrame:
 
     logging.debug("<-- analyze_time_to_sell()")
     return analysis_df
+
+
+def plot_month_detailed(sold_offers_sorted_by_date_sold_df: pd.DataFrame, month_str: str = None):
+    """
+    Plots daily profits for a given month. Defaults to current month if month_str is None.
+    
+    :param sold_offers_sorted_by_date_sold_df: DataFrame with columns 'offer_date_sold' and 'profit'
+    :param month_str: optional string in format 'YYYY-MM', e.g., '2025-07'
+    """
+    if month_str:
+        logging.info("--> plot_month_detailed() for %s", month_str)
+        try:
+            month_start = pd.to_datetime(month_str + "-01")
+        except Exception as e:
+            logging.error("Invalid month string '%s': %s", month_str, e)
+            return
+    else:
+        today = pd.Timestamp.today()
+        month_start = today.replace(day=1)
+        logging.info("--> plot_month_detailed() for current month %s", month_start.strftime("%Y-%m"))
+
+    next_month_start = month_start + pd.offsets.MonthBegin(1)
+
+    df = sold_offers_sorted_by_date_sold_df.copy()
+    df['offer_date_sold'] = pd.to_datetime(df['offer_date_sold'], errors='coerce')
+    df = df.dropna(subset=['offer_date_sold'])
+    logging.debug("df shape after dropping invalid dates: %s", df.shape)
+
+    # --- Filter only the target month ---
+    df = df[(df['offer_date_sold'] >= month_start) & (df['offer_date_sold'] < next_month_start)]
+    logging.debug("df shape after filtering for month: %s", df.shape)
+    if df.empty:
+        logging.warning("No sales for month %s.", month_start.strftime("%Y-%m"))
+        return
+
+    # --- Profit ---
+    df['profit'] = pd.to_numeric(df['profit'], errors='coerce')
+    df = df.dropna(subset=['profit'])
+    df['profit_positive'] = df['profit'].apply(lambda x: x if x > 0 else 0)
+    df['profit_negative'] = df['profit'].apply(lambda x: x if x < 0 else 0)
+
+    # --- Group by day ---
+    df['day'] = df['offer_date_sold'].dt.to_period('D').dt.to_timestamp()
+    daily_stats = df.groupby('day')[['profit_positive', 'profit_negative']].sum()
+    logging.debug("Daily stats:\n%s", daily_stats)
+
+    # --- Plot ---
+    plt.figure(figsize=(12, 6))
+    bar_width = 0.8
+
+    plt.bar(
+        daily_stats.index,
+        daily_stats['profit_positive'],
+        width=bar_width,
+        label='Positive Profit',
+        color='green',
+        edgecolor='black'
+    )
+    plt.bar(
+        daily_stats.index,
+        daily_stats['profit_negative'],
+        width=bar_width,
+        label='Negative Profit',
+        color='red',
+        edgecolor='black'
+    )
+
+    # Annotate bars
+    for idx, row in daily_stats.iterrows():
+        if row['profit_positive'] > 0:
+            plt.text(idx, row['profit_positive'] + 0.5, f"{row['profit_positive']:.2f}",
+                     ha='center', va='bottom', fontsize=8)
+        if row['profit_negative'] < 0:
+            plt.text(idx, row['profit_negative'] - 0.5, f"{row['profit_negative']:.2f}",
+                     ha='center', va='top', fontsize=8)
+
+    plt.xlabel('Day')
+    plt.ylabel('Profit')
+    plt.title(f'Daily Profits for {month_start.strftime("%B %Y")}')
+    plt.xticks(rotation=45)
+    plt.legend()
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.savefig(__detailed_month_stats_path__)
+    plt.close()
+    logging.info("Daily profits plot saved to: %s", __detailed_month_stats_path__)
+
+
 
 def plot_monthly_stats(sold_offers_sorted_by_date_sold_df: pd.DataFrame):
     logging.info("--> plot_monthly_stats()")
@@ -384,6 +473,7 @@ def main(use_existing_linked_purchases: bool):
 
     sold_offers_sorted_by_date_sold_df = csvs.read_df(__sold_offers_sorted_by_date_sold_path__)
     plot_monthly_stats(sold_offers_sorted_by_date_sold_df)
+    plot_month_detailed(sold_offers_sorted_by_date_sold_df)
 
     # FINANZAMT ANALYTICS
     logging.info("creating EÜR (income/expense) CSV")
