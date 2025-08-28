@@ -36,10 +36,12 @@ def add_count_to_items_from_inventory(item_counts: list, inventory_df: pd.DataFr
         for entry in item_counts:
 
             name = row["localizedName"]
-            exterior = row["localizedExteriorName"]
+            
+            exterior = row.get("localizedExteriorName", None)
 
-            if not pd.isna(exterior):
-                name = name + " (" + exterior + ")"
+            if exterior:
+                if not pd.isna(exterior):
+                    name = name + " (" + exterior + ")"
 
             if (name == entry[0]):
                 entry[1] += 1
