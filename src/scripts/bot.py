@@ -6,7 +6,7 @@ from src.libs import csvs, skinbaron as sb
 import time
 
 from src.enums.enums import ApiKey
-from src.scripts import price_adapter, analytics, bot_skinlist_checker, link_purchases_to_offers
+from src.scripts import commission_updater, price_adapter, analytics, bot_skinlist_checker, link_purchases_to_offers
 
 __api_key__ = ApiKey.API_KEY.value
 
@@ -115,7 +115,7 @@ def main(use_existing_linked_purchases: bool):
     global __forbidden_ids_list__
     global __forbidden_ids_temp__
 
-    bot_skinlist_checker.main(recalc_prices_if_no_update=False)
+    bot_skinlist_checker.main(recalc_prices_if_no_update=True)
     
     logging.debug("read buy history from csv file")
     buy_history_df = pd.read_csv(__buy_history_path__)
@@ -153,7 +153,10 @@ def main(use_existing_linked_purchases: bool):
     time.sleep(1)
 
     analytics.main(use_existing_linked_purchases=True)
+    commission_updater.main(use_existing_linked_purchases=True)
+    analytics.main(use_existing_linked_purchases=True)
     price_adapter.check_price_adapt_needed(use_existing_linked_purchases=True, use_current_bot_skinlist=True)
+    analytics.main(use_existing_linked_purchases=True)
 
     linked_purchases_df = csvs.read_linked_purchases()
     logging.info("filter only available offers")

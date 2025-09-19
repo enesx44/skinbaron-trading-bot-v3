@@ -14,7 +14,7 @@ import pandas as pd
 
 def main():
     analytics.main(use_existing_linked_purchases=True)
-    #commission_updater.main(use_existing_linked_purchases=True)
+    # commission_updater.main(use_existing_linked_purchases=True)
     # time.sleep(120)
     # price_adapter.main(use_existing_linked_purchases=False, use_current_bot_skinlist=True)
     # time.sleep(30)

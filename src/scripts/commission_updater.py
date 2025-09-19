@@ -149,107 +149,119 @@ def main(use_existing_linked_purchases: bool):
     # CANCELING PROCESS
     if should_cancel:
 
-        offers_to_cancel = []
+        if not offers_to_cancel_df.empty:
 
-        for index, row in offers_to_cancel_df.iterrows():
-            if isinstance(row["uuid"], str):
-                offers_to_cancel.append({"uuid": row["uuid"]})
-            else:
-                offers_to_cancel.append({"metaOfferId": row["meta_offer_id"], "amount": row["amount"], "state": row["state"], "price": row["selling_price"]})
-        logging.info("offers_to_cancel: \n%s", offers_to_cancel)
-        
-        # Send offers in chunks of 25
-        chunk_size = 25
-        for i in range(0, len(offers_to_cancel), chunk_size):
-            chunk = offers_to_cancel[i:i+chunk_size]
-            logging.debug("chunk: %s", str(json.dumps(chunk, indent=4)))
+            offers_to_cancel = []
+
+            for index, row in offers_to_cancel_df.iterrows():
+                if isinstance(row["uuid"], str):
+                    offers_to_cancel.append({"uuid": row["uuid"]})
+                else:
+                    offers_to_cancel.append({"metaOfferId": row["meta_offer_id"], "amount": row["amount"], "state": row["state"], "price": row["selling_price"]})
+            logging.info("offers_to_cancel: \n%s", offers_to_cancel)
             
-            if should_cancel_sb:
-                sb.cancel_offers(offers_to_cancel=chunk)
+            # Send offers in chunks of 25
+            chunk_size = 25
+            for i in range(0, len(offers_to_cancel), chunk_size):
+                chunk = offers_to_cancel[i:i+chunk_size]
+                logging.debug("chunk: %s", str(json.dumps(chunk, indent=4)))
+                
+                if should_cancel_sb:
+                    sb.cancel_offers(offers_to_cancel=chunk)
 
-        time.sleep(20)
+            time.sleep(30)
     
     # CANCELING PROCESS
 
     # LISTING PROCESS
     if should_list:
+
+        if not offers_to_cancel_df.empty:
         
-        inventory_df = sb.get_inventory()
-        logging.debug("inventory_df: \n%s", inventory_df.to_string())
+            inventory_df = sb.get_inventory()
+            logging.debug("inventory_df: \n%s", inventory_df.to_string())
 
-        items = []
-        search_strings = []
+            items = []
+            search_strings = []
 
-        for i, row in inventory_df.iterrows():
-            localizedName = row["localizedName"]
+            for i, row in inventory_df.iterrows():
+                localizedName = row["localizedName"]
 
-            search_name = localizedName
+                search_name = localizedName
 
-            try:
-                localizedExteriorName = row["localizedExteriorName"]
+                try:
+                    localizedExteriorName = row["localizedExteriorName"]
 
-                if isinstance(localizedExteriorName, str):
-                    search_name = localizedName + " (" + localizedExteriorName + ")"
-            except:
-                pass
+                    if isinstance(localizedExteriorName, str):
+                        search_name = localizedName + " (" + localizedExteriorName + ")"
+                except:
+                    pass
 
-            try:
-                statTrakString = row["statTrakString"]
+                try:
+                    statTrakString = row["statTrakString"]
 
-                if isinstance(statTrakString, str):
-                    statTrakString = str.replace(statTrakString, " ", "")
-                    search_name = statTrakString + " " + search_name
-            except:
-                pass
+                    if isinstance(statTrakString, str):
+                        statTrakString = str.replace(statTrakString, " ", "")
+                        search_name = statTrakString + " " + search_name
+                except:
+                    pass
 
-            try:
-                souvenirString = row["souvenirString"]
+                try:
+                    souvenirString = row["souvenirString"]
 
-                if isinstance(souvenirString, str):
-                    search_name = souvenirString + " " + search_name
-            except:
-                pass
+                    if isinstance(souvenirString, str):
+                        search_name = souvenirString + " " + search_name
+                except:
+                    pass
 
-            search_strings.append(search_name)
+                search_strings.append(search_name)
 
-            logging.debug("search_name: %s", search_name)
+                logging.debug("search_name: %s", search_name)
 
-        inventory_df["search_strings"] = search_strings
-        logging.debug("inventory_df: \n%s", inventory_df.to_string())
+            inventory_df["search_strings"] = search_strings
+            logging.debug("inventory_df: \n%s", inventory_df.to_string())
 
-        for i, row in canceled_offer_infos_df.iterrows():
-            name = row["name"]
-            logging.debug("name: %s", name)
-            price = row["selling_price"]
-            logging.debug("price: %s", price)
-            amount = row["amount"]
-            logging.debug("amount: %s", amount)
+            for i, row in canceled_offer_infos_df.iterrows():
+                name = row["name"]
+                logging.debug("name: %s", name)
+                price = row["selling_price"]
+                logging.debug("price: %s", price)
+                amount = row["amount"]
+                logging.debug("amount: %s", amount)
 
-            selected_offers_from_inv = inventory_df.loc[inventory_df["search_strings"] == name]
-            logging.debug("selected_offers_from_inv: \n%s", selected_offers_from_inv.to_string())
+                selected_offers_from_inv = inventory_df.loc[inventory_df["search_strings"] == name]
+                logging.debug("selected_offers_from_inv: \n%s", selected_offers_from_inv.to_string())
 
-            selected_offers_from_inv = selected_offers_from_inv.head(amount)
-            logging.debug("selected_offers_from_inv: \n%s", selected_offers_from_inv.to_string())        
+                selected_offers_from_inv = selected_offers_from_inv.head(amount)
+                logging.debug("selected_offers_from_inv: \n%s", selected_offers_from_inv.to_string())        
 
-            inventory_df = inventory_df[~inventory_df.isin(selected_offers_from_inv.to_dict(orient='list')).all(axis=1)]
+                inventory_df = inventory_df[~inventory_df.isin(selected_offers_from_inv.to_dict(orient='list')).all(axis=1)]
 
-            for i, row in selected_offers_from_inv.iterrows():
-                items.append({"assetId": row["id"], "price": price, "name": row["localizedName"]})
+                for i, row in selected_offers_from_inv.iterrows():
+                    items.append({"assetId": row["id"], "price": price, "name": row["localizedName"]})
 
-        logging.debug("items: \n%s", items)
-        
-        chunk_size = 50
-        chunks = [items[i:i + chunk_size]
-                for i in range(0, len(items), chunk_size)]
+            logging.debug("items: \n%s", items)
+            
+            chunk_size = 50
+            chunks = [items[i:i + chunk_size]
+                    for i in range(0, len(items), chunk_size)]
 
-        for chunk in chunks:
-            logging.debug("chunk: %s", str(json.dumps(chunk, indent=4)))
+            for chunk in chunks:
+                logging.debug("chunk: %s", str(json.dumps(chunk, indent=4)))
 
-            if should_list_sb:
-                response = sb.list_items(items=chunk, promotion_code=best_fee_code)
-                
-                if "errors" in response:
-                    logging.error("error: %s", response["errors"])
-                    sys.exit(1)
+                if should_list_sb:
+                    response = sb.list_items(items=chunk, promotion_code=best_fee_code)
+                    
+                    if "errors" in response:
+                        logging.error("error: %s", response["errors"])
+                        sys.exit(1)
+
+            time.sleep(60)
                 
     # LISTING PROCESS
+
+    if not offers_to_cancel_df.empty:
+        logging.info("creating linked purchases dataframe")
+        link_purchases_to_offers.main()
+
+    time.sleep(1)

@@ -2,6 +2,7 @@ import os
 from src.libs import utils
 from src.libs import csvs
 from datetime import datetime
+import time
 import logging
 from src.scripts import link_purchases_to_offers, price_calculation
 from src.scripts import scraper_sales
@@ -208,6 +209,11 @@ def check_price_adapt_needed(use_existing_linked_purchases: bool, use_current_bo
         logging.info("updating last_price_adapt.csv")
         new_df = pd.DataFrame({"last_price_adapt": [today.strftime("%Y-%m-%d")]})
         csvs.save_df(new_df, __last_price_adapt_path__)
+
+        logging.info("creating linked purchases dataframe")
+        link_purchases_to_offers.main()
+
+        time.sleep(1)
     else:
         logging.info("price adaptation not needed yet")
 
