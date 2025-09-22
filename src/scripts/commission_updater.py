@@ -81,10 +81,13 @@ def main(use_existing_linked_purchases: bool):
     logging.info("finding best fee code")
     best_fee_code = get_best_fee_code(fee_codes_df)
     logging.debug("best_fee_code: %s", best_fee_code)
-    
-    logging.info("reading best fee code's commission")
-    best_fee_code_commission = fee_codes_df[fee_codes_df["name"] == best_fee_code].iloc[0]["commission_factor"]
-    logging.debug("best_fee_code_commission: %s", best_fee_code_commission)
+
+    if best_fee_code is not None:    
+        logging.info("reading best fee code's commission")
+        best_fee_code_commission = fee_codes_df[fee_codes_df["name"] == best_fee_code].iloc[0]["commission_factor"]
+        logging.debug("best_fee_code_commission: %s", best_fee_code_commission)
+    else:
+        best_fee_code_commission = 0.15
 
     logging.info("filtering offers to cancel from active offers without tradelock")
     offers_to_cancel_df = not_tradelocked_offers_df[not_tradelocked_offers_df["commission_factor"] > best_fee_code_commission].reset_index(drop=True)
