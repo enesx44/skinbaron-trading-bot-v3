@@ -60,8 +60,7 @@ def get_all_offers(type: Literal["AVAILABLE", "SOLD"], first_row: pd.Series = No
             logging.error(f"Unexpected error occurred: {str(e)}")
             raise
     
-    all_offers_df = all_offers_df.drop(columns=["stackable", "formattedState", "offerLink", 
-                                                "rarityClassName", "isPrivate", "isSoldAndPaid", 
+    all_offers_df = all_offers_df.drop(columns=["stackable", "formattedState", "offerLink", "isPrivate", "isSoldAndPaid", 
                                                 "appId", "imageUrl", "viewedCount", "stickers",                                             
                                                 ], errors="ignore")
     logging.debug("all_offers_df:\n%s", all_offers_df.to_string())
