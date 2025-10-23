@@ -282,12 +282,12 @@ def main(use_existing_linked_purchases: bool, use_current_bot_skinlist: bool):
 
         if not pd.isna(recommended_price):
             logging.debug("recommended_price exists")
-            discount_factor = max(0, 1 - 0.005 * weeks_past_six_months)  # 0.5% per week
+            discount_factor = max(0, 1 - 0.01 * weeks_past_six_months)  # 1% per week
             logging.debug("discount_factor (recommended): %.4f", discount_factor)
             price_to_set = recommended_price * discount_factor
         else:
             logging.debug("recommended_price doesn't exist")
-            discount_factor = max(0, 1 - 0.01 * weeks_past_six_months)  # 1% per week
+            discount_factor = max(0, 1 - 0.02 * weeks_past_six_months)  # 2% per week
             logging.debug("discount_factor (min price): %.4f", discount_factor)
             price_to_set = min_price * discount_factor
         
