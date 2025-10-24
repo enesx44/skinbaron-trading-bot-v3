@@ -201,7 +201,15 @@ def main(use_existing_linked_purchases: bool):
 
                 logging.info("Processing item %d/%d: %s", index, len(bot_skinlist_df_eff), name)
 
-                good_offers = sb.search(search_item=name, min=0, max=row["buy_price"])
+                # RESTRICTIONS
+
+                restriction_multiplier = 1
+                if "★" in name:
+                    restriction_multiplier * 0.5
+
+                # RESTRICTIONS
+
+                good_offers = sb.search(search_item=name, min=0, max=round(row["buy_price"]*restriction_multiplier, 2))
                 good_offers_df = pd.DataFrame(good_offers, columns=["id", "price", "img", "market_name", "sbinspect", "inspect", "stickers", "wear", "appid"])
                 good_offers_df = good_offers_df[~good_offers_df['id'].isin(__forbidden_ids_list__)]
                 good_offers_df = good_offers_df[~good_offers_df['id'].isin(__forbidden_ids_temp__)]
@@ -215,7 +223,7 @@ def main(use_existing_linked_purchases: bool):
 
                 logging.info("checking for very good offers")
                 very_good_offers_df = good_offers_df.loc[good_offers_df["price"]
-                                                        <= row["buy_price"] * __very_good_offer_percentage__]
+                                                        <= round((row["buy_price"]*restriction_multiplier) * __very_good_offer_percentage__, 2)]
                 logging.debug("very_good_offers_df: \n%s", very_good_offers_df.to_string())
 
                 if (balance <= __slow_down_balance__) and very_good_offers_df.empty:
@@ -275,7 +283,7 @@ def main(use_existing_linked_purchases: bool):
                     time.sleep(5)
 
                     # Refresh offers
-                    good_offers = sb.search(search_item=name, min=0, max=row["buy_price"])
+                    good_offers = sb.search(search_item=name, min=0, max=round(row["buy_price"]*restriction_multiplier, 2))
                     good_offers_df = pd.DataFrame(good_offers, columns=["id", "price", "img", "market_name", "sbinspect", "inspect", "stickers", "wear", "appid"])
                     logging.debug("__forbidden_ids_list__: %s", __forbidden_ids_list__)
                     logging.debug("good_offers_df:\n%s", good_offers_df.to_string())
@@ -291,7 +299,7 @@ def main(use_existing_linked_purchases: bool):
 
                     logging.info("checking for very good offers")
                     very_good_offers_df = good_offers_df.loc[good_offers_df["price"]
-                                                            <= row["buy_price"] * __very_good_offer_percentage__]
+                                                            <= round((row["buy_price"]*restriction_multiplier) * __very_good_offer_percentage__, 2)]
                     logging.debug("very_good_offers_df: \n%s", very_good_offers_df.to_string())
 
                     # Guard clause for balance check
