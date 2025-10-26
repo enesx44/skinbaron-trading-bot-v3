@@ -205,7 +205,7 @@ def main(use_existing_linked_purchases: bool):
 
                 restriction_multiplier = 1
                 if "★" in name:
-                    restriction_multiplier * 0.5
+                    restriction_multiplier = 0.3
 
                 # RESTRICTIONS
 

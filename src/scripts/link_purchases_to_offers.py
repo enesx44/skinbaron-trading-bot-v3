@@ -79,6 +79,7 @@ def post_process_linked_purchases(linked_purchases_df: pd.DataFrame):
         restructured_df['buy_date'] = linked_purchases_df['formattedDate']
         restructured_df['name'] = linked_purchases_df.apply(extract_name, axis=1)
         restructured_df['wear'] = linked_purchases_df.apply(extract_wear, axis=1) 
+        restructured_df['rarityClassName'] = linked_purchases_df['linkedOfferInfo'].apply(lambda x: x['rarityClassName'] if x else None)
         restructured_df['uuid'] = linked_purchases_df['linkedOfferInfo'].apply(lambda x: x['uuid'] if x else None)
         restructured_df['meta_offer_id'] = linked_purchases_df['linkedOfferInfo'].apply(lambda x: x['metaOfferId'] if x else None)
         restructured_df["meta_offer_id"] = pd.to_numeric(restructured_df["meta_offer_id"], errors='coerce').astype('Int64')
