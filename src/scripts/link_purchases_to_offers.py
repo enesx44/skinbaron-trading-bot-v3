@@ -41,7 +41,7 @@ def add_time_to_sell_column(linked_purchases_df: pd.DataFrame) -> pd.DataFrame:
     linked_purchases_df['timeToSell'] = linked_purchases_df.apply(
         lambda row: (
             max((datetime.datetime.strptime(row['linkedOfferInfo']['formattedDateSold'], "%m/%d/%Y") -
-                 datetime.datetime.strptime(row['formattedDate'], "%d.%m.%Y %H:%M")).days, 0)  # Ensure non-negative values
+                 datetime.datetime.strptime(row['formattedDate'], "%d.%m.%Y %H:%M")).days + 1, 1)  # Ensure non-negative values
         ) if row['linkedOfferInfo'] and 'formattedDateSold' in row['linkedOfferInfo'] and row['linkedOfferInfo']['formattedDateSold']
         else None,
         axis=1

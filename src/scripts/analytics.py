@@ -99,12 +99,12 @@ def analyze_time_to_sell(linked_purchases_df: pd.DataFrame) -> pd.DataFrame:
     analysis_df["avg_profit"] = analysis_df["avg_profit"].round(2)
     analysis_df["total_profit"] = (analysis_df["avg_profit"] * analysis_df["sales_frequency"]).round(2)
 
-    analysis_df["avg_time_to_sell"] = analysis_df["avg_time_to_sell"].replace(0, 0.01)
-    analysis_df["efficiency"] = ((analysis_df["total_profit"] * 4) * (analysis_df["sales_frequency"] * 2)) / analysis_df["avg_time_to_sell"].round(2)
+    analysis_df["avg_time_to_sell"] = analysis_df["avg_time_to_sell"].replace(0, 1)
+    analysis_df["efficiency"] = ((analysis_df["total_profit"] ** 5) * (analysis_df["sales_frequency"] ** 2)) / (analysis_df["avg_time_to_sell"] ** 2).round(5)
 
     # Optional normalization
     scaler = MinMaxScaler()
-    analysis_df['efficiency'] = scaler.fit_transform(analysis_df[['efficiency']]).round(2)
+    analysis_df['efficiency'] = scaler.fit_transform(analysis_df[['efficiency']]).round(5)
     #analysis_df = analysis_df[analysis_df["sales_frequency"] > 1]
 
     analysis_df = analysis_df.sort_values(by=["efficiency", "total_profit"], ascending=[False, False]).reset_index(drop=True)
