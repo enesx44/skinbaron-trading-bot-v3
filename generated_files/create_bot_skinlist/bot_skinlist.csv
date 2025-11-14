@@ -1,202 +1,200 @@
 name,buy_price,selling_price,min_profit,mean_profitability,tier
-SSG 08 | Dragonfire (Factory New),300.8,398.22,65.56,False,1
-M4A4 | Buzz Kill (Field-Tested),220.87,292.41,48.15,False,1
+SSG 08 | Dragonfire (Factory New),325.8,431.32,71.01,False,1
+M4A4 | Buzz Kill (Field-Tested),237.78,314.8,51.84,False,1
 ★ Huntsman Knife | Tiger Tooth (Factory New),145.2,202.35,40.96,False,1
-SSG 08 | Dragonfire (Minimal Wear),176.39,233.52,38.45,False,1
-SSG 08 | Dragonfire (Field-Tested),168.28,222.78,36.68,False,1
-MAC-10 | Neon Rider (Factory New),70.07,97.65,19.77,False,1
-M4A1-S | Mecha Industries (Minimal Wear),76.68,101.52,16.72,False,1
-PP-Bizon | Judgement of Anubis (Minimal Wear),69.38,91.85,15.12,False,1
-AK-47 | Neon Revolution (Minimal Wear),68.2,90.29,14.87,False,1
-MAC-10 | Neon Rider (Minimal Wear),67.13,88.88,14.64,False,1
-Glock-18 | Wasteland Rebel (Minimal Wear),67.0,88.7,14.6,False,1
-FAMAS | Roll Cage (Minimal Wear),59.87,79.26,13.05,False,1
-AK-47 | The Empress (Minimal Wear),57.56,76.2,12.54,False,1
-USP-S | Neo-Noir (Field-Tested),54.09,71.62,11.8,False,1
-P250 | See Ya Later (Field-Tested),53.78,71.2,11.72,False,1
-M4A4 | Royal Paladin (Field-Tested),41.49,57.82,11.7,False,1
-P2000 | Fire Elemental (Minimal Wear),41.19,57.41,11.63,False,1
-AK-47 | The Empress (Field-Tested),52.33,69.29,11.42,False,1
+SSG 08 | Dragonfire (Minimal Wear),178.28,236.02,38.86,False,1
+SSG 08 | Dragonfire (Field-Tested),168.7,223.34,36.77,False,1
+StatTrak™ AK-47 | Nightwish (Minimal Wear),29.35,53.82,20.16,False,1
+MAC-10 | Neon Rider (Factory New),70.87,98.77,20.0,False,1
+AK-47 | Neon Revolution (Minimal Wear),69.7,92.28,15.2,False,1
+FAMAS | Roll Cage (Minimal Wear),67.93,89.94,14.81,False,1
+MAC-10 | Neon Rider (Minimal Wear),66.96,88.65,14.6,False,1
+AK-47 | The Empress (Minimal Wear),59.25,78.44,12.91,False,1
+Galil AR | Chatterbox (Well-Worn),58.16,77.0,12.68,False,1
+USP-S | Neo-Noir (Minimal Wear),57.57,76.22,12.55,False,1
+AWP | Chromatic Aberration (Factory New),42.65,59.44,12.03,False,1
+USP-S | Neo-Noir (Field-Tested),54.01,71.51,11.78,False,1
+FAMAS | Roll Cage (Field-Tested),54.03,71.53,11.78,False,1
+P250 | See Ya Later (Field-Tested),53.76,71.18,11.73,False,1
+AK-47 | The Empress (Field-Tested),51.87,68.67,11.31,False,1
 AK-47 | Wasteland Rebel (Field-Tested),39.46,54.99,11.13,False,1
-FAMAS | Roll Cage (Field-Tested),51.06,67.59,11.12,False,1
-Galil AR | Chatterbox (Well-Worn),50.25,66.53,10.96,False,1
-USP-S | Neo-Noir (Minimal Wear),49.49,65.53,10.8,False,1
-FAMAS | Roll Cage (Well-Worn),49.55,65.59,10.79,False,1
-AWP | Chromatic Aberration (Factory New),44.89,59.44,9.79,False,1
+FAMAS | Roll Cage (Well-Worn),49.9,66.06,10.88,False,1
+AK-47 | Head Shot (Minimal Wear),45.76,60.58,9.97,False,1
+M4A4 | Royal Paladin (Field-Tested),43.67,57.82,9.52,False,1
 StatTrak™ MP9 | Starlight Protector (Field-Tested),41.21,54.56,8.99,False,1
-AUG | Chameleon (Field-Tested),39.5,52.3,8.62,False,1
+P2000 | Fire Elemental (Minimal Wear),41.15,54.48,8.97,False,1
 MP7 | Bloodsport (Minimal Wear),38.05,50.38,8.3,False,1
-M4A4 | The Emperor (Field-Tested),37.97,50.27,8.28,False,1
-FAMAS | Mecha Industries (Factory New),33.84,47.17,9.56,False,2
-AWP | Chromatic Aberration (Minimal Wear),33.7,46.97,9.51,False,2
-M4A1-S | Player Two (Field-Tested),32.28,44.99,9.11,False,2
-M4A4 | In Living Color (Minimal Wear),32.27,44.98,9.11,False,2
-FAMAS | Bad Trip (Battle-Scarred),30.95,43.13,8.73,False,2
-M4A4 | Neo-Noir (Field-Tested),24.31,35.65,8.49,False,2
+Desert Eagle | Ocean Drive (Field-Tested),27.98,48.74,16.86,False,2
+AK-47 | Midnight Laminate (Minimal Wear),22.81,39.74,13.75,False,2
+AWP | Chrome Cannon (Field-Tested),22.27,35.27,10.18,False,2
+M4A1-S | Player Two (Field-Tested),33.26,46.36,9.39,False,2
+M4A4 | In Living Color (Minimal Wear),36.98,48.96,8.06,False,2
 Desert Eagle | Code Red (Minimal Wear),36.71,48.6,8.0,False,2
-M4A4 | Temukau (Field-Tested),26.7,37.22,7.54,False,2
-Street Soldier | Phoenix,32.6,43.17,7.12,False,2
-AWP | Neo-Noir (Field-Tested),25.04,34.9,7.07,False,2
-M4A4 | In Living Color (Field-Tested),32.26,42.72,7.04,False,2
-AWP | Chrome Cannon (Well-Worn),24.27,33.83,6.85,False,2
-FAMAS | Commemoration (Field-Tested),30.96,40.99,6.75,False,2
-AWP | Chrome Cannon (Field-Tested),23.26,32.42,6.57,False,2
-AWP | Hyper Beast (Field-Tested),28.59,37.86,6.24,False,2
-AK-47 | Head Shot (Well-Worn),26.45,35.02,5.77,False,2
-Lieutenant Rex Krikey | SEAL Frogman,17.01,23.71,4.8,False,2
-Slingshot | Phoenix,11.81,16.47,3.34,False,2
-B Squadron Officer | SAS,11.83,16.48,3.33,False,2
-M4A1-S | Solitude (Minimal Wear),14.77,19.55,3.22,False,2
-Glock-18 | Water Elemental (Minimal Wear),10.42,14.53,2.95,False,3
-StatTrak™ AK-47 | Ice Coaled (Field-Tested),8.3,12.18,2.91,False,3
-Operator | FBI SWAT,10.01,13.95,2.82,False,3
-Osiris | Elite Crew,9.61,13.4,2.72,False,3
-Ground Rebel  | Elite Crew,8.59,11.98,2.43,False,3
-Desert Eagle | Conspiracy (Minimal Wear),10.56,13.99,2.31,False,3
-AWP | Black Nile (Factory New),6.54,9.6,2.29,False,3
-Maximus | Sabre,8.06,11.24,2.28,False,3
-M4A4 | Desolate Space (Field-Tested),8.05,11.22,2.27,False,3
-Prof. Shahmat | Elite Crew,6.4,9.4,2.25,False,3
-Glock-18 | Water Elemental (Field-Tested),9.66,12.79,2.11,False,3
-Rezan The Ready | Sabre,7.34,10.23,2.07,False,3
-Dragomir | Sabre,6.98,9.73,1.97,False,3
-USP-S | Jawbreaker (Minimal Wear),6.9,9.61,1.94,False,3
-P250 | Asiimov (Field-Tested),6.08,8.48,1.72,False,3
-M4A1-S | Emphorosaur-S (Factory New),4.88,7.16,1.71,False,3
-Soldier | Phoenix,5.56,7.75,1.57,False,3
-Galil AR | Eco (Field-Tested),5.36,7.48,1.52,False,3
-M4A4 | Spider Lily (Field-Tested),5.17,7.21,1.46,False,3
-Five-SeveN | Monkey Business (Field-Tested),4.98,6.94,1.4,False,3
-PP-Bizon | High Roller (Field-Tested),4.73,6.6,1.34,False,3
-UMP-45 | Primal Saber (Minimal Wear),6.05,8.01,1.32,False,3
-USP-S | Cortex (Minimal Wear),4.62,6.44,1.3,False,3
-Glock-18 | Moonrise (Factory New),3.68,5.41,1.3,False,3
-P250 | Franklin (Factory New),3.68,5.4,1.29,False,3
-MP9 | Food Chain (Minimal Wear),4.25,5.93,1.21,False,3
-UMP-45 | Primal Saber (Field-Tested),5.37,7.11,1.17,False,3
-USP-S | Alpine Camo (Factory New),5.33,7.06,1.17,False,3
-Dual Berettas | Melondrama (Field-Tested),4.01,5.6,1.14,False,3
-AK-47 | Ice Coaled (Field-Tested),3.98,5.55,1.13,False,3
+FAMAS | Mecha Industries (Factory New),34.96,46.29,7.63,False,2
+AWP | Hyper Beast (Field-Tested),26.11,36.39,7.37,False,2
+Street Soldier | Phoenix,33.55,44.42,7.32,False,2
+AWP | Neo-Noir (Field-Tested),25.72,35.85,7.26,False,2
+AWP | Chrome Cannon (Well-Worn),25.2,35.11,7.1,False,2
+M4A4 | In Living Color (Field-Tested),31.71,41.99,6.92,False,2
+FAMAS | Bad Trip (Battle-Scarred),29.86,39.54,6.52,False,2
+Trapper Aggressor | Guerrilla Warfare,25.08,33.21,5.47,False,2
+Slingshot | Phoenix,11.74,17.23,4.11,False,2
+M4A1-S | Solitude (Minimal Wear),13.93,19.42,3.94,False,2
+B Squadron Officer | SAS,11.9,16.59,3.36,False,2
+Desert Eagle | Conspiracy (Minimal Wear),10.81,15.07,3.05,False,2
+Glock-18 | Water Elemental (Minimal Wear),10.67,14.88,3.02,False,2
+StatTrak™ AK-47 | Ice Coaled (Field-Tested),8.16,11.97,2.85,False,3
+Operator | FBI SWAT,10.04,14.0,2.84,False,3
+AWP | Black Nile (Factory New),6.15,9.51,2.6,False,3
+Glock-18 | Water Elemental (Field-Tested),10.71,14.19,2.34,False,3
+M4A4 | Desolate Space (Field-Tested),8.18,11.41,2.32,False,3
+Osiris | Elite Crew,10.15,13.44,2.21,False,3
+Markus Delrow | FBI HRT,7.45,10.39,2.11,False,3
+Prof. Shahmat | Elite Crew,5.79,8.5,2.03,False,3
+Ground Rebel  | Elite Crew,9.23,12.23,2.02,False,3
+Dragomir | Sabre,7.03,9.8,1.99,False,3
+Rezan The Ready | Sabre,6.63,9.25,1.88,False,3
+Maximus | Sabre,8.51,11.27,1.86,False,3
+Galil AR | Eco (Field-Tested),6.33,8.83,1.79,False,3
+Soldier | Phoenix,6.2,8.65,1.76,False,3
+AK-47 | The Outsiders (Field-Tested),6.22,8.67,1.76,False,3
+P250 | Asiimov (Field-Tested),6.2,8.64,1.75,False,3
+M4A1-S | Emphorosaur-S (Factory New),4.71,6.92,1.66,False,3
+M4A4 | Spider Lily (Field-Tested),5.31,7.4,1.5,False,3
+UMP-45 | Primal Saber (Field-Tested),5.19,7.24,1.47,False,3
+Galil AR | Chromatic Aberration (Minimal Wear),5.16,7.2,1.46,False,3
+Five-SeveN | Monkey Business (Field-Tested),5.15,7.18,1.46,False,3
+USP-S | Alpine Camo (Factory New),5.06,7.06,1.44,False,3
+M4A1-S | Solitude (Field-Tested),5.07,7.07,1.43,False,3
+Enforcer | Phoenix,6.08,8.05,1.33,False,3
+USP-S | Cortex (Minimal Wear),4.65,6.49,1.32,False,3
+UMP-45 | Primal Saber (Minimal Wear),6.07,8.03,1.32,False,3
+PP-Bizon | High Roller (Field-Tested),4.6,6.42,1.31,False,3
+AWP | Duality (Minimal Wear),4.39,6.13,1.25,False,3
+MP9 | Food Chain (Minimal Wear),4.32,6.03,1.23,False,3
+AUG | Syd Mead (Field-Tested),5.43,7.2,1.19,False,3
+AK-47 | Ice Coaled (Field-Tested),4.14,5.77,1.17,False,3
+Dual Berettas | Melondrama (Field-Tested),4.01,5.59,1.13,False,3
+FAMAS | Rapid Eye Movement (Field-Tested),3.94,5.5,1.12,False,3
+FAMAS | Rapid Eye Movement (Minimal Wear),3.95,5.51,1.12,False,3
 UMP-45 | Crimson Foil (Field-Tested),3.93,5.49,1.12,False,3
-M4A1-S | Solitude (Field-Tested),3.86,5.39,1.1,False,3
-FAMAS | Rapid Eye Movement (Minimal Wear),3.9,5.44,1.1,False,3
-MP7 | Abyssal Apparition (Minimal Wear),3.71,5.18,1.06,False,3
-Desert Eagle | Heat Treated (Minimal Wear),3.65,5.09,1.03,False,3
-AK-47 | Phantom Disruptor (Field-Tested),3.58,5.0,1.02,False,3
-AWP | Duality (Minimal Wear),4.66,6.17,1.02,False,3
-Glock-18 | Vogue (Minimal Wear),3.56,4.97,1.01,False,3
-Glock-18 | Nuclear Garden (Minimal Wear),3.21,4.71,1.12,False,4
-StatTrak™ Desert Eagle | Serpent Strike (Minimal Wear),2.54,3.93,1.08,False,4
+Glock-18 | Vogue (Minimal Wear),3.7,5.17,1.06,False,3
+AK-47 | Phantom Disruptor (Field-Tested),3.7,5.16,1.05,False,3
+Desert Eagle | Heat Treated (Minimal Wear),3.63,5.07,1.03,False,3
+Glock-18 | Shinobu (Well-Worn),3.55,4.96,1.01,False,3
+StatTrak™ Desert Eagle | Serpent Strike (Minimal Wear),2.43,3.93,1.19,False,4
+Glock-18 | Moonrise (Factory New),3.29,4.84,1.16,False,4
 Dual Berettas | Melondrama (Well-Worn),2.73,4.01,0.96,False,4
-AK-47 | Crossfade (Minimal Wear),3.2,4.47,0.91,False,4
-FAMAS | Rapid Eye Movement (Field-Tested),3.2,4.46,0.9,False,4
-Glock-18 | Shinobu (Field-Tested),3.15,4.4,0.9,False,4
-Glock-18 | Shinobu (Battle-Scarred),2.54,3.74,0.9,False,4
-MP7 | Abyssal Apparition (Well-Worn),3.03,4.23,0.86,False,4
-AK-47 | Searing Rage (Field-Tested),2.85,3.98,0.81,False,4
-MAC-10 | Disco Tech (Field-Tested),2.87,4.0,0.81,False,4
-Glock-18 | Shinobu (Well-Worn),3.69,4.88,0.8,False,4
-MP5-SD | Phosphor (Field-Tested),2.26,3.32,0.79,False,4
-Desert Eagle | Tilted (Factory New),2.79,3.89,0.79,False,4
-R8 Revolver | Amber Fade (Field-Tested),2.76,3.86,0.79,False,4
-Galil AR | Chromatic Aberration (Well-Worn),2.23,3.28,0.79,False,4
-MAG-7 | Justice (Field-Tested),2.72,3.8,0.78,False,4
-M4A4 | Tooth Fairy (Field-Tested),2.61,3.64,0.74,False,4
-XM1014 | Incinegator (Field-Tested),2.61,3.64,0.74,False,4
+MP7 | Abyssal Apparition (Minimal Wear),3.36,4.69,0.95,False,4
+Glock-18 | Shinobu (Battle-Scarred),2.61,3.84,0.92,False,4
+Glock-18 | Shinobu (Field-Tested),3.17,4.42,0.9,False,4
+AK-47 | Crossfade (Minimal Wear),3.2,4.46,0.9,False,4
+MP7 | Abyssal Apparition (Field-Tested),3.1,4.33,0.88,False,4
+AK-47 | Searing Rage (Field-Tested),3.01,4.2,0.85,False,4
+Desert Eagle | Tilted (Factory New),2.91,4.05,0.82,False,4
+MAC-10 | Disco Tech (Field-Tested),2.85,3.98,0.81,False,4
+R8 Revolver | Amber Fade (Field-Tested),2.81,3.92,0.8,False,4
+MP7 | Cirrus (Factory New),2.22,3.27,0.79,False,4
+XM1014 | Incinegator (Field-Tested),2.68,3.74,0.76,False,4
+M4A4 | Tooth Fairy (Field-Tested),2.63,3.67,0.75,False,4
+Galil AR | Chromatic Aberration (Well-Worn),2.12,3.12,0.75,False,4
+Galil AR | Tuxedo (Factory New),2.08,3.06,0.74,False,4
 USP-S | Cortex (Field-Tested),2.58,3.6,0.73,False,4
-AWP | Duality (Field-Tested),2.5,3.49,0.71,False,4
+AWP | Duality (Field-Tested),2.54,3.54,0.72,False,4
+MP9 | Food Chain (Field-Tested),2.53,3.53,0.72,False,4
+MAG-7 | Justice (Field-Tested),2.54,3.54,0.72,False,4
 P2000 | Wicked Sick (Field-Tested),2.49,3.48,0.71,False,4
-StatTrak™ M4A1-S | Night Terror (Minimal Wear),2.49,3.47,0.7,False,4
+MP7 | Abyssal Apparition (Well-Worn),3.2,4.24,0.7,False,4
+AUG | Momentum (Field-Tested),2.47,3.45,0.7,False,4
 AK-47 | Crossfade (Field-Tested),2.0,2.94,0.7,False,4
-MP9 | Food Chain (Field-Tested),2.42,3.38,0.69,False,4
-P250 | Visions (Field-Tested),2.36,3.3,0.68,False,4
-Galil AR | Chromatic Aberration (Field-Tested),2.39,3.34,0.68,False,4
-MP7 | Abyssal Apparition (Field-Tested),3.12,4.13,0.68,False,4
-MP7 | Cirrus (Factory New),2.41,3.36,0.68,False,4
-StatTrak™ USP-S | Ticket to Hell (Minimal Wear),2.35,3.28,0.67,False,4
+P250 | Visions (Field-Tested),2.38,3.33,0.68,False,4
+StatTrak™ USP-S | Ticket to Hell (Minimal Wear),2.4,3.35,0.68,False,4
+M4A4 | Converter (Factory New),2.39,3.34,0.68,False,4
+AK-47 | Wintergreen (Field-Tested),2.34,3.27,0.67,False,4
 AK-47 | Searing Rage (Battle-Scarred),2.36,3.29,0.67,False,4
 Galil AR | Chromatic Aberration (Battle-Scarred),1.9,2.79,0.67,False,4
-AUG | Momentum (Field-Tested),2.33,3.25,0.66,False,4
-Glock-18 | Vogue (Field-Tested),2.28,3.18,0.65,False,4
-XM1014 | Entombed (Field-Tested),2.28,3.18,0.65,False,4
-AWP | Mortis (Field-Tested),2.29,3.2,0.65,False,4
+Glock-18 | Nuclear Garden (Minimal Wear),3.04,4.03,0.67,False,4
+AWP | Mortis (Field-Tested),2.33,3.25,0.66,False,4
+Galil AR | Chromatic Aberration (Field-Tested),2.31,3.23,0.66,False,4
+Glock-18 | Vogue (Field-Tested),2.29,3.2,0.65,False,4
 AK-47 | Searing Rage (Well-Worn),2.31,3.22,0.65,False,4
-Galil AR | Tuxedo (Factory New),2.19,3.06,0.63,False,4
-Sawed-Off | Kiss♥Love (Field-Tested),2.18,3.04,0.62,False,4
-AK-47 | Wintergreen (Field-Tested),2.2,3.07,0.62,False,4
-UMP-45 | Wild Child (Well-Worn),2.18,3.04,0.62,False,4
-XM1014 | XOXO (Field-Tested),2.03,2.84,0.58,False,4
-USP-S | Check Engine (Factory New),2.01,2.81,0.58,False,4
+Glock-18 | Ocean Topo (Factory New),1.85,2.72,0.65,False,4
+UMP-45 | Wild Child (Well-Worn),2.3,3.21,0.65,False,4
+XM1014 | Entombed (Field-Tested),2.25,3.14,0.64,False,4
+Sawed-Off | Kiss♥Love (Field-Tested),2.2,3.07,0.62,False,4
+XM1014 | XOXO (Field-Tested),2.05,2.87,0.59,False,4
+MP9 | Food Chain (Well-Worn),2.07,2.89,0.59,False,4
+Desert Eagle | Heat Treated (Field-Tested),2.0,2.8,0.58,False,4
 MAG-7 | Justice (Well-Worn),2.59,3.44,0.57,False,4
-Glock-18 | Ocean Topo (Factory New),1.95,2.72,0.55,False,4
-Desert Eagle | Heat Treated (Field-Tested),1.9,2.65,0.54,False,4
-M4A4 | Converter (Factory New),2.45,3.25,0.54,False,4
-USP-S | Cyrex (Minimal Wear),1.85,2.59,0.53,False,4
-MP9 | Food Chain (Well-Worn),1.98,2.63,0.44,False,4
-UMP-45 | Wild Child (Field-Tested),1.56,2.29,0.55,False,5
-AK-47 | Steel Delta (Minimal Wear),1.54,2.25,0.53,False,5
+USP-S | Cyrex (Minimal Wear),1.88,2.62,0.53,False,4
+Desert Eagle | Heat Treated (Well-Worn),1.82,2.54,0.52,False,4
+USP-S | Check Engine (Factory New),1.8,2.52,0.52,False,4
 Zeus x27 | Electric Blue (Factory New),1.49,2.19,0.52,False,5
-Desert Eagle | Heat Treated (Well-Worn),1.43,2.11,0.51,False,5
-M4A4 | Evil Daimyo (Field-Tested),1.72,2.41,0.5,False,5
-M4A4 | Choppa (Factory New),1.43,2.1,0.5,False,5
-StatTrak™ Desert Eagle | Blue Ply (Minimal Wear),1.65,2.31,0.48,False,5
-AWP | Black Nile (Field-Tested),1.66,2.31,0.47,False,5
-USP-S | Ticket to Hell (Factory New),1.61,2.25,0.46,False,5
-StatTrak™ M4A1-S | Night Terror (Field-Tested),1.59,2.22,0.45,False,5
-USP-S | Alpine Camo (Minimal Wear),1.53,2.14,0.44,False,5
-P250 | Franklin (Minimal Wear),1.5,2.1,0.43,False,5
+M4A4 | Evil Daimyo (Field-Tested),1.71,2.39,0.49,False,5
+Name Tag,1.65,2.31,0.48,False,5
+StatTrak™ Desert Eagle | Blue Ply (Minimal Wear),1.67,2.34,0.48,False,5
+USP-S | Ticket to Hell (Factory New),1.66,2.31,0.47,False,5
+SSG 08 | Acid Fade (Factory New),1.61,2.25,0.46,False,5
+StatTrak™ M4A1-S | Night Terror (Field-Tested),1.63,2.27,0.46,False,5
+AWP | Black Nile (Field-Tested),1.54,2.15,0.44,False,5
+P250 | Franklin (Minimal Wear),1.54,2.15,0.44,False,5
+USP-S | Alpine Camo (Minimal Wear),1.49,2.09,0.43,False,5
+M4A4 | Choppa (Factory New),1.5,2.1,0.43,False,5
+FAMAS | ZX Spectron (Field-Tested),1.22,1.79,0.43,False,5
 AUG | Momentum (Well-Worn),1.2,1.77,0.43,False,5
-M4A1-S | Flashback (Well-Worn),1.42,1.99,0.41,False,5
-M4A1-S | Flashback (Field-Tested),1.37,1.91,0.39,False,5
+M4A1-S | Flashback (Field-Tested),1.41,1.97,0.4,False,5
 StatTrak™ M4A1-S | Emphorosaur-S (Field-Tested),1.37,1.91,0.39,False,5
 P250 | Wingshot (Field-Tested),1.04,1.54,0.38,False,5
-CZ75-Auto | Polymer (Factory New),1.07,1.57,0.37,False,5
+CZ75-Auto | Polymer (Factory New),0.94,1.41,0.36,False,5
 USP-S | PC-GRN (Factory New),1.23,1.72,0.35,False,5
+Five-SeveN | Sky Blue (Factory New),0.87,1.33,0.35,False,5
 StatTrak™ UMP-45 | Grand Prix (Field-Tested),0.83,1.28,0.35,False,5
-USP-S | Black Lotus (Field-Tested),1.15,1.61,0.33,False,5
-M4A4 | Converter (Minimal Wear),0.38,0.77,0.33,False,5
-StatTrak™ USP-S | Ticket to Hell (Field-Tested),1.12,1.57,0.32,False,5
-Desert Eagle | Tilted (Minimal Wear),0.55,0.93,0.31,False,5
+USP-S | Black Lotus (Field-Tested),1.18,1.65,0.34,False,5
+StatTrak™ USP-S | Ticket to Hell (Field-Tested),1.13,1.58,0.32,False,5
 MP5-SD | Neon Squeezer (Field-Tested),0.86,1.27,0.31,False,5
+Negev | dev_texture (Field-Tested),0.03,0.37,0.31,False,5
 P250 | Cyber Shell (Field-Tested),0.06,0.4,0.31,False,5
-Galil AR | Control (Field-Tested),0.06,0.4,0.31,False,5
+Galil AR | Control (Field-Tested),0.05,0.39,0.31,False,5
 Desert Eagle | Tilted (Field-Tested),0.05,0.39,0.31,False,5
 Dual Berettas | Flora Carnivora (Well-Worn),0.04,0.38,0.31,False,5
+USP-S | Ticket to Hell (Minimal Wear),0.64,1.03,0.31,False,5
 P250 | Franklin (Field-Tested),0.98,1.4,0.31,False,5
-Desert Eagle | Light Rail (Field-Tested),0.41,0.78,0.31,False,5
-M4A1-S | Nitro (Minimal Wear),0.97,1.39,0.31,False,5
+M4A1-S | Night Terror (Minimal Wear),0.54,0.92,0.31,False,5
+AWP | Pit Viper (Field-Tested),0.08,0.42,0.31,False,5
+Sticker | Winding Scorch,0.19,0.54,0.31,False,5
 Sticker | Hydro Wave,0.19,0.54,0.31,False,5
 SG 553 | Ol' Rusty (Factory New),0.42,0.79,0.31,False,5
-Tec-9 | Bamboozle (Field-Tested),0.06,0.4,0.31,False,5
-AWP | Acheron (Field-Tested),0.04,0.38,0.31,False,5
+Tec-9 | Bamboozle (Field-Tested),0.05,0.39,0.31,False,5
+UMP-45 | Grand Prix (Field-Tested),0.86,1.27,0.31,False,5
+SCAR-20 | Poultrygeist (Factory New),0.42,0.79,0.31,False,5
+MAC-10 | Sakkaku (Field-Tested),0.2,0.55,0.31,False,5
+AWP | Acheron (Field-Tested),0.05,0.39,0.31,False,5
 Charm | Pinch O' Salt,0.07,0.41,0.31,False,5
+Glock-18 | Ocean Topo (Minimal Wear),0.42,0.79,0.31,False,5
 PP-Bizon | Osiris (Minimal Wear),1.06,1.49,0.31,False,5
 M4A1-S | Nitro (Well-Worn),0.4,0.77,0.31,False,5
+AK-47 | Uncharted (Minimal Wear),0.28,0.64,0.31,False,5
 StatTrak™ MAG-7 | Monster Call (Well-Worn),0.15,0.5,0.31,False,5
-Charm | Lil' Crass,0.02,0.36,0.31,False,5
-Dual Berettas | Flora Carnivora (Minimal Wear),0.3,0.66,0.31,False,5
-StatTrak™ Glock-18 | Umbral Rabbit (Field-Tested),0.5,0.88,0.31,False,5
-StatTrak™ Glock-18 | Moonrise (Field-Tested),0.89,1.3,0.31,False,5
+M4A4 | Turbine (Field-Tested),0.54,0.92,0.31,False,5
+StatTrak™ Glock-18 | Moonrise (Field-Tested),0.87,1.28,0.31,False,5
 XM1014 | XOXO (Battle-Scarred),0.87,1.28,0.31,False,5
-PP-Bizon | Space Cat (Field-Tested),0.15,0.49,0.3,False,5
-Sawed-Off | Apocalypto (Field-Tested),0.03,0.36,0.3,False,5
-P90 | Wave Breaker (Field-Tested),0.14,0.48,0.3,False,5
+Desert Eagle | Tilted (Minimal Wear),0.58,0.96,0.3,False,5
+PP-Bizon | Space Cat (Field-Tested),0.16,0.5,0.3,False,5
+Sawed-Off | Apocalypto (Field-Tested),0.04,0.37,0.3,False,5
+P90 | Wave Breaker (Field-Tested),0.16,0.5,0.3,False,5
 M249 | Downtown (Field-Tested),0.1,0.44,0.3,False,5
-M4A1-S | Night Terror (Field-Tested),0.15,0.49,0.3,False,5
+M4A1-S | Night Terror (Field-Tested),0.22,0.56,0.3,False,5
 M4A1-S | Nitro (Field-Tested),0.34,0.7,0.3,False,5
-Negev | dev_texture (Field-Tested),0.04,0.37,0.3,False,5
-Desert Eagle | Serpent Strike (Field-Tested),0.01,0.34,0.3,False,5
+Desert Eagle | Serpent Strike (Field-Tested),0.03,0.36,0.3,False,5
 R8 Revolver | Amber Fade (Minimal Wear),1.04,1.46,0.3,False,5
-USP-S | Ticket to Hell (Minimal Wear),0.58,0.96,0.3,False,5
-M4A1-S | Night Terror (Minimal Wear),0.57,0.95,0.3,False,5
-USP-S | Alpine Camo (Field-Tested),0.73,1.12,0.3,False,5
-Sticker | Winding Scorch,0.25,0.6,0.3,False,5
-Glock-18 | Umbral Rabbit (Minimal Wear),0.37,0.73,0.3,False,5
-UMP-45 | Grand Prix (Field-Tested),0.76,1.15,0.3,False,5
+Tec-9 | Red Quartz (Factory New),0.39,0.75,0.3,False,5
+USP-S | Alpine Camo (Field-Tested),0.74,1.13,0.3,False,5
+Glock-18 | Umbral Rabbit (Minimal Wear),0.38,0.74,0.3,False,5
+M4A1-S | Nitro (Minimal Wear),0.96,1.37,0.3,False,5
 StatTrak™ XM1014 | Zombie Offensive (Field-Tested),0.22,0.56,0.3,False,5
 Dual Berettas | Hideout (Factory New),0.36,0.72,0.3,False,5
-Glock-18 | Ocean Topo (Minimal Wear),0.34,0.7,0.3,False,5
-MP9 | Buff Blue (Minimal Wear),0.13,0.47,0.3,False,5
+Glock-18 | Candy Apple (Minimal Wear),0.91,1.32,0.3,False,5
+MP9 | Buff Blue (Minimal Wear),0.04,0.37,0.3,False,5
 M4A1-S | Nitro (Battle-Scarred),0.03,0.36,0.3,False,5
 USP-S | Check Engine (Minimal Wear),0.57,0.95,0.3,False,5
 Nova | Dark Sigil (Factory New),0.24,0.59,0.3,False,5
@@ -204,402 +202,402 @@ M4A1-S | Mud-Spec (Minimal Wear),0.15,0.49,0.3,False,5
 Charm | Big Kev,0.02,0.35,0.3,False,5
 R8 Revolver | Crazy 8 (Minimal Wear),0.36,0.72,0.3,False,5
 CS20 Sticker Capsule,0.39,0.75,0.3,False,5
-Five-SeveN | Sky Blue (Factory New),0.92,1.33,0.3,False,5
-Zeus x27 | Electric Blue (Minimal Wear),0.15,0.49,0.3,False,5
+Charm | Lil' Crass,0.02,0.35,0.3,False,5
+StatTrak™ Glock-18 | Umbral Rabbit (Field-Tested),0.48,0.85,0.3,False,5
+StatTrak™ Dual Berettas | Flora Carnivora (Field-Tested),0.36,0.72,0.3,False,5
+Zeus x27 | Electric Blue (Minimal Wear),0.16,0.5,0.3,False,5
 ★ Talon Knife | Tiger Tooth (Factory New),432.02,621.15,139.44,True,1
-★ Specialist Gloves | Marble Fade (Field-Tested),157.73,238.72,61.89,True,1
+★ Specialist Gloves | Marble Fade (Field-Tested),152.07,230.16,59.68,True,1
 M4A1-S | Printstream (Field-Tested),152.2,218.83,49.12,True,1
 M4A1-S | Fade (Factory New),429.24,478.9,11.35,True,1
 ★ Driver Gloves | Imperial Plaid (Field-Tested),279.07,311.37,7.39,True,1
-★ Driver Gloves | King Snake (Field-Tested),212.29,236.85,5.61,True,1
-★ Survival Knife | Marble Fade (Factory New),144.92,189.42,29.35,True,2
+★ Driver Gloves | King Snake (Field-Tested),213.26,237.93,5.64,True,1
+★ Moto Gloves | Turtle (Field-Tested),87.82,126.27,28.35,True,2
+★ Driver Gloves | Queen Jaguar (Field-Tested),61.2,92.63,24.02,True,2
 MP9 | Starlight Protector (Factory New),69.39,99.77,22.4,True,2
-★ Driver Gloves | Queen Jaguar (Field-Tested),64.42,92.63,20.8,True,2
-M4A1-S | Vaporwave (Field-Tested),46.05,66.21,14.86,True,2
-★ Broken Fang Gloves | Unhinged (Field-Tested),63.53,83.03,12.86,True,2
-★ Navaja Knife | Marble Fade (Factory New),108.21,131.01,12.32,True,2
-AK-47 | Bloodsport (Minimal Wear),146.8,172.41,11.82,True,2
+★ Broken Fang Gloves | Unhinged (Field-Tested),60.35,83.03,16.04,True,2
+AK-47 | Inheritance (Minimal Wear),78.4,102.48,15.88,True,2
+M4A1-S | Vaporwave (Field-Tested),42.31,60.83,13.65,True,2
+Sir Bloody Darryl Royale | The Professionals,54.04,70.64,10.95,True,2
+★ Navaja Knife | Marble Fade (Factory New),111.42,130.86,8.97,True,2
+★ Hydra Gloves | Case Hardened (Field-Tested),93.44,109.74,7.52,True,2
 MP7 | Bloodsport (Factory New),59.48,72.02,6.78,True,2
-StatTrak™ Desert Eagle | Printstream (Field-Tested),52.78,61.98,4.24,True,2
+AWP | Asiimov (Battle-Scarred),50.11,60.68,5.72,True,2
+AWP | Asiimov (Field-Tested),96.2,110.65,5.6,True,2
+★ Driver Gloves | Overtake (Field-Tested),78.6,90.4,4.57,True,2
+★ Survival Knife | Marble Fade (Factory New),172.41,192.36,4.56,True,2
 ★ Moto Gloves | 3rd Commando Company (Field-Tested),52.5,61.66,4.23,True,2
-Sir Bloody Darryl Royale | The Professionals,60.9,70.05,3.55,True,2
-Number K | The Professionals,60.13,69.16,3.5,True,2
-P90 | Asiimov (Minimal Wear),124.41,138.8,3.29,True,2
-MP9 | Starlight Protector (Minimal Wear),55.11,63.39,3.21,True,2
+AK-47 | Bloodsport (Minimal Wear),149.82,167.16,3.97,True,2
+Number K | The Professionals,60.41,69.48,3.51,True,2
+P90 | Asiimov (Minimal Wear),124.28,138.66,3.29,True,2
+MP9 | Starlight Protector (Minimal Wear),54.89,63.14,3.2,True,2
 M4A1-S | Cyrex (Minimal Wear),118.05,131.71,3.12,True,2
-★ Moto Gloves | Turtle (Field-Tested),117.68,131.3,3.12,True,2
-AWP | Asiimov (Battle-Scarred),52.44,60.31,3.05,True,2
-AK-47 | Inheritance (Field-Tested),52.24,60.09,3.04,True,2
-M4A1-S | Cyrex (Field-Tested),113.02,126.1,2.99,True,2
-P90 | Asiimov (Field-Tested),111.95,124.91,2.97,True,2
-AWP | Asiimov (Field-Tested),99.86,111.41,2.64,True,2
-★ Hydra Gloves | Case Hardened (Field-Tested),97.66,108.97,2.59,True,2
-AK-47 | Inheritance (Minimal Wear),91.08,101.62,2.41,True,2
-M4A1-S | Hyper Beast (Minimal Wear),90.34,100.79,2.39,True,2
-AWP | Printstream (Minimal Wear),89.67,100.05,2.38,True,2
-★ Driver Gloves | Overtake (Field-Tested),80.22,89.51,2.13,True,2
+AK-47 | Inheritance (Field-Tested),53.11,61.09,3.09,True,2
+P90 | Asiimov (Field-Tested),113.05,126.13,2.99,True,2
+M4A1-S | Cyrex (Field-Tested),112.74,125.78,2.98,True,2
+M4A1-S | Hyper Beast (Minimal Wear),93.14,103.92,2.47,True,2
+AWP | Printstream (Minimal Wear),91.43,102.01,2.42,True,2
+M4A1-S | Mecha Industries (Minimal Wear),89.27,99.6,2.36,True,2
 P250 | See Ya Later (Factory New),79.93,89.18,2.12,True,2
-AWP | Man-o'-war (Minimal Wear),75.38,84.1,1.99,True,2
-M4A1-S | Mecha Industries (Field-Tested),71.56,79.84,1.89,True,2
+PP-Bizon | Judgement of Anubis (Minimal Wear),78.78,87.9,2.09,True,2
+AWP | Man-o'-war (Minimal Wear),76.12,84.93,2.02,True,2
+Glock-18 | Wasteland Rebel (Minimal Wear),75.8,84.57,2.0,True,2
+M4A1-S | Mecha Industries (Field-Tested),73.96,82.52,1.96,True,2
 M4A1-S | Chantico's Fire (Field-Tested),67.63,75.45,1.78,True,2
 M4A1-S | Hyper Beast (Well-Worn),66.85,74.58,1.76,True,2
-MAC-10 | Neon Rider (Field-Tested),64.43,71.89,1.71,True,2
-Galil AR | Chatterbox (Battle-Scarred),58.19,64.92,1.54,True,2
-AUG | Chameleon (Factory New),55.13,61.51,1.46,True,2
+MAC-10 | Neon Rider (Field-Tested),64.64,72.12,1.71,True,2
+Galil AR | Chatterbox (Battle-Scarred),58.9,65.71,1.55,True,2
+AUG | Chameleon (Factory New),56.33,62.85,1.49,True,2
+AK-47 | Nightwish (Minimal Wear),54.62,60.94,1.44,True,2
 AUG | Chameleon (Minimal Wear),54.37,60.66,1.44,True,2
-AK-47 | Nightwish (Minimal Wear),54.07,60.33,1.43,True,2
-StatTrak™ AK-47 | Nightwish (Minimal Wear),30.43,43.76,9.83,True,3
 M4A1-S | Player Two (Minimal Wear),36.61,50.37,9.73,True,3
-Desert Eagle | Ocean Drive (Field-Tested),26.39,37.95,8.52,True,3
+StatTrak™ Desert Eagle | Printstream (Field-Tested),43.84,57.31,8.89,True,3
 Sir Bloody Skullhead Darryl | The Professionals,45.21,57.63,7.81,True,3
-AWP | Wildfire (Field-Tested),36.82,48.13,7.46,True,3
-AK-47 | Aquamarine Revenge (Field-Tested),27.65,38.04,7.35,True,3
-AWP | Neo-Noir (Factory New),40.72,49.31,4.65,True,3
-Desert Eagle | Kumicho Dragon (Minimal Wear),18.83,24.62,3.82,True,3
-Operation Bravo Case,31.28,37.87,3.56,True,3
-Primeiro Tenente | Brazilian 1st Battalion,48.89,56.23,2.84,True,3
-MP9 | Starlight Protector (Field-Tested),47.78,54.96,2.78,True,3
-AK-47 | Legion of Anubis (Factory New),45.94,52.84,2.67,True,3
-AWP | Printstream (Field-Tested),43.56,50.1,2.53,True,3
+AWP | Chrome Cannon (Minimal Wear),28.65,37.45,5.8,True,3
+Desert Eagle | Kumicho Dragon (Minimal Wear),17.66,24.3,4.7,True,3
+AWP | Neo-Noir (Factory New),41.08,49.74,4.68,True,3
+AWP | Wildfire (Field-Tested),36.37,44.04,4.15,True,3
+FAMAS | Commemoration (Field-Tested),31.64,38.31,3.61,True,3
+Operation Bravo Case,31.25,37.83,3.55,True,3
+AK-47 | Aquamarine Revenge (Field-Tested),29.5,35.72,3.36,True,3
+Primeiro Tenente | Brazilian 1st Battalion,48.42,55.7,2.82,True,3
+AK-47 | Nightwish (Field-Tested),48.19,55.43,2.81,True,3
+★ Hydra Gloves | Mangrove (Field-Tested),47.89,55.09,2.79,True,3
+AUG | Chameleon (Field-Tested),46.09,53.02,2.69,True,3
+AK-47 | Legion of Anubis (Factory New),45.75,52.62,2.66,True,3
+FAMAS | Bad Trip (Minimal Wear),44.05,50.67,2.57,True,3
+AWP | Printstream (Field-Tested),43.69,50.26,2.55,True,3
+AWP | Printstream (Battle-Scarred),31.66,37.18,2.55,True,3
 Glock-18 | Bullet Queen (Field-Tested),37.76,43.43,2.2,True,3
-Five-SeveN | Angry Mob (Field-Tested),37.79,43.47,2.2,True,3
-Desert Eagle | Printstream (Minimal Wear),37.31,42.91,2.17,True,3
+Jungle Rebel | Elite Crew,18.88,22.86,2.15,True,3
+Desert Eagle | Printstream (Minimal Wear),36.85,42.38,2.14,True,3
+AWP | Chromatic Aberration (Minimal Wear),36.49,41.97,2.12,True,3
 Elite Trapper Solman | Guerrilla Warfare,35.47,40.8,2.07,True,3
-AWP | Chrome Cannon (Minimal Wear),34.15,39.28,1.99,True,3
-AK-47 | Legion of Anubis (Minimal Wear),33.92,39.01,1.97,True,3
-AK-47 | Legion of Anubis (Field-Tested),33.22,38.21,1.93,True,3
-Desert Eagle | Code Red (Field-Tested),32.34,37.2,1.88,True,3
-AK-47 | Head Shot (Field-Tested),30.7,35.31,1.79,True,3
-Desert Eagle | Printstream (Field-Tested),30.37,34.93,1.77,True,3
-USP-S | Printstream (Field-Tested),30.08,34.6,1.75,True,3
-AWP | Chromatic Aberration (Field-Tested),29.81,34.28,1.73,True,3
-MP7 | Bloodsport (Field-Tested),28.84,33.18,1.69,True,3
-AK-47 | Redline (Field-Tested),29.0,33.36,1.69,True,3
+AK-47 | Legion of Anubis (Minimal Wear),33.86,38.95,1.97,True,3
+Desert Eagle | Code Red (Field-Tested),33.51,38.55,1.96,True,3
+AK-47 | Legion of Anubis (Field-Tested),33.0,37.95,1.91,True,3
+AK-47 | Asiimov (Field-Tested),32.01,36.82,1.86,True,3
+M4A4 | Temukau (Field-Tested),31.22,35.91,1.82,True,3
+Desert Eagle | Printstream (Field-Tested),30.2,34.74,1.76,True,3
+USP-S | Printstream (Field-Tested),30.23,34.77,1.76,True,3
+AWP | Chromatic Aberration (Field-Tested),29.69,34.15,1.73,True,3
+M4A4 | Neo-Noir (Field-Tested),29.11,33.49,1.7,True,3
+AK-47 | Redline (Field-Tested),29.05,33.41,1.69,True,3
+MP7 | Bloodsport (Field-Tested),28.87,33.21,1.68,True,3
+USP-S | The Traitor (Well-Worn),27.68,31.84,1.61,True,3
 Safecracker Voltzmann | The Professionals,26.48,30.46,1.54,True,3
-Desert Eagle | Printstream (Battle-Scarred),24.92,28.67,1.46,True,3
-USP-S | Kill Confirmed (Field-Tested),51.51,57.47,1.36,True,3
+Desert Eagle | Printstream (Battle-Scarred),25.62,29.46,1.48,True,3
+USP-S | Kill Confirmed (Field-Tested),52.29,58.34,1.38,True,3
+AWP | Green Energy (Field-Tested),23.45,26.98,1.37,True,3
 Bloody Darryl The Strapped | The Professionals,51.2,57.13,1.36,True,3
-★ Hydra Gloves | Mangrove (Field-Tested),50.01,55.8,1.33,True,3
-Sir Bloody Silent Darryl | The Professionals,49.57,55.31,1.32,True,3
-AK-47 | Nightwish (Field-Tested),49.03,54.71,1.3,True,3
-USP-S | Printstream (Minimal Wear),49.17,54.86,1.3,True,3
-M4A1-S | Golden Coil (Field-Tested),47.9,53.45,1.27,True,3
-Special Agent Ava | FBI,21.81,25.08,1.26,True,3
-M4A1-S | Black Lotus (Factory New),21.51,24.74,1.25,True,3
+MP9 | Starlight Protector (Field-Tested),49.57,55.3,1.31,True,3
+M4A1-S | Golden Coil (Field-Tested),49.42,55.14,1.31,True,3
+Sir Bloody Silent Darryl | The Professionals,49.2,54.9,1.31,True,3
+USP-S | Printstream (Minimal Wear),49.14,54.83,1.3,True,3
+Special Agent Ava | FBI,21.84,25.13,1.28,True,3
+AK-47 | Asiimov (Minimal Wear),46.7,52.1,1.23,True,3
+M4A1-S | Black Lotus (Factory New),21.08,24.25,1.23,True,3
 Glock-18 | Bullet Queen (Minimal Wear),46.63,52.02,1.23,True,3
+M4A4 | Neo-Noir (Minimal Wear),45.14,50.37,1.2,True,3
 AK-47 | Nightwish (Well-Worn),44.86,50.06,1.2,True,3
-FAMAS | Bad Trip (Minimal Wear),45.02,50.23,1.19,True,3
-AK-47 | Asiimov (Minimal Wear),44.77,49.95,1.18,True,3
-MP9 | Starlight Protector (Battle-Scarred),44.78,49.96,1.18,True,3
-M4A4 | Neo-Noir (Minimal Wear),44.32,49.45,1.17,True,3
-AK-47 | Head Shot (Minimal Wear),42.96,47.93,1.14,True,3
-Jungle Rebel | Elite Crew,19.44,22.37,1.14,True,3
-M4A1-S | Nightmare (Minimal Wear),18.91,21.75,1.1,True,3
-AK-47 | Neon Rider (Field-Tested),39.43,43.99,1.04,True,3
-Lt. Commander Ricksaw | NSWC SEAL,17.83,20.51,1.04,True,3
-FAMAS | Bad Trip (Field-Tested),37.68,42.04,1.0,True,3
-AK-47 | Midnight Laminate (Minimal Wear),33.47,37.34,0.88,True,3
-AWP | Printstream (Battle-Scarred),33.33,37.18,0.88,True,3
-AK-47 | Asiimov (Field-Tested),32.87,36.67,0.87,True,3
-FAMAS | Commemoration (Minimal Wear),31.74,35.42,0.85,True,3
-USP-S | The Traitor (Field-Tested),31.46,35.1,0.83,True,3
-Glock-18 | Neo-Noir (Field-Tested),29.53,32.95,0.78,True,3
-USP-S | The Traitor (Well-Worn),28.6,31.9,0.75,True,3
-Glock-18 | Water Elemental (Factory New),27.7,30.91,0.74,True,3
-Trapper Aggressor | Guerrilla Warfare,25.88,28.87,0.68,True,3
-Operation Hydra Case,24.83,27.71,0.66,True,3
-AWP | Green Energy (Field-Tested),23.94,26.71,0.63,True,3
-USP-S | Printstream (Battle-Scarred),23.26,25.95,0.61,True,3
-M4A4 | 龍王 (Dragon King) (Minimal Wear),19.53,21.79,0.52,True,3
+MP9 | Starlight Protector (Battle-Scarred),44.47,49.62,1.18,True,3
+Lieutenant Rex Krikey | SEAL Frogman,19.44,22.36,1.13,True,3
+M4A4 | 龍王 (Dragon King) (Minimal Wear),19.12,21.99,1.11,True,3
+M4A4 | The Emperor (Field-Tested),41.75,46.58,1.1,True,3
+M4A1-S | Nightmare (Minimal Wear),18.75,21.56,1.09,True,3
+AK-47 | Neon Rider (Field-Tested),39.4,43.96,1.04,True,3
+Five-SeveN | Angry Mob (Field-Tested),39.09,43.62,1.04,True,3
+FAMAS | Bad Trip (Field-Tested),37.86,42.25,1.01,True,3
+FAMAS | Commemoration (Minimal Wear),31.86,35.55,0.85,True,3
+USP-S | The Traitor (Field-Tested),31.41,35.05,0.84,True,3
+AK-47 | Head Shot (Field-Tested),31.36,34.99,0.83,True,3
+Glock-18 | Neo-Noir (Field-Tested),29.66,33.09,0.78,True,3
+Glock-18 | Water Elemental (Factory New),28.01,31.25,0.74,True,3
+AK-47 | Head Shot (Well-Worn),27.6,30.79,0.73,True,3
+USP-S | Printstream (Battle-Scarred),26.19,29.22,0.69,True,3
+Operation Hydra Case,23.32,26.01,0.61,True,3
+Lt. Commander Ricksaw | NSWC SEAL,18.89,21.07,0.49,True,3
 StatTrak™ AK-47 | Slate (Minimal Wear),18.25,20.36,0.48,True,3
-AWP | Mortis (Factory New),14.2,17.19,1.61,True,4
-AWP | Duality (Factory New),12.66,15.33,1.44,True,4
-StatTrak™ AWP | Atheris (Minimal Wear),10.97,13.29,1.26,True,4
-AK-47 | Point Disarray (Field-Tested),10.09,12.21,1.14,True,4
-AK-47 | Slate (Factory New),15.53,17.87,0.91,True,4
-M4A4 | Desolate Space (Minimal Wear),15.5,17.83,0.9,True,4
-AK-47 | Ice Coaled (Factory New),14.96,17.21,0.87,True,4
-MP9 | Mount Fuji (Factory New),15.0,17.25,0.87,True,4
+M4A4 | Desolate Space (Minimal Wear),14.41,17.45,1.64,True,4
+AWP | Mortis (Factory New),13.19,15.97,1.5,True,4
+M4A1-S | Decimator (Minimal Wear),17.12,19.69,0.99,True,4
+AK-47 | Slate (Factory New),15.52,17.85,0.9,True,4
+AK-47 | Ice Coaled (Factory New),14.72,16.93,0.86,True,4
+Michael Syfers  | FBI Sniper,14.58,16.77,0.85,True,4
+'Blueberries' Buckshot | NSWC SEAL,14.5,16.68,0.85,True,4
+Desert Eagle | Conspiracy (Factory New),14.43,16.6,0.84,True,4
 Sergeant Bombson | SWAT,14.27,16.42,0.84,True,4
-Michael Syfers  | FBI Sniper,14.19,16.32,0.82,True,4
-'The Doctor' Romanov | Sabre,14.04,16.15,0.82,True,4
-Desert Eagle | Kumicho Dragon (Field-Tested),13.97,16.07,0.81,True,4
-Desert Eagle | Conspiracy (Factory New),13.48,15.5,0.78,True,4
+Desert Eagle | Kumicho Dragon (Field-Tested),14.18,16.31,0.83,True,4
+'The Doctor' Romanov | Sabre,14.03,16.14,0.82,True,4
+AK-47 | Frontside Misty (Field-Tested),12.82,14.75,0.75,True,4
 AWP | Fever Dream (Minimal Wear),12.92,14.86,0.75,True,4
-3rd Commando Company | KSK,12.72,14.63,0.74,True,4
-AK-47 | Frontside Misty (Field-Tested),12.58,14.48,0.74,True,4
-AK-47 | Blue Laminate (Minimal Wear),12.26,14.11,0.72,True,4
-The Elite Mr. Muhlik | Elite Crew,11.57,13.31,0.68,True,4
-Seal Team 6 Soldier | NSWC SEAL,11.59,13.33,0.67,True,4
-M4A1-S | Black Lotus (Minimal Wear),10.34,11.9,0.61,True,4
-M4A1-S | Decimator (Field-Tested),10.13,11.65,0.59,True,4
-Rezan the Redshirt | Sabre,9.07,10.44,0.53,True,4
-Blackwolf | Sabre,8.88,10.21,0.51,True,4
-'Blueberries' Buckshot | NSWC SEAL,16.46,18.37,0.44,True,4
-M4A1-S | Decimator (Minimal Wear),16.87,18.82,0.44,True,4
-SSG 08 | Turbo Peek (Minimal Wear),16.09,17.96,0.43,True,4
-Desert Eagle | Crimson Web (Field-Tested),11.04,12.32,0.29,True,4
-UMP-45 | K.O. Factory (Minimal Wear),6.31,7.64,0.72,True,5
+3rd Commando Company | KSK,12.78,14.7,0.74,True,4
+AWP | Duality (Factory New),12.74,14.65,0.74,True,4
+StatTrak™ AWP | Atheris (Minimal Wear),12.01,13.81,0.7,True,4
+Seal Team 6 Soldier | NSWC SEAL,11.62,13.36,0.67,True,4
+The Elite Mr. Muhlik | Elite Crew,11.52,13.25,0.67,True,4
+Desert Eagle | Crimson Web (Field-Tested),10.89,12.53,0.64,True,4
+AK-47 | Point Disarray (Field-Tested),10.57,12.16,0.62,True,4
+M4A1-S | Black Lotus (Minimal Wear),10.21,11.75,0.6,True,4
+M4A1-S | Decimator (Field-Tested),10.17,11.7,0.59,True,4
+Sticker Capsule 2,9.46,10.88,0.55,True,4
+Blackwolf | Sabre,9.03,10.39,0.53,True,4
+Rezan the Redshirt | Sabre,9.2,10.58,0.53,True,4
+MP9 | Mount Fuji (Factory New),15.97,17.82,0.42,True,4
+SSG 08 | Turbo Peek (Minimal Wear),15.93,17.77,0.42,True,4
+AK-47 | Blue Laminate (Minimal Wear),12.44,13.88,0.33,True,4
+UMP-45 | K.O. Factory (Minimal Wear),6.27,7.6,0.72,True,5
+M4A1-S | Glitched Paint (Field-Tested),6.28,7.61,0.72,True,5
 Winter Offensive Weapon Case,5.24,6.35,0.6,True,5
-StatTrak™ USP-S | Cortex (Field-Tested),4.66,5.65,0.54,True,5
+StatTrak™ USP-S | Cortex (Field-Tested),4.56,5.53,0.53,True,5
+Glove Case,8.5,9.78,0.5,True,5
 AWP | Fever Dream (Field-Tested),8.58,9.87,0.5,True,5
-Glove Case,8.45,9.72,0.49,True,5
-eSports 2013 Winter Case,8.09,9.31,0.48,True,5
-M4A1-S | Nightmare (Field-Tested),8.17,9.4,0.48,True,5
-AK-47 | Midnight Laminate (Field-Tested),8.28,9.52,0.48,True,5
-Dragomir | Sabre Footsoldier,8.33,9.58,0.48,True,5
-Operation Riptide Case,8.0,9.21,0.47,True,5
+AK-47 | Midnight Laminate (Field-Tested),8.54,9.82,0.49,True,5
+Dragomir | Sabre Footsoldier,8.48,9.75,0.49,True,5
+eSports 2013 Winter Case,8.08,9.3,0.48,True,5
+Operation Riptide Case,7.96,9.16,0.47,True,5
+UMP-45 | Momentum (Minimal Wear),4.07,4.93,0.47,True,5
+M4A1-S | Nightmare (Field-Tested),8.21,9.44,0.47,True,5
 eSports 2014 Summer Case,7.85,9.03,0.46,True,5
-CS:GO Weapon Case 2,8.0,9.2,0.46,True,5
-Buckshot | NSWC SEAL,7.54,8.68,0.45,True,5
-Sticker Capsule 2,7.73,8.89,0.45,True,5
-AK-47 | Ice Coaled (Minimal Wear),7.2,8.28,0.42,True,5
-Operation Breakout Weapon Case,6.78,7.8,0.4,True,5
-USP-S | Cyrex (Factory New),6.9,7.94,0.4,True,5
+CS:GO Weapon Case 2,7.97,9.16,0.46,True,5
+Buckshot | NSWC SEAL,7.71,8.87,0.45,True,5
+AK-47 | Ice Coaled (Minimal Wear),7.33,8.43,0.43,True,5
+USP-S | Jawbreaker (Minimal Wear),7.26,8.36,0.43,True,5
+USP-S | Cyrex (Factory New),6.89,7.93,0.41,True,5
+Operation Breakout Weapon Case,6.73,7.75,0.4,True,5
 Desert Eagle | Mulberry (Field-Tested),6.83,7.86,0.4,True,5
-M4A1-S | Black Lotus (Field-Tested),6.64,7.64,0.39,True,5
-Huntsman Weapon Case,6.66,7.66,0.39,True,5
-USP-S | Tropical Breeze (Factory New),6.64,7.64,0.39,True,5
-M4A1-S | Glitched Paint (Field-Tested),6.61,7.61,0.39,True,5
-AK-47 | Phantom Disruptor (Minimal Wear),6.69,7.69,0.38,True,5
+AK-47 | Phantom Disruptor (Minimal Wear),6.77,7.79,0.4,True,5
+USP-S | Tropical Breeze (Factory New),6.86,7.89,0.4,True,5
+Huntsman Weapon Case,6.67,7.67,0.39,True,5
+P250 | Franklin (Factory New),3.49,4.22,0.39,True,5
+M4A1-S | Black Lotus (Field-Tested),6.58,7.57,0.38,True,5
 StatTrak™ M4A1-S | Night Terror (Factory New),6.49,7.47,0.38,True,5
-Markus Delrow | FBI HRT,6.28,7.23,0.37,True,5
-CS:GO Weapon Case 3,6.1,7.01,0.35,True,5
-StatTrak™ USP-S | Ticket to Hell (Factory New),5.91,6.8,0.35,True,5
+CS:GO Weapon Case 3,6.1,7.02,0.36,True,5
 Operation Broken Fang Case,5.79,6.66,0.34,True,5
-AWP | Atheris (Minimal Wear),5.79,6.66,0.34,True,5
-AK-47 | Slate (Minimal Wear),5.61,6.46,0.33,True,5
-Zeus x27 | Olympus (Minimal Wear),5.56,6.4,0.33,True,5
-Galil AR | Chromatic Aberration (Minimal Wear),5.6,6.44,0.32,True,5
-MP7 | Fade (Factory New),5.52,6.35,0.32,True,5
-Desert Eagle | Mecha Industries (Minimal Wear),5.22,6.0,0.3,True,5
-AK-47 | Wintergreen (Minimal Wear),4.86,5.59,0.28,True,5
-UMP-45 | Momentum (Minimal Wear),4.28,4.93,0.26,True,5
-MAC-10 | Disco Tech (Minimal Wear),4.55,5.23,0.26,True,5
-Shattered Web Case,4.22,4.86,0.25,True,5
-Enforcer | Phoenix,4.29,4.93,0.25,True,5
-MP9 | Mount Fuji (Field-Tested),4.21,4.84,0.24,True,5
-StatTrak™ AK-47 | Elite Build (Field-Tested),3.95,4.55,0.24,True,5
-USP-S | Jawbreaker (Field-Tested),3.83,4.41,0.23,True,5
+AWP | Atheris (Minimal Wear),5.83,6.71,0.34,True,5
+Desert Eagle | Mecha Industries (Minimal Wear),5.65,6.5,0.33,True,5
+StatTrak™ USP-S | Ticket to Hell (Factory New),5.73,6.59,0.33,True,5
+AK-47 | Slate (Minimal Wear),5.64,6.48,0.32,True,5
+Zeus x27 | Olympus (Minimal Wear),5.56,6.39,0.32,True,5
+MP7 | Fade (Factory New),5.36,6.16,0.31,True,5
+AK-47 | Wintergreen (Minimal Wear),4.88,5.61,0.28,True,5
+MAC-10 | Disco Tech (Minimal Wear),4.57,5.26,0.27,True,5
+MP9 | Mount Fuji (Field-Tested),4.31,4.96,0.25,True,5
+StatTrak™ AK-47 | Elite Build (Field-Tested),4.12,4.74,0.24,True,5
+USP-S | Jawbreaker (Field-Tested),3.92,4.51,0.23,True,5
+Desert Eagle | Mecha Industries (Field-Tested),3.85,4.43,0.23,True,5
 Sticker | Mastermind (Holo),3.99,4.59,0.23,True,5
-Desert Eagle | Mecha Industries (Field-Tested),3.53,4.07,0.21,True,5
-M4A4 | Tooth Fairy (Minimal Wear),3.64,4.18,0.21,True,5
-StatTrak™ Glock-18 | Vogue (Field-Tested),3.51,4.04,0.21,True,5
+Operation Hydra Case Key,3.72,4.28,0.22,True,5
+StatTrak™ Glock-18 | Vogue (Field-Tested),3.74,4.3,0.22,True,5
+M4A4 | Tooth Fairy (Minimal Wear),3.6,4.14,0.21,True,5
 FAMAS | Valence (Minimal Wear),3.66,4.21,0.21,True,5
-StatTrak™ USP-S | Torque (Factory New),3.51,4.03,0.2,True,5
-AK-47 | The Outsiders (Field-Tested),7.05,7.86,0.18,True,5
-P250 | Visions (Minimal Wear),3.06,3.71,0.35,True,6
+StatTrak™ USP-S | Torque (Factory New),3.53,4.07,0.21,True,5
+Shattered Web Case,3.55,4.08,0.2,True,5
+M4A1-S | Mud-Spec (Factory New),2.04,2.58,0.33,True,6
 "Music Kit | bbno$, u mad!",2.77,3.35,0.31,True,6
-Nova | Koi (Factory New),2.24,2.71,0.25,True,6
-AWP | PAW (Minimal Wear),2.16,2.62,0.25,True,6
-P250 | Nevermore (Factory New),1.99,2.42,0.24,True,6
-M4A1-S | Mud-Spec (Factory New),2.13,2.58,0.24,True,6
-USP-S | Tropical Breeze (Field-Tested),1.94,2.34,0.21,True,6
-Chroma Case,3.31,3.81,0.2,True,6
-Welcome to the Clutch Pin,3.28,3.78,0.2,True,6
-Stockholm 2021 Dust II Souvenir Package,3.41,3.92,0.2,True,6
-USP-S | Tropical Breeze (Minimal Wear),3.3,3.8,0.2,True,6
-AWP | Atheris (Field-Tested),3.33,3.83,0.19,True,6
-Zeus x27 | Olympus (Field-Tested),3.29,3.78,0.19,True,6
-Operation Hydra Case Key,3.28,3.77,0.19,True,6
+AWP | PAW (Minimal Wear),2.2,2.67,0.26,True,6
+MP5-SD | Phosphor (Field-Tested),2.1,2.55,0.25,True,6
+P250 | Nevermore (Factory New),1.95,2.37,0.23,True,6
+USP-S | Tropical Breeze (Field-Tested),1.96,2.38,0.23,True,6
+Stockholm 2021 Dust II Souvenir Package,3.4,3.92,0.21,True,6
+Chroma Case,3.34,3.84,0.19,True,6
+AWP | Atheris (Field-Tested),3.38,3.88,0.19,True,6
+XM1014 | Entombed (Minimal Wear),3.24,3.73,0.19,True,6
+Zeus x27 | Olympus (Field-Tested),3.25,3.74,0.19,True,6
+Welcome to the Clutch Pin,3.19,3.67,0.19,True,6
 AWP | Worm God (Factory New),3.26,3.75,0.19,True,6
-AWP | Worm God (Minimal Wear),1.64,1.99,0.19,True,6
-Operation Phoenix Weapon Case,3.04,3.5,0.18,True,6
-AK-47 | Slate (Field-Tested),3.12,3.59,0.18,True,6
+USP-S | Tropical Breeze (Minimal Wear),3.24,3.73,0.19,True,6
+AK-47 | Slate (Field-Tested),3.18,3.65,0.18,True,6
+AWP | Mortis (Minimal Wear),2.96,3.41,0.18,True,6
+P250 | Visions (Minimal Wear),3.23,3.71,0.18,True,6
+StatTrak™ M4A1-S | Emphorosaur-S (Minimal Wear),2.98,3.43,0.18,True,6
+AWP | Black Nile (Minimal Wear),2.96,3.41,0.18,True,6
 USP-S | Jawbreaker (Well-Worn),2.87,3.31,0.18,True,6
 StatTrak™ Desert Eagle | Bronze Deco (Factory New),1.56,1.89,0.18,True,6
-Glock-18 | Candy Apple (Factory New),2.95,3.39,0.17,True,6
-AWP | Mortis (Minimal Wear),2.94,3.38,0.17,True,6
-"Music Kit | The Verkkars, EZ4ENCE",2.9,3.34,0.17,True,6
-StatTrak™ M4A1-S | Emphorosaur-S (Minimal Wear),2.91,3.35,0.17,True,6
-AWP | Black Nile (Minimal Wear),2.93,3.37,0.17,True,6
-AUG | Syd Mead (Field-Tested),1.25,1.54,0.17,True,6
-Spectrum Case,2.8,3.22,0.16,True,6
-Chroma 2 Case,2.68,3.09,0.16,True,6
+Spectrum Case,2.86,3.29,0.17,True,6
+Operation Phoenix Weapon Case,3.04,3.49,0.17,True,6
+Glock-18 | Candy Apple (Factory New),2.88,3.32,0.17,True,6
+"Music Kit | The Verkkars, EZ4ENCE",2.92,3.36,0.17,True,6
+Chroma 3 Case,2.62,3.02,0.16,True,6
 Operation Vanguard Weapon Case,2.64,3.04,0.16,True,6
-XM1014 | Entombed (Minimal Wear),2.82,3.24,0.16,True,6
-Desert Eagle | Serpent Strike (Factory New),2.73,3.14,0.16,True,6
-USP-S | Black Lotus (Minimal Wear),2.73,3.14,0.16,True,6
+UMP-45 | Wild Child (Field-Tested),2.89,3.32,0.16,True,6
+Desert Eagle | Serpent Strike (Factory New),2.69,3.1,0.16,True,6
+Sawed-Off | Brake Light (Factory New),1.03,1.29,0.16,True,6
 Stockholm 2021 Mirage Souvenir Package,2.59,2.99,0.16,True,6
 USP-S | Jawbreaker (Battle-Scarred),2.71,3.12,0.16,True,6
-XM1014 | Monster Melt (Field-Tested),2.73,3.14,0.16,True,6
+M4A4 | Evil Daimyo (Minimal Wear),2.6,3.0,0.16,True,6
+XM1014 | Monster Melt (Field-Tested),2.78,3.2,0.16,True,6
 Rio 2022 Dust II Souvenir Package,2.39,2.76,0.15,True,6
-Chroma 3 Case,2.64,3.03,0.15,True,6
-Gamma Case,2.55,2.93,0.15,True,6
+Chroma 2 Case,2.68,3.08,0.15,True,6
+Gamma 2 Case,2.54,2.92,0.15,True,6
 USP-S | Cyrex (Field-Tested),2.58,2.97,0.15,True,6
 UMP-45 | Momentum (Field-Tested),2.49,2.87,0.15,True,6
-M4A4 | Etch Lord (Minimal Wear),0.83,1.06,0.15,True,6
-AUG | Eye of Zapems (Field-Tested),2.57,2.96,0.15,True,6
-M4A4 | Evil Daimyo (Minimal Wear),2.59,2.98,0.15,True,6
-PP-Bizon | Osiris (Factory New),2.48,2.86,0.15,True,6
+USP-S | Black Lotus (Minimal Wear),2.69,3.09,0.15,True,6
+AUG | Eye of Zapems (Field-Tested),2.6,2.99,0.15,True,6
+StatTrak™ Sawed-Off | Apocalypto (Field-Tested),0.48,0.68,0.15,True,6
 Austin 2025 Mirage Souvenir Highlight Package,2.32,2.68,0.15,True,6
-Spectrum 2 Case,2.32,2.67,0.14,True,6
-Operation Wildfire Case,2.27,2.62,0.14,True,6
-Gamma 2 Case,2.47,2.84,0.14,True,6
-M4A1-S | Night Terror (Factory New),2.49,2.86,0.14,True,6
+Spectrum 2 Case,2.33,2.68,0.14,True,6
+Gamma Case,2.56,2.94,0.14,True,6
+StatTrak™ M4A1-S | Night Terror (Minimal Wear),2.39,2.75,0.14,True,6
+M4A1-S | Night Terror (Factory New),2.4,2.76,0.14,True,6
 Glock-18 | Block-18 (Minimal Wear),0.77,0.99,0.14,True,6
-AK-47 | Slate (Well-Worn),2.4,2.76,0.14,True,6
-R8 Revolver | Blaze (Factory New),2.42,2.78,0.14,True,6
-M4A1-S | Night Terror (Battle-Scarred),0.73,0.95,0.14,True,6
-AK-47 | Elite Build (Well-Worn),0.76,0.98,0.14,True,6
+AK-47 | Slate (Well-Worn),2.51,2.88,0.14,True,6
+R8 Revolver | Blaze (Factory New),2.37,2.73,0.14,True,6
+M4A1-S | Night Terror (Battle-Scarred),0.69,0.9,0.14,True,6
+MAC-10 | Saibā Oni (Minimal Wear),2.28,2.63,0.14,True,6
+AK-47 | Slate (Battle-Scarred),2.33,2.68,0.14,True,6
+USP-S | Torque (Minimal Wear),0.85,1.08,0.14,True,6
+PP-Bizon | Osiris (Factory New),2.46,2.83,0.14,True,6
+AK-47 | Elite Build (Well-Worn),0.77,0.99,0.14,True,6
+AWP | Atheris (Well-Worn),2.49,2.86,0.14,True,6
+Nova | Koi (Factory New),2.33,2.68,0.14,True,6
 Revolver Case,2.26,2.6,0.13,True,6
-Antwerp 2022 Legends Sticker Capsule,0.47,0.65,0.13,True,6
-Stockholm 2021 Legends Sticker Capsule,2.25,2.59,0.13,True,6
-UMP-45 | K.O. Factory (Field-Tested),2.24,2.58,0.13,True,6
+Operation Wildfire Case,2.27,2.61,0.13,True,6
+UMP-45 | K.O. Factory (Field-Tested),2.22,2.55,0.13,True,6
+Sticker | Stewie2K | Berlin 2019,0.12,0.27,0.13,True,6
+AK-47 | Elite Build (Minimal Wear),2.16,2.49,0.13,True,6
 Stockholm 2021 Ancient Souvenir Package,2.17,2.5,0.13,True,6
-Nova | Rising Sun (Minimal Wear),0.61,0.8,0.13,True,6
-MAC-10 | Saibā Oni (Minimal Wear),2.29,2.63,0.13,True,6
-AK-47 | Slate (Battle-Scarred),2.29,2.63,0.13,True,6
-Glock-18 | Block-18 (Factory New),2.23,2.57,0.13,True,6
+P250 | Supernova (Factory New),2.07,2.39,0.13,True,6
+Glock-18 | Block-18 (Factory New),2.18,2.51,0.13,True,6
+M4A4 | Converter (Minimal Wear),0.39,0.56,0.13,True,6
 P90 | Randy Rush (Field-Tested),0.53,0.72,0.13,True,6
-MAC-10 | Saibā Oni (Field-Tested),0.56,0.75,0.13,True,6
-AWP | Atheris (Well-Worn),2.27,2.61,0.13,True,6
-StatTrak™ Sawed-Off | Apocalypto (Field-Tested),0.5,0.68,0.13,True,6
-FAMAS | Sergeant (Field-Tested),2.29,2.63,0.13,True,6
-XM1014 | Zombie Offensive (Minimal Wear),0.32,0.48,0.12,True,6
-SSG 08 | Acid Fade (Factory New),2.01,2.31,0.12,True,6
-AK-47 | Elite Build (Minimal Wear),2.15,2.47,0.12,True,6
+FAMAS | Sergeant (Field-Tested),2.23,2.57,0.13,True,6
+Desert Eagle | Heat Treated (Battle-Scarred),1.96,2.26,0.12,True,6
 MP7 | Cirrus (Field-Tested),0.16,0.3,0.12,True,6
-Five-SeveN | Hybrid (Field-Tested),0.28,0.43,0.12,True,6
+StatTrak™ MP5-SD | Kitbash (Field-Tested),0.28,0.44,0.12,True,6
+Paris 2023 Mirage Souvenir Package,1.87,2.16,0.12,True,6
 MP7 | Just Smile (Well-Worn),0.26,0.41,0.12,True,6
-Glock-18 | Weasel (Field-Tested),0.16,0.3,0.12,True,6
-M249 | Downtown (Minimal Wear),0.41,0.58,0.12,True,6
-Desert Eagle | Meteorite (Factory New),2.0,2.3,0.12,True,6
-P250 | Supernova (Factory New),2.07,2.38,0.12,True,6
-MAC-10 | Rangeen (Field-Tested),0.05,0.18,0.12,True,6
 CZ75-Auto | Tacticat (Field-Tested),0.35,0.51,0.12,True,6
+StatTrak™ P250 | Cassette (Factory New),0.37,0.53,0.12,True,6
 AWP | Atheris (Battle-Scarred),2.24,2.57,0.12,True,6
 MAG-7 | Cobalt Core (Field-Tested),0.05,0.18,0.12,True,6
 Nova | Wurst Hölle (Field-Tested),0.27,0.42,0.12,True,6
-Dreams & Nightmares Case,1.42,1.66,0.11,True,6
-Revolution Case,0.26,0.4,0.11,True,6
+StatTrak™ SG 553 | Aerial (Field-Tested),0.09,0.23,0.12,True,6
 R8 Revolver | Crazy 8 (Well-Worn),0.06,0.18,0.11,True,6
-R8 Revolver | Banana Cannon (Field-Tested),0.04,0.16,0.11,True,6
+Prisma Case,0.86,1.05,0.11,True,6
+Paris 2023 Legends Sticker Capsule,0.01,0.13,0.11,True,6
 Austin 2025 Contenders Autograph Capsule,0.24,0.38,0.11,True,6
 Shanghai 2024 Contenders Sticker Capsule,0.48,0.64,0.11,True,6
-M4A1-S | Emphorosaur-S (Field-Tested),0.18,0.31,0.11,True,6
+Antwerp 2022 Legends Sticker Capsule,0.5,0.66,0.11,True,6
 MAC-10 | Sakkaku (Well-Worn),0.04,0.16,0.11,True,6
 G3SG1 | Dream Glade (Well-Worn),0.02,0.14,0.11,True,6
-Tec-9 | Brother (Field-Tested),0.06,0.18,0.11,True,6
-Antwerp 2022 Contenders Sticker Capsule,0.51,0.67,0.11,True,6
-Tec-9 | Red Quartz (Factory New),0.28,0.42,0.11,True,6
+M4A1-S | Emphorosaur-S (Minimal Wear),0.84,1.03,0.11,True,6
+M4A1-S | Mud-Spec (Field-Tested),0.03,0.15,0.11,True,6
 MAC-10 | Sakkaku (Battle-Scarred),0.05,0.17,0.11,True,6
 Copenhagen 2024 Legends Autograph Capsule,0.28,0.42,0.11,True,6
-SCAR-20 | Poultrygeist (Factory New),0.62,0.79,0.11,True,6
-Paris 2023 Mirage Souvenir Package,1.87,2.15,0.11,True,6
-P90 | Off World (Field-Tested),0.06,0.18,0.11,True,6
-MAC-10 | Sakkaku (Field-Tested),0.29,0.43,0.11,True,6
+StatTrak™ MAG-7 | Monster Call (Field-Tested),0.4,0.55,0.11,True,6
+Desert Eagle | Oxide Blaze (Field-Tested),0.16,0.29,0.11,True,6
 MAC-10 | Candy Apple (Factory New),0.4,0.55,0.11,True,6
-Glock-18 | Candy Apple (Minimal Wear),0.98,1.18,0.11,True,6
-Sawed-Off | Brake Light (Factory New),1.08,1.29,0.11,True,6
+Sawed-Off | Spirit Board (Factory New),0.62,0.79,0.11,True,6
 P90 | Wave Breaker (Battle-Scarred),0.06,0.18,0.11,True,6
 Sawed-Off | Zander (Field-Tested),0.14,0.27,0.11,True,6
-Desert Eagle | Blue Ply (Well-Worn),0.05,0.17,0.11,True,6
-Sticker | FURIA (Glitter) | Paris 2023,0.05,0.17,0.11,True,6
 Sticker | Say Cheese (Holo),0.7,0.88,0.11,True,6
-10 Year Birthday Sticker Capsule,0.4,0.55,0.11,True,6
-SSG 08 | Fever Dream (Field-Tested),0.36,0.51,0.11,True,6
-SSG 08 | Abyss (Minimal Wear),0.4,0.55,0.11,True,6
+AK-47 | Olive Polycam (Field-Tested),0.01,0.13,0.11,True,6
+SSG 08 | Abyss (Minimal Wear),0.39,0.54,0.11,True,6
 MAC-10 | Silver (Factory New),0.14,0.27,0.11,True,6
+M249 | Downtown (Minimal Wear),0.41,0.57,0.11,True,6
+Galil AR | Destroyer (Factory New),0.18,0.32,0.11,True,6
+Paris 2023 Legends Autograph Capsule,0.05,0.17,0.11,True,6
 AK-47 | Safari Mesh (Minimal Wear),0.05,0.17,0.11,True,6
-Sticker | From The Deep,0.16,0.29,0.11,True,6
-Galil AR | Control (Minimal Wear),0.75,0.93,0.11,True,6
+Desert Eagle | Meteorite (Factory New),1.86,2.14,0.11,True,6
+Sticker | High Heat,0.73,0.91,0.11,True,6
 Sticker | Ninjas in Pyjamas (Holo) | 2020 RMR,0.01,0.13,0.11,True,6
 Negev | Lionfish (Field-Tested),0.09,0.22,0.11,True,6
 StatTrak™ AUG | Tom Cat (Battle-Scarred),0.01,0.13,0.11,True,6
 Dual Berettas | Shred (Field-Tested),0.11,0.24,0.11,True,6
-AWP | Capillary (Minimal Wear),0.49,0.65,0.11,True,6
-StatTrak™ Glock-18 | Oxide Blaze (Field-Tested),0.11,0.24,0.11,True,6
+AWP | Phobos (Minimal Wear),1.43,1.67,0.11,True,6
+Glock-18 | Oxide Blaze (Minimal Wear),0.04,0.16,0.11,True,6
+AWP | Safari Mesh (Minimal Wear),0.06,0.18,0.11,True,6
+MAC-10 | Pipsqueak (Field-Tested),0.27,0.41,0.11,True,6
 MAC-10 | Whitefish (Battle-Scarred),0.03,0.15,0.11,True,6
-StatTrak™ MP9 | Modest Threat (Field-Tested),0.03,0.15,0.11,True,6
-Desert Eagle | Blue Ply (Minimal Wear),0.26,0.4,0.11,True,6
+Dual Berettas | Flora Carnivora (Minimal Wear),0.4,0.55,0.11,True,6
+Nova | Koi (Minimal Wear),0.74,0.92,0.11,True,6
+AUG | Luxe Trim (Field-Tested),0.02,0.14,0.11,True,6
 Sticker | Hypnoteyes (Holo),1.31,1.54,0.11,True,6
-USP-S | Torque (Field-Tested),0.4,0.55,0.11,True,6
+USP-S | Torque (Factory New),1.56,1.81,0.11,True,6
+USP-S | Torque (Field-Tested),0.41,0.56,0.11,True,6
 AUG | Tom Cat (Field-Tested),0.05,0.17,0.11,True,6
 StatTrak™ Negev | Man-o'-war (Minimal Wear),0.22,0.36,0.11,True,6
-USP-S | Flashback (Minimal Wear),0.6,0.77,0.11,True,6
+P2000 | Handgun (Field-Tested),0.48,0.64,0.11,True,6
 P90 | Elite Build (Field-Tested),0.28,0.42,0.11,True,6
-StatTrak™ P250 | Valence (Field-Tested),0.18,0.32,0.11,True,6
-SG 553 | Darkwing (Minimal Wear),0.72,0.9,0.11,True,6
-SSG 08 | Zeno (Field-Tested),0.41,0.56,0.11,True,6
 StatTrak™ P250 | Cyber Shell (Field-Tested),0.38,0.53,0.11,True,6
 Stockholm 2021 Champions Autograph Capsule,0.49,0.65,0.11,True,6
 Sticker | From The Deep (Glitter),0.31,0.46,0.11,True,6
 StatTrak™ P2000 | Gnarled (Minimal Wear),0.05,0.17,0.11,True,6
-AWP | Worm God (Field-Tested),1.1,1.31,0.11,True,6
-R8 Revolver | Tango (Field-Tested),0.03,0.15,0.11,True,6
-StatTrak™ SG 553 | Aerial (Field-Tested),0.1,0.23,0.11,True,6
+AWP | Worm God (Field-Tested),1.19,1.41,0.11,True,6
+P90 | Neoqueen (Minimal Wear),0.28,0.42,0.11,True,6
+Negev | Wall Bang (Minimal Wear),0.01,0.13,0.11,True,6
+Sticker | Web Stuck,0.38,0.53,0.11,True,6
 StatTrak™ Sawed-Off | Black Sand (Field-Tested),0.01,0.13,0.11,True,6
 R8 Revolver | Junk Yard (Well-Worn),0.01,0.12,0.1,True,6
-SG 553 | Dragon Tech (Field-Tested),0.09,0.21,0.1,True,6
+SG 553 | Dragon Tech (Field-Tested),0.1,0.22,0.1,True,6
 SG 553 | Darkwing (Field-Tested),0.13,0.25,0.1,True,6
+Rio 2022 Champions Autograph Capsule,0.22,0.35,0.1,True,6
+Dreams & Nightmares Case,1.42,1.65,0.1,True,6
+Revolution Case,0.25,0.38,0.1,True,6
 Dual Berettas | Cobalt Quartz (Field-Tested),0.01,0.12,0.1,True,6
 R8 Revolver | Junk Yard (Field-Tested),0.07,0.19,0.1,True,6
-Desert Eagle | Heat Treated (Battle-Scarred),1.73,1.99,0.1,True,6
 R8 Revolver | Crazy 8 (Field-Tested),0.1,0.22,0.1,True,6
-Prisma Case,0.91,1.1,0.1,True,6
-Prisma 2 Case,0.93,1.12,0.1,True,6
+R8 Revolver | Banana Cannon (Field-Tested),0.04,0.15,0.1,True,6
+Prisma 2 Case,0.92,1.11,0.1,True,6
 FAMAS | Crypsis (Field-Tested),0.13,0.25,0.1,True,6
-Paris 2023 Legends Sticker Capsule,0.02,0.13,0.1,True,6
 Paris 2023 Champions Autograph Capsule,0.07,0.18,0.1,True,6
-Desert Eagle | Blue Ply (Field-Tested),0.09,0.21,0.1,True,6
 Austin 2025 Contenders Sticker Capsule,0.27,0.4,0.1,True,6
-Austin 2025 Legends Autograph Capsule,0.28,0.41,0.1,True,6
+Austin 2025 Legends Autograph Capsule,0.36,0.5,0.1,True,6
 Austin 2025 Legends Sticker Capsule,0.2,0.33,0.1,True,6
 StatTrak™ PP-Bizon | Space Cat (Field-Tested),0.53,0.68,0.1,True,6
 StatTrak™ AUG | Tom Cat (Field-Tested),0.01,0.12,0.1,True,6
-CZ75-Auto | Circaetus (Field-Tested),0.04,0.15,0.1,True,6
+CZ75-Auto | Circaetus (Field-Tested),0.03,0.14,0.1,True,6
 Snakebite Case,0.37,0.51,0.1,True,6
-Danger Zone Case,0.96,1.15,0.1,True,6
+Danger Zone Case,0.94,1.13,0.1,True,6
 Shadow Case,1.19,1.4,0.1,True,6
-Sealed Genesis Terminal,0.56,0.72,0.1,True,6
 Charm | Whittle Knife,0.11,0.23,0.1,True,6
-Clutch Case,0.53,0.69,0.1,True,6
+Clutch Case,0.53,0.68,0.1,True,6
 Copenhagen 2024 Challengers Autograph Capsule,0.18,0.3,0.1,True,6
-Name Tag,1.24,1.46,0.1,True,6
-Horizon Case,1.08,1.28,0.1,True,6
+Horizon Case,1.05,1.25,0.1,True,6
 Kilowatt Case,0.21,0.34,0.1,True,6
 M249 | O.S.I.P.R. (Field-Tested),0.02,0.13,0.1,True,6
+M4A1-S | Emphorosaur-S (Field-Tested),0.18,0.3,0.1,True,6
 MP5-SD | Kitbash (Field-Tested),0.07,0.18,0.1,True,6
-Nova | Rising Sun (Field-Tested),0.12,0.24,0.1,True,6
+Nova | Rising Sun (Field-Tested),0.13,0.25,0.1,True,6
 Falchion Case,1.04,1.24,0.1,True,6
 Fever Case,0.62,0.78,0.1,True,6
-P90 | Neoqueen (Field-Tested),0.04,0.15,0.1,True,6
 P250 | Verdigris (Field-Tested),0.11,0.23,0.1,True,6
 Fracture Case,0.35,0.49,0.1,True,6
 G3SG1 | Dream Glade (Field-Tested),0.04,0.15,0.1,True,6
 Galil AR | Akoben (Field-Tested),0.13,0.25,0.1,True,6
 Galil AR | Connexion (Field-Tested),0.07,0.19,0.1,True,6
-Nova | Windblown (Field-Tested),0.06,0.17,0.1,True,6
-Gallery Case,0.91,1.1,0.1,True,6
+Nova | Windblown (Field-Tested),0.07,0.19,0.1,True,6
+Gallery Case,0.93,1.12,0.1,True,6
 Glock-18 | Clear Polymer (Field-Tested),0.02,0.13,0.1,True,6
 Anubis Collection Package,1.14,1.35,0.1,True,6
 MAC-10 | Allure (Well-Worn),0.04,0.15,0.1,True,6
 XM1014 | Zombie Offensive (Field-Tested),0.03,0.14,0.1,True,6
-USP-S | Ticket to Hell (Field-Tested),0.11,0.23,0.1,True,6
 2020 RMR Legends,0.1,0.22,0.1,True,6
 Tec-9 | Red Quartz (Field-Tested),0.01,0.12,0.1,True,6
 Zeus x27 | Tosai (Field-Tested),0.14,0.26,0.1,True,6
+Stockholm 2021 Legends Sticker Capsule,1.82,2.09,0.1,True,6
+Tec-9 | Brother (Field-Tested),0.07,0.19,0.1,True,6
 2020 RMR Contenders,0.16,0.28,0.1,True,6
 2020 RMR Challengers,0.1,0.22,0.1,True,6
 Austin 2025 Challengers Autograph Capsule,0.32,0.46,0.1,True,6
+Antwerp 2022 Contenders Sticker Capsule,0.54,0.7,0.1,True,6
 SCAR-20 | Enforcer (Field-Tested),0.11,0.23,0.1,True,6
-Nova | Wild Six (Field-Tested),0.07,0.19,0.1,True,6
-Copenhagen 2024 Champions Autograph Capsule,0.14,0.26,0.1,True,6
+Copenhagen 2024 Champions Autograph Capsule,0.12,0.24,0.1,True,6
 Desert Eagle | Trigger Discipline (Field-Tested),0.37,0.51,0.1,True,6
+XM1014 | Zombie Offensive (Minimal Wear),0.34,0.48,0.1,True,6
 MAG-7 | Metallic DDPAT (Factory New),0.27,0.4,0.1,True,6
-Sticker | Stewie2K | Berlin 2019,0.18,0.3,0.1,True,6
-M4A1-S | Emphorosaur-S (Minimal Wear),0.81,0.99,0.1,True,6
+Glock-18 | High Beam (Factory New),0.09,0.21,0.1,True,6
 Glock-18 | Oxide Blaze (Field-Tested),0.01,0.12,0.1,True,6
 Sticker | 100 Thieves (Holo) | 2020 RMR,0.05,0.16,0.1,True,6
 AUG | Snake Pit (Factory New),0.01,0.12,0.1,True,6
-M4A1-S | Mud-Spec (Field-Tested),0.03,0.14,0.1,True,6
 AWP | Capillary (Field-Tested),0.17,0.29,0.1,True,6
 UMP-45 | Arctic Wolf (Field-Tested),0.09,0.21,0.1,True,6
 AK-47 | Uncharted (Field-Tested),0.19,0.31,0.1,True,6
 Rio 2022 Challengers Sticker Capsule,0.12,0.24,0.1,True,6
 R8 Revolver | Crazy 8 (Battle-Scarred),0.07,0.18,0.1,True,6
 MP9 | Modest Threat (Field-Tested),0.01,0.12,0.1,True,6
+Desert Eagle | Light Rail (Field-Tested),0.46,0.61,0.1,True,6
 G3SG1 | Scavenger (Field-Tested),0.38,0.52,0.1,True,6
 MAC-10 | Pipe Down (Field-Tested),0.25,0.38,0.1,True,6
 Glock-18 | Block-18 (Field-Tested),0.3,0.44,0.1,True,6
@@ -608,166 +606,165 @@ M4A4 | Etch Lord (Field-Tested),0.3,0.44,0.1,True,6
 Desert Eagle | Trigger Discipline (Well-Worn),0.19,0.31,0.1,True,6
 Sticker | Drug War Veteran,0.66,0.83,0.1,True,6
 M4A4 | Choppa (Minimal Wear),0.01,0.12,0.1,True,6
-AWP | Pit Viper (Field-Tested),0.24,0.37,0.1,True,6
-P250 | Supernova (Minimal Wear),0.8,0.98,0.1,True,6
-Glock-18 | Moonrise (Field-Tested),0.32,0.46,0.1,True,6
+P250 | Supernova (Minimal Wear),0.81,0.99,0.1,True,6
+Glock-18 | Moonrise (Field-Tested),0.33,0.47,0.1,True,6
 PP-Bizon | Space Cat (Minimal Wear),0.35,0.49,0.1,True,6
 MAG-7 | Monster Call (Minimal Wear),0.5,0.65,0.1,True,6
 MP9 | Nexus (Minimal Wear),0.01,0.12,0.1,True,6
 CZ75-Auto | Circaetus (Battle-Scarred),0.01,0.12,0.1,True,6
-SSG 08 | Abyss (Field-Tested),0.1,0.22,0.1,True,6
 Galil AR | Connexion (Minimal Wear),0.44,0.59,0.1,True,6
 Tec-9 | Rebel (Factory New),0.54,0.7,0.1,True,6
-Souvenir MP5-SD | Lab Rats (Factory New),0.15,0.27,0.1,True,6
-AWP | Acheron (Minimal Wear),0.81,0.99,0.1,True,6
+Souvenir MP5-SD | Lab Rats (Factory New),0.14,0.26,0.1,True,6
+AWP | Acheron (Minimal Wear),0.83,1.01,0.1,True,6
 Tec-9 | Fubar (Field-Tested),0.01,0.12,0.1,True,6
-Rio 2022 Contenders Sticker Capsule,0.13,0.25,0.1,True,6
-StatTrak™ MAG-7 | Monster Call (Field-Tested),0.41,0.55,0.1,True,6
-Desert Eagle | Oxide Blaze (Field-Tested),0.16,0.28,0.1,True,6
+Rio 2022 Contenders Sticker Capsule,0.11,0.23,0.1,True,6
 Nova | Candy Apple (Factory New),0.15,0.27,0.1,True,6
 Desert Eagle | Bronze Deco (Minimal Wear),0.1,0.22,0.1,True,6
-Glock-18 | Moonrise (Minimal Wear),0.86,1.04,0.1,True,6
 Shanghai 2024 Champions Autograph Capsule,0.07,0.19,0.1,True,6
 Negev | Man-o'-war (Minimal Wear),0.04,0.15,0.1,True,6
 MAC-10 | Whitefish (Field-Tested),0.13,0.25,0.1,True,6
-AK-47 | Elite Build (Field-Tested),1.13,1.34,0.1,True,6
+AK-47 | Elite Build (Field-Tested),1.1,1.3,0.1,True,6
 MP7 | Just Smile (Field-Tested),0.29,0.42,0.1,True,6
 Paris 2023 Vertigo Souvenir Package,1.54,1.78,0.1,True,6
 Sawed-Off | Analog Input (Field-Tested),0.3,0.44,0.1,True,6
+Five-SeveN | Hybrid (Field-Tested),0.3,0.43,0.1,True,6
+PP-Bizon | Candy Apple (Factory New),0.08,0.2,0.1,True,6
 Charm | Hot Sauce,0.13,0.25,0.1,True,6
-SSG 08 | Fever Dream (Minimal Wear),1.36,1.59,0.1,True,6
-P250 | Nevermore (Field-Tested),0.45,0.6,0.1,True,6
+P90 | Off World (Field-Tested),0.06,0.17,0.1,True,6
+SSG 08 | Fever Dream (Minimal Wear),1.31,1.53,0.1,True,6
+M4A1-S | Flashback (Well-Worn),1.72,1.98,0.1,True,6
+P250 | Nevermore (Field-Tested),0.46,0.61,0.1,True,6
 Nova | Rising Sun (Well-Worn),0.07,0.19,0.1,True,6
-Sawed-Off | Spirit Board (Factory New),0.58,0.74,0.1,True,6
 M4A4 | Magnesium (Field-Tested),0.08,0.2,0.1,True,6
 StatTrak™ R8 Revolver | Bone Forged (Field-Tested),0.01,0.12,0.1,True,6
 Charm | Pocket AWP,0.09,0.21,0.1,True,6
-Sticker | Flex,0.57,0.73,0.1,True,6
+Desert Eagle | Blue Ply (Well-Worn),0.06,0.17,0.1,True,6
+Sticker | Flex,0.59,0.75,0.1,True,6
 Sticker | Scorch Loop (Reverse),0.08,0.2,0.1,True,6
+Sticker | FURIA (Glitter) | Paris 2023,0.01,0.12,0.1,True,6
 StatTrak™ Glock-18 | Winterized (Field-Tested),0.02,0.13,0.1,True,6
-P250 | Nevermore (Minimal Wear),0.71,0.88,0.1,True,6
-CZ75-Auto | Circaetus (Well-Worn),0.01,0.12,0.1,True,6
+P250 | Nevermore (Minimal Wear),0.69,0.86,0.1,True,6
+10 Year Birthday Sticker Capsule,0.41,0.55,0.1,True,6
+SSG 08 | Fever Dream (Field-Tested),0.39,0.53,0.1,True,6
+MAC-10 | Allure (Minimal Wear),0.55,0.71,0.1,True,6
 StatTrak™ MAC-10 | Oceanic (Field-Tested),0.07,0.19,0.1,True,6
-AK-47 | Olive Polycam (Field-Tested),0.02,0.13,0.1,True,6
 USP-S | Cortex (Well-Worn),1.51,1.75,0.1,True,6
 AUG | Triqua (Field-Tested),0.14,0.26,0.1,True,6
+Nova | Rising Sun (Minimal Wear),0.64,0.8,0.1,True,6
 Sticker | Scorch Loop,0.13,0.25,0.1,True,6
-Desert Eagle | Trigger Discipline (Minimal Wear),1.05,1.25,0.1,True,6
-Galil AR | Destroyer (Factory New),0.19,0.32,0.1,True,6
-SCAR-20 | Fragments (Factory New),0.48,0.63,0.1,True,6
+Desert Eagle | Trigger Discipline (Minimal Wear),1.02,1.22,0.1,True,6
+SCAR-20 | Fragments (Factory New),0.49,0.64,0.1,True,6
 Antwerp 2022 Challengers Autograph Capsule,0.12,0.24,0.1,True,6
 P90 | Freight (Factory New),0.53,0.69,0.1,True,6
 Tec-9 | Brother (Minimal Wear),0.45,0.6,0.1,True,6
 M4A1-S | Wash me plz (Minimal Wear),0.11,0.23,0.1,True,6
+Sticker | Boom Trail (Glitter),0.16,0.28,0.1,True,6
 Glock-18 | Wraiths (Field-Tested),0.11,0.23,0.1,True,6
-UMP-45 | Moonrise (Minimal Wear),0.43,0.58,0.1,True,6
 PP-Bizon | Cold Cell (Factory New),0.25,0.38,0.1,True,6
-MP5-SD | Liquidation (Factory New),0.46,0.61,0.1,True,6
-Sticker | Bolt Strike,0.09,0.21,0.1,True,6
-SSG 08 | Zeno (Minimal Wear),0.85,1.03,0.1,True,6
-Paris 2023 Legends Autograph Capsule,0.04,0.15,0.1,True,6
+MP5-SD | Liquidation (Factory New),0.45,0.6,0.1,True,6
+Sticker | Bolt Strike,0.1,0.22,0.1,True,6
+SSG 08 | Zeno (Minimal Wear),0.84,1.02,0.1,True,6
 Galil AR | Green Apple (Factory New),0.56,0.72,0.1,True,6
-SG 553 | Dragon Tech (Minimal Wear),0.37,0.51,0.1,True,6
-Negev | Loudmouth (Field-Tested),0.46,0.61,0.1,True,6
-Sticker | High Heat,0.74,0.91,0.1,True,6
+SG 553 | Dragon Tech (Minimal Wear),0.39,0.53,0.1,True,6
+Negev | Loudmouth (Field-Tested),0.47,0.62,0.1,True,6
+Sticker | From The Deep,0.16,0.28,0.1,True,6
+Zeus x27 | Tosai (Minimal Wear),0.68,0.85,0.1,True,6
 Dual Berettas | Cobalt Quartz (Factory New),0.38,0.52,0.1,True,6
-P2000 | Oceanic (Field-Tested),0.08,0.2,0.1,True,6
+P2000 | Oceanic (Field-Tested),0.1,0.22,0.1,True,6
 Five-SeveN | Flame Test (Minimal Wear),0.02,0.13,0.1,True,6
+Galil AR | Control (Minimal Wear),0.74,0.91,0.1,True,6
 AK-47 | Olive Polycam (Factory New),0.7,0.87,0.1,True,6
-AK-47 | Uncharted (Minimal Wear),0.35,0.49,0.1,True,6
 UMP-45 | Plastique (Field-Tested),0.42,0.57,0.1,True,6
-StatTrak™ Tec-9 | Brother (Field-Tested),0.3,0.44,0.1,True,6
+StatTrak™ Tec-9 | Brother (Field-Tested),0.31,0.45,0.1,True,6
 Sticker | Bolt Charge,0.3,0.44,0.1,True,6
 Rio 2022 Legends Autograph Capsule,0.19,0.32,0.1,True,6
-Charm | Lil' Cap Gun,0.01,0.12,0.1,True,6
 M4A1-S | Wash me plz (Factory New),0.7,0.87,0.1,True,6
+M4A4 | Etch Lord (Minimal Wear),0.84,1.02,0.1,True,6
 Glock-18 | Clear Polymer (Minimal Wear),0.15,0.27,0.1,True,6
 MP7 | Just Smile (Minimal Wear),0.73,0.9,0.1,True,6
 StatTrak™ SG 553 | Danger Close (Field-Tested),0.01,0.12,0.1,True,6
 P250 | Valence (Minimal Wear),0.12,0.24,0.1,True,6
 MAG-7 | Heat (Field-Tested),0.28,0.41,0.1,True,6
-M4A4 | Turbine (Field-Tested),0.59,0.75,0.1,True,6
 USP-S | Flashback (Field-Tested),0.23,0.36,0.1,True,6
-Five-SeveN | Midnight Paintover (Factory New),0.22,0.35,0.1,True,6
+Five-SeveN | Midnight Paintover (Factory New),0.21,0.34,0.1,True,6
 AK-47 | Olive Polycam (Minimal Wear),0.13,0.25,0.1,True,6
-MP9 | Capillary (Field-Tested),0.15,0.27,0.1,True,6
+MP9 | Capillary (Field-Tested),0.14,0.26,0.1,True,6
 AK-47 | Steel Delta (Field-Tested),0.96,1.15,0.1,True,6
-SSG 08 | Mainframe 001 (Factory New),0.33,0.47,0.1,True,6
-AWP | Phobos (Minimal Wear),1.45,1.68,0.1,True,6
+Dual Berettas | Hydro Strike (Field-Tested),0.48,0.63,0.1,True,6
+SG 553 | Aloha (Factory New),0.19,0.31,0.1,True,6
+AWP | Capillary (Minimal Wear),0.52,0.67,0.1,True,6
 StatTrak™ MAC-10 | Button Masher (Field-Tested),0.37,0.51,0.1,True,6
-Glock-18 | Oxide Blaze (Minimal Wear),0.04,0.15,0.1,True,6
 StatTrak™ MAC-10 | Allure (Field-Tested),0.3,0.44,0.1,True,6
 M249 | Spectre (Field-Tested),0.07,0.19,0.1,True,6
 StatTrak™ UMP-45 | Roadblock (Minimal Wear),0.06,0.17,0.1,True,6
-AWP | Safari Mesh (Minimal Wear),0.06,0.17,0.1,True,6
+StatTrak™ Glock-18 | Oxide Blaze (Field-Tested),0.11,0.23,0.1,True,6
 Desert Eagle | Blue Ply (Battle-Scarred),0.05,0.16,0.1,True,6
 Five-SeveN | Violent Daimyo (Field-Tested),0.16,0.28,0.1,True,6
-MAC-10 | Pipsqueak (Field-Tested),0.27,0.4,0.1,True,6
 Desert Eagle | Light Rail (Minimal Wear),1.19,1.4,0.1,True,6
 Galil AR | Signal (Field-Tested),0.28,0.41,0.1,True,6
+StatTrak™ MP9 | Modest Threat (Field-Tested),0.03,0.14,0.1,True,6
 CZ75-Auto | Circaetus (Minimal Wear),0.08,0.2,0.1,True,6
-Nova | Koi (Minimal Wear),0.76,0.94,0.1,True,6
-AUG | Luxe Trim (Field-Tested),0.03,0.14,0.1,True,6
 Desert Eagle | Corinthian (Field-Tested),0.3,0.44,0.1,True,6
-SSG 08 | Rapid Transit (Field-Tested),0.48,0.63,0.1,True,6
-UMP-45 | Exposure (Field-Tested),0.35,0.49,0.1,True,6
-AWP | Pit Viper (Minimal Wear),1.04,1.24,0.1,True,6
-USP-S | Torque (Factory New),1.53,1.77,0.1,True,6
-USP-S | Torque (Minimal Wear),0.91,1.1,0.1,True,6
-M4A4 | Urban DDPAT (Minimal Wear),0.28,0.41,0.1,True,6
+SSG 08 | Rapid Transit (Field-Tested),0.49,0.64,0.1,True,6
+Charm | Lil' Ava,0.09,0.21,0.1,True,6
+Desert Eagle | Blue Ply (Minimal Wear),0.25,0.38,0.1,True,6
+UMP-45 | Exposure (Field-Tested),0.36,0.5,0.1,True,6
+AWP | Pit Viper (Minimal Wear),0.99,1.19,0.1,True,6
 StatTrak™ Five-SeveN | Flame Test (Field-Tested),0.05,0.16,0.1,True,6
 StatTrak™ Glock-18 | Winterized (Minimal Wear),0.09,0.21,0.1,True,6
-Charm | Baby's AK,0.22,0.35,0.1,True,6
+Charm | Baby's AK,0.21,0.34,0.1,True,6
 Desert Eagle | Calligraffiti (Field-Tested),0.03,0.14,0.1,True,6
 AK-47 | Uncharted (Battle-Scarred),0.16,0.28,0.1,True,6
 Sticker | G2 (Holo) | 2020 RMR,0.18,0.3,0.1,True,6
-UMP-45 | Moonrise (Factory New),1.53,1.77,0.1,True,6
+UMP-45 | Moonrise (Factory New),1.54,1.78,0.1,True,6
+MAC-10 | Saibā Oni (Field-Tested),0.57,0.73,0.1,True,6
 StatTrak™ P90 | Grim (Field-Tested),0.09,0.21,0.1,True,6
-P2000 | Handgun (Field-Tested),0.5,0.65,0.1,True,6
-StatTrak™ P250 | Cassette (Factory New),0.39,0.53,0.1,True,6
 StatTrak™ Nova | Wood Fired (Field-Tested),0.01,0.12,0.1,True,6
-Five-SeveN | Hybrid (Minimal Wear),0.73,0.9,0.1,True,6
-MAC-10 | Whitefish (Well-Worn),0.04,0.15,0.1,True,6
-AWP | PAW (Field-Tested),1.17,1.38,0.1,True,6
-StatTrak™ USP-S | PC-GRN (Field-Tested),0.57,0.73,0.1,True,6
-R8 Revolver | Banana Cannon (Minimal Wear),0.53,0.68,0.1,True,6
+USP-S | Flashback (Minimal Wear),0.62,0.78,0.1,True,6
+Five-SeveN | Hybrid (Minimal Wear),0.75,0.92,0.1,True,6
+AWP | PAW (Field-Tested),1.16,1.37,0.1,True,6
+StatTrak™ P250 | Valence (Field-Tested),0.19,0.32,0.1,True,6
+R8 Revolver | Banana Cannon (Minimal Wear),0.53,0.69,0.1,True,6
+SG 553 | Heavy Metal (Field-Tested),0.03,0.14,0.1,True,6
+AWP | Worm God (Minimal Wear),1.63,1.88,0.1,True,6
 Sticker | Vitality (Holo) | 2020 RMR,0.04,0.15,0.1,True,6
-MAG-7 | Resupply (Factory New),0.8,0.98,0.1,True,6
+MAG-7 | Resupply (Factory New),0.79,0.97,0.1,True,6
 M4A4 | Magnesium (Minimal Wear),0.43,0.58,0.1,True,6
 Glock-18 | Sacrifice (Field-Tested),0.12,0.24,0.1,True,6
+SG 553 | Darkwing (Minimal Wear),0.72,0.89,0.1,True,6
 FAMAS | Half Sleeve (Minimal Wear),0.03,0.14,0.1,True,6
 Sticker | BIG (Holo) | 2020 RMR,0.07,0.19,0.1,True,6
-StatTrak™ AWP | Capillary (Field-Tested),1.44,1.67,0.1,True,6
-StatTrak™ Dual Berettas | Flora Carnivora (Field-Tested),0.44,0.59,0.1,True,6
+SSG 08 | Zeno (Field-Tested),0.41,0.55,0.1,True,6
+StatTrak™ AWP | Capillary (Field-Tested),1.43,1.66,0.1,True,6
 P90 | Traction (Field-Tested),0.14,0.26,0.1,True,6
 Copenhagen 2024 Contenders Autograph Capsule,0.1,0.22,0.1,True,6
-StatTrak™ Negev | dev_texture (Field-Tested),0.34,0.48,0.1,True,6
+StatTrak™ Negev | dev_texture (Field-Tested),0.36,0.5,0.1,True,6
+R8 Revolver | Tango (Field-Tested),0.03,0.14,0.1,True,6
 StatTrak™ CZ75-Auto | Distressed (Field-Tested),0.01,0.12,0.1,True,6
 Nova | Windblown (Well-Worn),0.06,0.17,0.1,True,6
-P90 | Neoqueen (Minimal Wear),0.28,0.41,0.1,True,6
 USP-S | 27 (Field-Tested),0.04,0.15,0.1,True,6
-StatTrak™ M4A4 | Magnesium (Field-Tested),0.76,0.93,0.1,True,6
-AK-47 | Elite Build (Battle-Scarred),0.86,1.04,0.1,True,6
-Negev | Wall Bang (Minimal Wear),0.02,0.13,0.1,True,6
-M4A1-S | Boreal Forest (Minimal Wear),0.08,0.2,0.1,True,6
-Sticker | Web Stuck,0.39,0.53,0.1,True,6
-Rio 2022 Champions Autograph Capsule,0.22,0.34,0.09,True,6
-Recoil Case,0.21,0.33,0.09,True,6
+StatTrak™ M4A4 | Magnesium (Field-Tested),0.74,0.91,0.1,True,6
+AK-47 | Elite Build (Battle-Scarred),0.85,1.03,0.1,True,6
+Recoil Case,0.2,0.32,0.09,True,6
+Desert Eagle | Blue Ply (Field-Tested),0.1,0.21,0.09,True,6
 Austin 2025 Challengers Sticker Capsule,0.22,0.34,0.09,True,6
 CS20 Case,0.77,0.94,0.09,True,6
+Sealed Genesis Terminal,0.56,0.71,0.09,True,6
 P90 | Vent Rush (Field-Tested),0.08,0.19,0.09,True,6
-Glock-18 | High Beam (Factory New),0.09,0.2,0.09,True,6
+Nova | Wild Six (Field-Tested),0.08,0.19,0.09,True,6
 Nova | Wood Fired (Field-Tested),0.01,0.11,0.09,True,6
 MP9 | Featherweight (Factory New),0.55,0.7,0.09,True,6
-StatTrak™ MP5-SD | Kitbash (Field-Tested),0.32,0.45,0.09,True,6
+SSG 08 | Abyss (Field-Tested),0.11,0.22,0.09,True,6
+Glock-18 | Moonrise (Minimal Wear),0.91,1.09,0.09,True,6
 Charm | Lil' SAS,0.31,0.44,0.09,True,6
-MP5-SD | Kitbash (Minimal Wear),0.43,0.57,0.09,True,6
-MAC-10 | Allure (Minimal Wear),0.55,0.7,0.09,True,6
-SG 553 | Aloha (Minimal Wear),0.01,0.11,0.09,True,6
-Zeus x27 | Tosai (Minimal Wear),0.66,0.82,0.09,True,6
-P90 | Traction (Minimal Wear),0.21,0.33,0.09,True,6
-Charm | Lil' Ava,0.1,0.21,0.09,True,6
+MP5-SD | Kitbash (Minimal Wear),0.44,0.58,0.09,True,6
+UMP-45 | Moonrise (Minimal Wear),0.44,0.58,0.09,True,6
+Charm | Lil' Cap Gun,0.01,0.11,0.09,True,6
+SSG 08 | Mainframe 001 (Factory New),0.33,0.46,0.09,True,6
+P90 | Traction (Minimal Wear),0.2,0.32,0.09,True,6
+M4A4 | Urban DDPAT (Minimal Wear),0.31,0.44,0.09,True,6
 P90 | Wash me (Factory New),0.21,0.33,0.09,True,6
+StatTrak™ USP-S | PC-GRN (Field-Tested),0.58,0.73,0.09,True,6
 Sticker | Cloud9 | Copenhagen 2024,0.24,0.36,0.09,True,6
 StatTrak™ P90 | Wave Breaker (Field-Tested),0.55,0.7,0.09,True,6
-FAMAS | ZX Spectron (Field-Tested),1.25,1.46,0.09,True,6
+M4A1-S | Boreal Forest (Minimal Wear),0.09,0.2,0.09,True,6
