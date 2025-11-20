@@ -1,4 +1,14 @@
 transfer_id,buy_price,buy_date,name,wear,rarityClassName,uuid,meta_offer_id,stackable,sale_id,offer_date_created,offer_date_trade_unlock,state,offer_date_sold,time_to_sell,commission_factor,selling_price,min_selling_price,profit
+GK0PS0FADTSD,1.07,2025-11-18,Glock-18 | Ocean Topo (Factory New),4.925755,,,,False,,,,,,,,,0.0,0.0
+G893NXUXU87C,1.41,2025-11-18,USP-S | Tropical Breeze (Field-Tested),22.947045,,,,False,,,,,,,,,0.0,0.0
+GA48PR2H4SD4,2.15,2025-11-18,Operation Hydra Case Key,,,,,True,,,,,,,,,0.0,0.0
+GA7A9RFD5W89,5.0,2025-11-18,USP-S | Tropical Breeze (Factory New),6.911497,,,,False,,,,,,,,,0.0,0.0
+GURE0FF2W50W,0.36,2025-11-18,M4A1-S | Nitro (Field-Tested),19.213854,,,,False,,,,,,,,,0.0,0.0
+GNS943RRG38D,0.36,2025-11-18,M4A1-S | Nitro (Field-Tested),35.22673,,,,False,,,,,,,,,0.0,0.0
+GWK5UW0KR8NF,0.29,2025-11-18,M4A1-S | Nitro (Field-Tested),28.63933,,,,False,,,,,,,,,0.0,0.0
+GZ0P5S5F5NTU,1.18,2025-11-18,Glock-18 | Ocean Topo (Factory New),5.9024453,,,,False,,,,,,,,,0.0,0.0
+GEHAT6P2W0T9,1.15,2025-11-18,Glock-18 | Ocean Topo (Factory New),5.9687387,,,,False,,,,,,,,,0.0,0.0
+GH7S6UKK500F,0.36,2025-11-18,M4A1-S | Nitro (Field-Tested),21.117438,,,,False,,,,,,,,,0.0,0.0
 GD8XW2T2PDP8,2.3,2025-11-17,Glock-18 | Candy Apple (Factory New),3.43,rare,d4f9e2f8-1500-46fb-bee1-db284eea0239,65448037,False,d4f9e2f8-1500-46fb-bee1-db284eea0239,2025-11-18,,AVAILABLE,,,0.07,3.35,2.48,0.82
 G64H4AWT43H4,4.72,2025-11-17,USP-S | Tropical Breeze (Factory New),4.52,rare,de4d5ca7-0fb2-41ff-abca-2f83ce25d9df,65448036,False,de4d5ca7-0fb2-41ff-abca-2f83ce25d9df,2025-11-18,,AVAILABLE,,,0.07,7.89,5.09,2.62
 GUW73U6AD780,0.34,2025-11-17,SG 553 | Ol' Rusty (Factory New),6.0,rare,0fa3a33e-01fa-43a1-8b04-2c897cdf2576,65448035,False,0fa3a33e-01fa-43a1-8b04-2c897cdf2576,2025-11-18,,AVAILABLE,,,0.07,0.79,0.38,0.39
@@ -165,7 +175,7 @@ G9K392ZAXSEU,2.63,2025-11-10,R8 Revolver | Blaze (Factory New),0.15,rare,e3db9e3
 GZAZNAFKN0NT,5.0,2025-11-09,M4A1-S | Emphorosaur-S (Factory New),6.53,mythical,4af7fde5-d282-4a60-971f-adeaada549aa,65394653,False,4af7fde5-d282-4a60-971f-adeaada549aa,2025-11-10,,AVAILABLE,,,0.08,5.92,5.45,0.45
 G2G8PGHNWXGW,4.29,2025-11-09,UMP-45 | Momentum (Minimal Wear),12.07,legendary,7b4271ea-6cf4-463e-b215-0145f8d44219,65394652,False,7b4271ea-6cf4-463e-b215-0145f8d44219,2025-11-10,,AVAILABLE,,,0.08,4.93,4.67,0.25
 G0P0D9RHU47L,30.8,2025-11-09,MP7 | Bloodsport (Field-Tested),27.46,ancient,b3dd11f6-c3c8-47dd-a750-cb830e987e6a,65417930,False,b3dd11f6-c3c8-47dd-a750-cb830e987e6a,2025-11-13,,SOLD,2025-11-13,4,0.07,33.5,33.13,0.35
-GGTW2U8WF0KL,2.91,2025-11-09,StatTrak™ Desert Eagle | Serpent Strike (Minimal Wear),8.36,mythical,eaed20bf-70cc-422e-8780-3127a0c6849b,65394628,False,eaed20bf-70cc-422e-8780-3127a0c6849b,2025-11-10,,AVAILABLE,,,0.08,3.93,3.17,0.71
+GGTW2U8WF0KL,2.91,2025-11-09,StatTrak™ Desert Eagle | Serpent Strike (Minimal Wear),8.36,mythical,eaed20bf-70cc-422e-8780-3127a0c6849b,65394628,False,eaed20bf-70cc-422e-8780-3127a0c6849b,2025-11-10,,SOLD,2025-11-18,9,0.08,3.93,3.17,0.71
 G3L5KDX38022,0.38,2025-11-09,Copenhagen 2024 Legends Sticker Capsule,,common,,50310069,True,3ec85dc3-be0d-4a41-89fc-4c38d8870cf8,2025-11-10,,AVAILABLE,,,0.08,0.46,0.42,0.04
 GDLUA27PNP8Z,0.38,2025-11-09,Copenhagen 2024 Legends Sticker Capsule,,common,,50310069,True,816bb5e1-01ae-4708-81ea-25a3b9219f4d,2025-11-10,,AVAILABLE,,,0.08,0.46,0.42,0.04
 GDAXXSFUG849,0.7,2025-11-09,Desert Eagle | Oxide Blaze (Factory New),5.59,rare,b811bfe4-0230-475a-b59d-b51e496e4f3f,65394651,False,b811bfe4-0230-475a-b59d-b51e496e4f3f,2025-11-10,,AVAILABLE,,,0.08,1.06,0.77,0.28
@@ -1622,7 +1632,7 @@ GGKSCDHNWN8K,3.84,2025-09-15,Stockholm 2021 Legends Sticker Capsule,,common,,366
 G8PXC2U7EGRU,3.84,2025-09-15,Stockholm 2021 Legends Sticker Capsule,,common,,36642166,True,c9811f40-85b8-41c8-b400-4dfed2ca6941,2025-09-16,,AVAILABLE,,,0.06,5.86,4.1,1.67
 GDCT56SRUWAS,3.84,2025-09-15,Stockholm 2021 Legends Sticker Capsule,,common,,36642166,True,7509adab-dbcf-4e71-a16f-4cd62cb4ea8b,2025-09-16,,AVAILABLE,,,0.06,5.86,4.1,1.67
 GLKS055N00A5,3.84,2025-09-15,Stockholm 2021 Legends Sticker Capsule,,common,,36642166,True,10c3c039-19c3-4dc6-9dfa-89ba0f6a2977,2025-09-16,,AVAILABLE,,,0.06,5.86,4.1,1.67
-GTT50HFK4EZC,3.84,2025-09-15,Stockholm 2021 Legends Sticker Capsule,,common,,36642166,True,f4ce0d42-bd9b-4609-84cb-cbaa10335603,2025-11-19,,AVAILABLE,,,0.07,5.86,4.14,1.61
+GTT50HFK4EZC,3.84,2025-09-15,Stockholm 2021 Legends Sticker Capsule,,common,,36642166,True,4de18e00-a6ad-4112-837c-5db07da73534,2025-11-20,,AVAILABLE,,,0.07,5.86,4.14,1.61
 G7DC34TFKSSN,11.59,2025-09-14,AK-47 | Midnight Laminate (Field-Tested),32.71,mythical,833620c1-88cd-4ca8-ab5a-2d2fb1ecc5a5,64986651,False,833620c1-88cd-4ca8-ab5a-2d2fb1ecc5a5,2025-09-15,,AVAILABLE,,,0.06,12.79,12.34,0.43
 GUE2C78654HA,0.15,2025-09-14,Sticker | Vitality (Glitter) | Copenhagen 2024,,mythical,,50317528,True,990f8aa7-c00d-4c73-8def-b89e4cc85f9b,2025-09-21,,SOLD,2025-09-20,6,0.08,0.31,0.17,0.14
 GF9S90NZK8CK,0.12,2025-09-14,Sticker | Heroic (Glitter) | Copenhagen 2024,,mythical,,50406164,True,78d8e6b6-8830-4657-869f-862b4dbfa2fc,2025-09-15,,SOLD,2025-10-04,20,0.06,0.17,0.14,0.04
