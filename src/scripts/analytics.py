@@ -32,6 +32,7 @@ __sold_offers_sorted_by_date_sold_path__ = __base_path__ + "/sold_offers_sorted_
 __sold_offers_sorted_by_profit_path__ = __base_path__ + "/sold_offers_sorted_by_profit.csv"
 __monthly_stats_path__ = __base_path__ + "/monthly_stats.png"
 __detailed_month_stats_path__ = __base_path__ + "/detailed_month.png"
+__available_offers_length_of_stay_path__ = __base_path__ + "/available_offers_length_of_stay.png"
 
 def calculate_total_expense(linked_purchases_df: pd.DataFrame, state: typing.Literal["SOLD", "AVAILABLE"] | None = None, date: datetime.date | None = None) -> float:
     if state and date:
@@ -328,6 +329,70 @@ def plot_monthly_stats(sold_offers_sorted_by_date_sold_df: pd.DataFrame):
 
 
 
+def plot_available_offers_length_of_stay(
+    available_offers_df: pd.DataFrame,
+    bucket_edges: typing.Sequence[int] | None = None,
+    reference_date: datetime.datetime | None = None,
+    output_path: str = __available_offers_length_of_stay_path__,
+):
+    """
+    Plot a pie chart of how long available offers have been listed.
+
+    bucket_edges is an ordered collection of upper bounds (in days) that defines
+    the buckets. The boundaries are (0, bucket_edges[0]], (bucket_edges[0],
+    bucket_edges[1]], ... with the last bucket being (bucket_edges[-1], inf].
+    By default this yields 1-14, 15-30, 31-60 and 61+ day buckets.
+    """
+    logging.info("--> plot_available_offers_length_of_stay()")
+
+    if available_offers_df.empty:
+        logging.warning("No available offers provided for length-of-stay plot.")
+        return
+
+    df = available_offers_df.copy()
+    df["offer_date_created"] = pd.to_datetime(df.get("offer_date_created"), errors="coerce")
+    df["buy_date"] = pd.to_datetime(df.get("buy_date"), errors="coerce")
+    df["listing_date"] = df["offer_date_created"].combine_first(df["buy_date"])
+    df = df.dropna(subset=["listing_date"])
+    if df.empty:
+        logging.warning("No listing dates available to compute length of stay.")
+        return
+
+    today = reference_date or pd.Timestamp.today().normalize()
+    df["days_active"] = (today - df["listing_date"].dt.normalize()).dt.days
+    df = df[df["days_active"] >= 0]
+    if df.empty:
+        logging.warning("All available offers have future listing dates.")
+        return
+    edges = [0] + (sorted(bucket_edges) if bucket_edges else [14, 30, 60]) + [float("inf")]
+    labels = []
+    lower_bound = edges[0]
+    for upper_bound in edges[1:]:
+        if upper_bound == float("inf"):
+            labels.append(f"{int(lower_bound) + 1}+ days")
+        else:
+            labels.append(f"{int(lower_bound) + 1}-{int(upper_bound)} days")
+        lower_bound = upper_bound
+    buckets = pd.cut(df["days_active"], bins=edges, labels=labels, right=True, include_lowest=True)
+    counts = buckets.value_counts().reindex(labels, fill_value=0)
+    if counts.sum() == 0:
+        logging.warning("No data to plot after bucketing length of stay.")
+        return
+    plt.figure(figsize=(8, 8))
+    plt.pie(
+        counts.values,
+        labels=counts.index,
+        autopct="%1.1f%%",
+        startangle=140,
+        colors=plt.cm.Set3.colors,
+    )
+    plt.title("Available Offers by Length of Stay")
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.close()
+    logging.info("Length-of-stay pie chart saved to: %s", output_path)
+
+
 def export_eur_reports(linked_purchases_df: pd.DataFrame):
     print("start export eur report")
     linked_purchases_df["offer_date_sold"] = pd.to_datetime(linked_purchases_df["offer_date_sold"], errors='coerce')
@@ -474,6 +539,8 @@ def main(use_existing_linked_purchases: bool):
     sold_offers_sorted_by_date_sold_df = csvs.read_df(__sold_offers_sorted_by_date_sold_path__)
     plot_monthly_stats(sold_offers_sorted_by_date_sold_df)
     plot_month_detailed(sold_offers_sorted_by_date_sold_df)
+    plot_available_offers_length_of_stay(available_offers_df)
+
 
     # FINANZAMT ANALYTICS
     logging.info("creating EÜR (income/expense) CSV")
