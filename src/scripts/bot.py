@@ -19,10 +19,10 @@ __bot_skinlist_path__ = __base_path_create_bot_skinlist__ + "/bot_skinlist.csv"
 __forbidden_ids_list__ = []
 __forbidden_ids_temp__ = []
 
-__item_limit__ = 10
-__very_good_item_limit__ = 20
-__very_good_offer_percentage__ = 0.8
-__slow_down_balance__ = 400
+__item_limit__ = 5
+__very_good_item_limit__ = 10
+__very_good_offer_percentage__ = 0.6
+__slow_down_balance__ = 600
 
 def add_count_to_items_from_inventory(item_counts: list, inventory_df: pd.DataFrame):
     logging.debug("--> add_count_to_items_from_inventory()")
@@ -205,7 +205,7 @@ def main(use_existing_linked_purchases: bool):
 
                 restriction_multiplier = 1
                 if "★" in name:
-                    restriction_multiplier = 0.3
+                    restriction_multiplier = 0.6
 
                 # RESTRICTIONS
 
