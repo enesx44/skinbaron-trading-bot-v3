@@ -73,7 +73,7 @@ def check_update_flags(last_updated_df):
             if current_fee_code_commission.empty:
                 current_fee_code_commission = 0.15
             else:
-                current_fee_code_commission.iloc[0]["commission_factor"]
+                current_fee_code_commission = current_fee_code_commission.iloc[0]["commission_factor"]
 
             logging.debug("current_fee_code_commission: %s", current_fee_code_commission)
 
