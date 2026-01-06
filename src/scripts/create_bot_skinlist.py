@@ -13,6 +13,7 @@ __base_path__ = "./generated_files/create_bot_skinlist"
 os.makedirs(__base_path__, exist_ok=True)
 
 __bot_skinlist_path__ = __base_path__ + "/bot_skinlist.csv"
+__priority_skins_path__ = __base_path__ + "/priority_skins.csv"
 __bot_skinlist_metadata_path__ = __base_path__ + "/metadata.json"
 
 def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_pricelist: bool):
@@ -69,8 +70,75 @@ def main(should_scrape: bool, use_existing_popular_skinlist: bool, use_existing_
     bot_skinlist_df = bot_skinlist_df.sort_values(["mean_profitability", "tier", "min_profit"], ascending=[True, True, False]).reset_index(drop=True)
     logging.debug("bot_skinlist_df:\n%s", bot_skinlist_df.to_string())  
 
+    bot_skinlist_df = interleave_with_priority_ratio(bot_skinlist_df, priority_csv_path=__priority_skins_path__, ratio=5)
+
     logging.info("saving bot skinlist to csv")  
     bot_skinlist_df.to_csv(__bot_skinlist_path__, index=False)
 
     utils.cache_json_objects_always_overwrite(__bot_skinlist_metadata_path__, {"fee_code":price_calculation.fee_code, "commission_factor":price_calculation.skinbaron_percentage_win, "our_percentage_win":price_calculation.our_percentage_win})
 
+def interleave_with_priority_ratio(
+    bot_skinlist_df: pd.DataFrame,
+    priority_csv_path: str,
+    *,
+    ratio: int,
+    name_col: str = "name",
+) -> pd.DataFrame:
+    """
+    Deterministic list expansion for a sequential bot.
+
+    - Normal rows keep their exact order from bot_skinlist_df.
+    - Priority rows are those whose name is listed in priority_csv_path AND exist in bot_skinlist_df.
+    - Priority order is the order they appear in bot_skinlist_df.
+    - After each normal row, append `ratio` priority rows, cycling through priorities.
+
+    Example ratio=5:
+      normal1, prio1,prio2,prio3,prio4,prio5, normal2, prio6,... etc.
+
+    If no priorities exist, returns original df unchanged.
+    """
+    logging.debug("create_bot_skinlist.py --> interleave_with_priority_ratio()")
+
+    if ratio < 0:
+        raise ValueError("ratio must be >= 0")
+    if name_col not in bot_skinlist_df.columns:
+        raise ValueError(f"bot_skinlist_df must contain column '{name_col}'")
+
+    prio_list_df = pd.read_csv(priority_csv_path)
+    if name_col not in prio_list_df.columns:
+        raise ValueError(f"priority_skins.csv must contain column '{name_col}'")
+
+    desired_prio = set(prio_list_df[name_col].dropna().astype(str).str.strip())
+
+    mask_prio = bot_skinlist_df[name_col].astype(str).isin(desired_prio)
+    priority_df = bot_skinlist_df[mask_prio].copy().reset_index(drop=True)
+    normal_df   = bot_skinlist_df[~mask_prio].copy().reset_index(drop=True)
+
+    found_prio = set(priority_df[name_col].unique())
+    missing = desired_prio - found_prio
+
+    logging.info(
+        "ratio=%d | priority requested=%d, found_in_bot=%d, missing=%d | normals=%d | prio_rows=%d",
+        ratio, len(desired_prio), len(found_prio), len(missing), len(normal_df), len(priority_df)
+    )
+    if missing:
+        logging.debug("missing priority skins (not in bot list): %s", sorted(missing)[:50])
+
+    if len(priority_df) == 0 or ratio == 0:
+        if len(priority_df) == 0:
+            logging.warning("No priority rows found in bot list. Returning unchanged.")
+        return bot_skinlist_df
+
+    out_rows = []
+    p = 0
+    p_len = len(priority_df)
+
+    for i in range(len(normal_df)):
+        out_rows.append(normal_df.iloc[i])
+
+        # add `ratio` priority items, cycling
+        for _ in range(ratio):
+            out_rows.append(priority_df.iloc[p])
+            p = (p + 1) % p_len
+
+    return pd.DataFrame(out_rows).reset_index(drop=True)

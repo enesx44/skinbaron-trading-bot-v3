@@ -15,6 +15,7 @@ __lowest_price_median_percentage_cutoff__ = 0.2
 
 __base_path__ = "./generated_files/create_pricelist"
 __pricelist_path__ = __base_path__ + "/pricelist.csv"
+__skins_to_ignore_path__ = __base_path__ + "/skins_to_ignore.csv"
 
 def get_pricelist(use_existing_pricelist: bool) -> pd.DataFrame:  
     logging.debug("create_price_list.py --> get_pricelist()")
@@ -75,6 +76,13 @@ def main() -> pd.DataFrame:
     pricelist_df.info(buf=buf)
     logging.debug("info:\n%s", buf.getvalue())
     utils.clear_buf(buf=buf)
+
+    logging.info("drop rows where name equals any name from skins_to_ignore.csv")
+    logging.info("reading skin_to_ignore.csv")
+    skins_to_ignore_path_df = pd.read_csv(__skins_to_ignore_path__)
+    logging.debug("skins_to_ignore_path_df:\n%s", skins_to_ignore_path_df.head().to_string())
+    ignore_names = set(skins_to_ignore_path_df["name"])
+    pricelist_df = pricelist_df[~pricelist_df["name"].isin(ignore_names)]
 
     del buf
     gc.collect()
