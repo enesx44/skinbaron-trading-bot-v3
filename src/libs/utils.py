@@ -43,7 +43,7 @@ def read_cached_json_objects(file_path) -> dict:
     try:
         with open(file_path, 'r') as file:
             return json.load(file)
-    except FileNotFoundError:
+    except (FileNotFoundError, json.JSONDecodeError):
         return None
     
 def repeat_call(call: callable, *args: tuple, timeout: int):

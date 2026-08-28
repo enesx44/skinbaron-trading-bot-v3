@@ -22,7 +22,7 @@ __forbidden_ids_temp__ = []
 __item_limit__ = 5
 __very_good_item_limit__ = 10
 __very_good_offer_percentage__ = 0.6
-__slow_down_balance__ = 600
+__slow_down_balance__ = 800
 
 def add_count_to_items_from_inventory(item_counts: list, inventory_df: pd.DataFrame):
     logging.debug("--> add_count_to_items_from_inventory()")
